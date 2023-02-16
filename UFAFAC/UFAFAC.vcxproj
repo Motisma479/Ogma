@@ -27,9 +27,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Sources\DataStructure\PlaceHolder.cpp" />
+    <ClCompile Include="Sources\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\DataStructure\Data.h" />
+    <ClInclude Include="Headers\DataStructure\File.h" />
+    <ClInclude Include="Headers\DataStructure\Tag.h" />
+    <ClInclude Include="Headers\Parsing\FileParser.hpp" />
     <ClInclude Include="Main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
