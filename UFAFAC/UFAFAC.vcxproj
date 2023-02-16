@@ -30,10 +30,16 @@
     <ClCompile Include="Sources\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\DataStructure\PLaceHolder.hpp" />
+    <ClInclude Include="Headers\DataStructure\Data.h" />
+    <ClInclude Include="Headers\DataStructure\File.h" />
+    <ClInclude Include="Headers\DataStructure\Tag.h" />
+    <ClInclude Include="Headers\Parsing\FileParser.hpp" />
     <ClInclude Include="Main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="DeclareDPIAware.manifest" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
