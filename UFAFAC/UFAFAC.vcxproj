@@ -44,6 +44,9 @@
       <DependentUpon>Main.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="DeclareDPIAware.manifest" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{4F7E5D07-A069-4B93-B898-3C75E6A79ABA}</ProjectGuid>
