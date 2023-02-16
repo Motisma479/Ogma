@@ -8,6 +8,7 @@ const std::string& StringsHolder::GetString(u32 index)
 {
 	assert(index < strings.size());
 	refCounts[index]++;
+	return strings[index];
 }
 
 void StringsHolder::ReleaseString(u32 index)
