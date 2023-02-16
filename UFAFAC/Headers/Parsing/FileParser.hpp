@@ -14,7 +14,7 @@ namespace Parsing
 
 		~FileParser() = default;
 
-		bool ReadMainFile(DataStructure::DataBase& dataBase, const DataStructure::StringsHolder& strings);
+		bool ReadMainFile(DataStructure::DataBase& dataBase, DataStructure::StringsHolder& strings);
 
 		void WriteMainFile(const DataStructure::DataBase& dataBase);
 

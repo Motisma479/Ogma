@@ -9,7 +9,7 @@
 using namespace Parsing;
 std::filesystem::path mainFile = std::filesystem::current_path().append("Data/DataBase.bin");
 
-bool FileParser::ReadMainFile(DataStructure::DataBase& dataBase, const DataStructure::StringsHolder& strings)
+bool FileParser::ReadMainFile(DataStructure::DataBase& dataBase, DataStructure::StringsHolder& strings)
 {
 	if (!std::filesystem::exists(mainFile))
 	{
@@ -19,7 +19,7 @@ bool FileParser::ReadMainFile(DataStructure::DataBase& dataBase, const DataStruc
 	if (file.fail())
 	{
 		file.close();
-		return;
+		return false;
 	}
 	u64 dataSize = file.tellg();
 	file.seekg(0, std::ios_base::beg);
@@ -33,9 +33,9 @@ bool FileParser::ReadMainFile(DataStructure::DataBase& dataBase, const DataStruc
 		u32 nameIndex, descIndex, authIndex, tagIndex;
 		s64 unTime;
 		if (!dr.Read(nameIndex) || !dr.Read(descIndex) || !dr.Read(authIndex) || !dr.Read(tagIndex) || !dr.Read(unTime)) break;
-		entry.name = strings.strings[nameIndex];
-		entry.authors = strings.strings[authIndex];
-		entry.description = strings.strings[descIndex];
+		entry.name = strings.GetString(nameIndex);
+		entry.authors = strings.GetString(authIndex);
+		entry.description = strings.GetString(descIndex);
 		entry.date = unTime;
 	}
 }
