@@ -1,5 +1,11 @@
 #pragma once
 #include "Editor.h"
+#include "Utils.h"
+
+#include <iostream>
+#include <vector>
+#include <string>
+
 namespace UFAFAC {
 
 	using namespace System;
@@ -9,24 +15,16 @@ namespace UFAFAC {
 	using namespace System::Data;
 	using namespace System::Drawing;
 
-	/// <summary>
-	/// Description résumée de Main
-	/// </summary>
 	public ref class Main : public System::Windows::Forms::Form
 	{
 	public:
+
 		Main(void)
 		{
 			InitializeComponent();
-			//
-			//TODO: ajoutez ici le code du constructeur
-			//
 		}
 
 	protected:
-		/// <summary>
-		/// Nettoyage des ressources utilisées.
-		/// </summary>
 		~Main()
 		{
 			if (components)
@@ -34,6 +32,7 @@ namespace UFAFAC {
 				delete components;
 			}
 		}
+
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ quiterToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ exploreToolStripMenuItem;
@@ -68,9 +67,6 @@ namespace UFAFAC {
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
-			// 
-			// menuStrip1
-			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->quiterToolStripMenuItem,
@@ -82,29 +78,17 @@ namespace UFAFAC {
 			this->menuStrip1->Size = System::Drawing::Size(1426, 24);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
-			// 
-			// quiterToolStripMenuItem
-			// 
 			this->quiterToolStripMenuItem->Name = L"quiterToolStripMenuItem";
 			this->quiterToolStripMenuItem->Size = System::Drawing::Size(56, 20);
 			this->quiterToolStripMenuItem->Text = L"Quitter";
 			this->quiterToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::quiterToolStripMenuItem_Click);
-			// 
-			// exploreToolStripMenuItem
-			// 
 			this->exploreToolStripMenuItem->Name = L"exploreToolStripMenuItem";
 			this->exploreToolStripMenuItem->Size = System::Drawing::Size(58, 20);
 			this->exploreToolStripMenuItem->Text = L"Explore";
-			// 
-			// aideToolStripMenuItem
-			// 
 			this->aideToolStripMenuItem->Name = L"aideToolStripMenuItem";
 			this->aideToolStripMenuItem->Size = System::Drawing::Size(43, 20);
 			this->aideToolStripMenuItem->Text = L"Aide";
 			this->aideToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::aideToolStripMenuItem_Click);
-			// 
-			// textBox1
-			// 
 			this->textBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15));
 			this->textBox1->Location = System::Drawing::Point(410, 314);
@@ -112,9 +96,7 @@ namespace UFAFAC {
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(621, 30);
 			this->textBox1->TabIndex = 1;
-			// 
-			// button1
-			// 
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Main::textBox1_TextChanged);
 			this->button1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->button1->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -128,9 +110,6 @@ namespace UFAFAC {
 			this->button1->TabIndex = 2;
 			this->button1->Text = L"Rechercher";
 			this->button1->UseVisualStyleBackColor = false;
-			// 
-			// button2
-			// 
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->button2->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -144,9 +123,6 @@ namespace UFAFAC {
 			this->button2->TabIndex = 3;
 			this->button2->Text = L"Ajouter du contenu";
 			this->button2->UseVisualStyleBackColor = false;
-			// 
-			// Main
-			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1426, 839);
@@ -165,15 +141,8 @@ namespace UFAFAC {
 
 		}
 #pragma endregion
-	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		Close();
-	}
-	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		UFAFAC::Editor form;
-		Hide();
-		form.ShowDialog();
-	}
+	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
 	};
 }
