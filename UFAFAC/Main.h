@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Editor.h"
 namespace UFAFAC {
 
 	using namespace System;
@@ -101,13 +101,14 @@ namespace UFAFAC {
 			this->aideToolStripMenuItem->Name = L"aideToolStripMenuItem";
 			this->aideToolStripMenuItem->Size = System::Drawing::Size(43, 20);
 			this->aideToolStripMenuItem->Text = L"Aide";
+			this->aideToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::aideToolStripMenuItem_Click);
 			// 
 			// textBox1
 			// 
 			this->textBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15));
 			this->textBox1->Location = System::Drawing::Point(410, 314);
-			this->textBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(621, 30);
 			this->textBox1->TabIndex = 1;
@@ -121,7 +122,7 @@ namespace UFAFAC {
 			this->button1->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button1->Location = System::Drawing::Point(638, 398);
-			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(188, 31);
 			this->button1->TabIndex = 2;
@@ -137,7 +138,7 @@ namespace UFAFAC {
 			this->button2->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
 			this->button2->Location = System::Drawing::Point(9, 799);
-			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(188, 31);
 			this->button2->TabIndex = 3;
@@ -154,7 +155,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Main";
 			this->Text = L"Main";
 			this->menuStrip1->ResumeLayout(false);
@@ -164,8 +165,15 @@ namespace UFAFAC {
 
 		}
 #pragma endregion
-	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+	{
 		Close();
+	}
+	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+	{
+		UFAFAC::Editor form;
+		Hide();
+		form.ShowDialog();
 	}
 	};
 }
