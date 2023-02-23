@@ -84,6 +84,8 @@ bool FileParser::ReadStrings(DataStructure::StringsHolder& strings)
 		if (!dr.Read(stringSize) || !dr.Read(entry, stringSize)) return false;
 		strings.strings.push_back(std::move(entry));
 	}
+	if (strings.strings.size() == 0) strings.strings.push_back(std::wstring());
+	else if (strings.strings[0].entry.size() == 0) strings.strings[0].entry = std::wstring();
 	return true;
 }
 

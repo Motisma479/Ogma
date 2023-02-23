@@ -31,6 +31,8 @@ namespace DataStructure
 		const std::wstring& GetString(u32 index);
 		void ReleaseString(u32 index);
 
+		u32 FindOrCreateString(const std::string& str);
+
 	private:
 		std::vector<StringInfo> strings;
 
