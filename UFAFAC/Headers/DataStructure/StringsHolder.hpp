@@ -5,8 +5,22 @@
 
 #include "Core/Types.hpp"
 
+namespace Parsing
+{
+	class FileParser;
+}
+
 namespace DataStructure
 {
+	struct StringInfo
+	{
+		std::wstring entry;
+		u32 refCount;
+
+		StringInfo() : refCount(0) {}
+		StringInfo(std::wstring&& str) : entry(str), refCount(0) {}
+	};
+
 	class StringsHolder
 	{
 	public:
@@ -14,11 +28,13 @@ namespace DataStructure
 
 		~StringsHolder() = default;
 
-		const std::string& GetString(u32 index);
+		const std::wstring& GetString(u32 index);
 		void ReleaseString(u32 index);
+
 	private:
-		std::vector<std::string> strings;
-		std::vector<u32> refCounts;
+		std::vector<StringInfo> strings;
+
+		friend Parsing::FileParser;
 	};
 
 }

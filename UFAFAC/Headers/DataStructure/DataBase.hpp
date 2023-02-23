@@ -6,6 +6,11 @@
 #include "Core/Types.hpp"
 #include "DataBaseEntry.hpp"
 
+namespace Parsing
+{
+	class FileParser;
+}
+
 namespace DataStructure
 {
 	class DataBase
@@ -15,9 +20,10 @@ namespace DataStructure
 
 		~DataBase() = default;
 
-		std::vector<DataBaseEntry> datas;
 	private:
+		std::vector<DataBaseEntry> datas;
 
+		friend Parsing::FileParser;
 	};
 
 }

@@ -96,3 +96,37 @@ bool Deserializer::Read(u8* dataIn, u64 dataSize)
 	cPos += dataSize;
 	return true;
 }
+
+bool Deserializer::Read(std::string& str, u64 strSize)
+{
+	str.resize(strSize);
+	if (!strSize) return true;
+	return Read(reinterpret_cast<u8*>(str.data()), strSize);
+}
+
+bool Deserializer::Read(std::string& str)
+{
+	u64 size;
+	return (Read(size) && Read(str, size));
+}
+
+bool Deserializer::Read(std::wstring& str, u64 strSize)
+{
+	str.resize(strSize);
+	if (!strSize) return true;
+
+	if (cPos + strSize*sizeof(wchar_t) > bufferSize) return false;
+	u16 c; // TODO change for later
+	for (u64 i = 0; i < strSize; i++)
+	{
+		Read(c);
+		str[i] = c;
+	}
+	return true;
+}
+
+bool Deserializer::Read(std::wstring& str)
+{
+	u64 size;
+	return (Read(size) && Read(str, size));
+}

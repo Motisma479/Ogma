@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <string>
+
 #include "Conversion.hpp"
 
 namespace Parsing
@@ -27,6 +29,10 @@ namespace Parsing
 		bool Read(f32& in);
 		bool Read(f64& in);
 		bool Read(u8* dataIn, u64 dataSize);
+		bool Read(std::string& str, u64 strSize);
+		bool Read(std::string& str); // Size is	assumed to be 64 bits wide
+		bool Read(std::wstring& str, u64 strSize);
+		bool Read(std::wstring& str); // Size is assumed to be 64 bits wide
 	private:
 		const u8* buffer;
 		const u64 bufferSize;

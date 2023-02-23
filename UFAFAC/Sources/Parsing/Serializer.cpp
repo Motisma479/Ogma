@@ -82,3 +82,20 @@ void Serializer::Write(const u8* dataIn, u64 dataSize)
 	buffer.resize(buffer.size() + dataSize);
 	std::copy(dataIn, dataIn + dataSize, buffer.data() + (buffer.size() - dataSize));
 }
+
+void Serializer::Write(const std::string& str, bool writeSize)
+{
+	if (writeSize) Write(str.size());
+	Write(reinterpret_cast<const u8*>(str.c_str()), str.size());
+}
+
+void Serializer::Write(const std::wstring& str, bool writeSize)
+{
+	if (writeSize) Write(str.size());
+	u16 c; // TODO change for later
+	for (u64 i = 0; i < str.size(); i++)
+	{
+		c = str[i];
+		Write(c); 
+	}
+}

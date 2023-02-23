@@ -1,6 +1,8 @@
 #pragma once
 
 #include <vector>
+#include <string>
+
 #include "Conversion.hpp"
 
 namespace Parsing
@@ -26,6 +28,8 @@ namespace Parsing
 		void Write(f32 in);
 		void Write(f64 in);
 		void Write(const u8* dataIn, u64 dataSize);
+		void Write(const std::string& str, bool writeSize); // Size is written as 64 bits wide integer
+		void Write(const std::wstring& str, bool writeSize); // Size is written as 64 bits wide integer
 	private:
 		std::vector<u8> buffer;
 	};

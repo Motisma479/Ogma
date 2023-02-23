@@ -4,15 +4,15 @@
 
 using namespace DataStructure;
 
-const std::string& StringsHolder::GetString(u32 index)
+const std::wstring& StringsHolder::GetString(u32 index)
 {
 	assert(index < strings.size());
-	refCounts[index]++;
-	return strings[index];
+	strings[index].refCount++;
+	return strings[index].entry;
 }
 
 void StringsHolder::ReleaseString(u32 index)
 {
-	assert(index < strings.size() && refCounts[index]);
-	refCounts[index]--;
+	assert(index < strings.size() && strings[index].refCount);
+	strings[index].refCount--;
 }

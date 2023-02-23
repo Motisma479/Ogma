@@ -16,13 +16,14 @@ namespace DataStructure
 
 		~DataBaseEntry() = default;
 
-		std::string name;
-		std::string authors;
-		std::string description;
-		std::vector<Tag*> tags;
-		int64_t date;
+		u32 name;
+		u32 authors;
+		u32 description;
+		u32 tags;
+		s64 date;
 		std::vector<File*> files;
 	private:
+
 	};
 
 }
