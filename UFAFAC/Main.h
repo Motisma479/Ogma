@@ -79,7 +79,7 @@ namespace UFAFAC {
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Padding = System::Windows::Forms::Padding(5, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(1901, 30);
+			this->menuStrip1->Size = System::Drawing::Size(1067, 28);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -107,7 +107,7 @@ namespace UFAFAC {
 			// 
 			this->textBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15));
-			this->textBox1->Location = System::Drawing::Point(547, 386);
+			this->textBox1->Location = System::Drawing::Point(130, 178);
 			this->textBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(827, 36);
@@ -122,7 +122,7 @@ namespace UFAFAC {
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(846, 584);
+			this->button1->Location = System::Drawing::Point(429, 376);
 			this->button1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(251, 38);
@@ -138,7 +138,7 @@ namespace UFAFAC {
 			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button2->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(0)));
-			this->button2->Location = System::Drawing::Point(12, 983);
+			this->button2->Location = System::Drawing::Point(12, 567);
 			this->button2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(251, 38);
@@ -151,7 +151,7 @@ namespace UFAFAC {
 			this->listBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 16;
-			this->listBox1->Location = System::Drawing::Point(547, 425);
+			this->listBox1->Location = System::Drawing::Point(130, 217);
 			this->listBox1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(827, 68);
@@ -161,7 +161,7 @@ namespace UFAFAC {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1901, 1033);
+			this->ClientSize = System::Drawing::Size(1067, 617);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
