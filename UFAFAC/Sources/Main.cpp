@@ -28,6 +28,8 @@ System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::
 System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	//Hide();
+	editor = gcnew ref class Editor();
+	editor->mainForm = this;
 	editor->Show();
 }
 
@@ -39,7 +41,4 @@ System::Void UFAFAC::Main::quiterToolStripMenuItem_Click(System::Object^ sender,
 UFAFAC::Main::Main(void)
 {
 	InitializeComponent();
-	editor = gcnew ref class Editor();
-	editor->mainForm = this;
-	editor->Hide();
 }
