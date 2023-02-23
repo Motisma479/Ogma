@@ -41,4 +41,5 @@ System::Void UFAFAC::Main::quiterToolStripMenuItem_Click(System::Object^ sender,
 UFAFAC::Main::Main(void)
 {
 	InitializeComponent();
+	this->WindowState = FormWindowState::Maximized;
 }
