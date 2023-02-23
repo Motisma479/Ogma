@@ -23,3 +23,15 @@ System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::
 	tempDatas.push_back("fauygw");
 	auto filename = Utils::GetFilesByName(Utils::SystemStringToStdString(text), tempDatas);
 }
+
+System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	UFAFAC::Editor form;
+	Hide();
+	form.ShowDialog();
+}
+
+System::Void UFAFAC::Main::quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	Close();
+}

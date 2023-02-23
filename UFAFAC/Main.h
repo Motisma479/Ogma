@@ -141,16 +141,8 @@ namespace UFAFAC {
 
 		}
 #pragma endregion
-	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		Close();
-	}
-	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
-	{
-		UFAFAC::Editor form;
-		Hide();
-		form.ShowDialog();
-	}
+	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
 	};
 }
