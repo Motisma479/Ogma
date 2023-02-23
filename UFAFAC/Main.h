@@ -1,5 +1,4 @@
 #pragma once
-#include "Editor.h"
 #include "Utils.h"
 
 #include <iostream>
@@ -19,10 +18,9 @@ namespace UFAFAC {
 	{
 	public:
 
-		Main(void)
-		{
-			InitializeComponent();
-		}
+		Main(void);
+
+		ref class Editor^ editor;
 
 	protected:
 		~Main()
