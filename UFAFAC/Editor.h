@@ -293,9 +293,9 @@ namespace UFAFAC {
 			this->button3->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button3->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
-			this->button3->Location = System::Drawing::Point(90, 822);
+			this->button3->Location = System::Drawing::Point(92, 894);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(186, 38);
+			this->button3->Size = System::Drawing::Size(646, 38);
 			this->button3->TabIndex = 19;
 			this->button3->Text = L"Joindre un fichier";
 			this->button3->UseVisualStyleBackColor = false;
@@ -304,7 +304,7 @@ namespace UFAFAC {
 			// 
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 16;
-			this->listBox1->Location = System::Drawing::Point(289, 768);
+			this->listBox1->Location = System::Drawing::Point(90, 724);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(648, 164);
 			this->listBox1->TabIndex = 20;
