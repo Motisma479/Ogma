@@ -20,6 +20,8 @@ namespace DataStructure
 
 		~DataBase() = default;
 
+		u64 PushEntry();
+
 	private:
 		std::vector<DataBaseEntry> datas;
 
