@@ -27,6 +27,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\Editor.cpp" />
     <ClCompile Include="Sources\DataStructure\PlaceHolder.cpp" />
     <ClCompile Include="Sources\DataStructure\StringsHolder.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
@@ -34,8 +35,12 @@
     <ClCompile Include="Sources\Parsing\Deserializer.cpp" />
     <ClCompile Include="Sources\Parsing\FileParser.cpp" />
     <ClCompile Include="Sources\Parsing\Serializer.cpp" />
+    <ClCompile Include="Sources\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Editor.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Headers\Core\Types.hpp" />
     <ClInclude Include="Headers\DataStructure\Data.h" />
     <ClInclude Include="Headers\DataStructure\DataBase.hpp" />
@@ -47,11 +52,15 @@
     <ClInclude Include="Headers\Parsing\Deserializer.hpp" />
     <ClInclude Include="Headers\Parsing\FileParser.hpp" />
     <ClInclude Include="Headers\Parsing\Serializer.hpp" />
+    <ClInclude Include="Headers\Utils.h" />
     <ClInclude Include="Main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.h</DependentUpon>
     </EmbeddedResource>
