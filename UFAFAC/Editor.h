@@ -56,12 +56,15 @@ namespace UFAFAC {
 			// button1
 			// 
 			this->button1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
-			this->button1->Location = System::Drawing::Point(31, 979);
+			this->button1->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
+			this->button1->Location = System::Drawing::Point(12, 985);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(148, 23);
+			this->button1->Size = System::Drawing::Size(251, 38);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"button1";
-			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Text = L"Annuler";
+			this->button1->UseVisualStyleBackColor = false;
 			// 
 			// Editor
 			// 
