@@ -1,12 +1,12 @@
 #include "Utils.h"
 #include <regex>
 
-std::vector<std::string> Utils::GetFilesByName(const std::string& searchBoxText, const std::vector<std::string>& datas)
+std::vector<std::wstring> Utils::GetFilesByName(const std::wstring& searchBoxText, const std::vector<std::wstring>& datas)
 {
 	// Construire l'expression régulière à partir de la chaîne de recherche
-	std::regex regexSearch(searchBoxText);
+	std::wregex regexSearch(searchBoxText);
 
-	std::vector<std::string> out;
+	std::vector<std::wstring> out;
 	// Itérer sur le vecteur et chercher une correspondance avec l'expression régulière
 	for (const auto& str : datas) {
 		if (std::regex_search(str, regexSearch)) {
@@ -23,5 +23,14 @@ std::string Utils::SystemStringToStdString(System::String^ string)
 	if (string->Length < sizeof(cStr))
 		sprintf_s(cStr, "%s", string);
 	return std::string(cStr);
+}
+
+void Utils::MarshalString(System::String^ s, std::wstring& os)
+{
+		using namespace System::Runtime::InteropServices;
+		const wchar_t* chars =
+			(const wchar_t*)(Marshal::StringToHGlobalUni(s)).ToPointer();
+		os = chars;
+		Marshal::FreeHGlobal(System::IntPtr((void*)chars));
 }
 

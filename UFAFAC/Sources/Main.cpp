@@ -1,5 +1,6 @@
 #include "../Main.h"
 #include "../Editor.h"
+#include <string>
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -11,18 +12,23 @@ void main()
 	Application::Run(% form);
 }
 
+
 System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
 {
 	TextBox^ value = ((TextBox^)sender);
 	System::String^ text = (*value).Text;
 	System::Runtime::InteropServices::Marshal::StringToCoTaskMemUni(text);
+	auto arr = text->ToCharArray();
+	auto wtext = std::wstring();
+	Utils::MarshalString(text, wtext);
 
-	std::vector<std::string> tempDatas;
-	tempDatas.push_back("Test1");
-	tempDatas.push_back("Test2");
-	tempDatas.push_back("amogus");
-	tempDatas.push_back("fauygw");
-	auto filename = Utils::GetFilesByName(Utils::SystemStringToStdString(text), tempDatas);
+
+	listBox1->Items->Clear();
+	auto filename = Utils::GetFilesByName(wtext, tempDatas);
+	for (auto i : filename) {
+		listBox1->Items->Add(System::Runtime::InteropServices::
+			Marshal::PtrToStringUni(IntPtr((void*)i.c_str())));
+	}
 }
 
 System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)

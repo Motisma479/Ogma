@@ -5,6 +5,14 @@
 #include <vector>
 #include <string>
 
+static std::vector<std::wstring> tempDatas
+{
+	L"Test1",
+	L"Test2",
+	L"Amogus",
+	L"JFIEWUBFAI",
+};
+
 namespace UFAFAC {
 
 	using namespace System;
