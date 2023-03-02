@@ -1,19 +1,27 @@
 #include "Utils.h"
 #include <regex>
+#include <algorithm>
+
+std::wstring ToLower(std::wstring string)
+{
+	std::transform(
+		string.begin(), string.end(),
+		string.begin(),
+		towlower);
+	return string;
+}
 
 std::vector<std::wstring> Utils::GetFilesByName(const std::wstring& searchBoxText, const std::vector<std::wstring>& datas)
 {
-	// Construire l'expression régulière à partir de la chaîne de recherche
-	std::wregex regexSearch(searchBoxText);
+	std::wregex regexSearch(ToLower(searchBoxText));
 
 	std::vector<std::wstring> out;
-	// Itérer sur le vecteur et chercher une correspondance avec l'expression régulière
+
 	for (const auto& str : datas) {
-		if (std::regex_search(str, regexSearch)) {
+		if (std::regex_search(ToLower(str), regexSearch)) {
 			out.push_back(str);
 		}
 	}
-	// Aucune correspondance n'a été trouvée, retourner faux
 	return out;
 }
 

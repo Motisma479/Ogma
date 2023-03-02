@@ -22,13 +22,7 @@ System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::
 	auto wtext = std::wstring();
 	Utils::MarshalString(text, wtext);
 
-
-	listBox1->Items->Clear();
-	auto filename = Utils::GetFilesByName(wtext, tempDatas);
-	for (auto i : filename) {
-		listBox1->Items->Add(System::Runtime::InteropServices::
-			Marshal::PtrToStringUni(IntPtr((void*)i.c_str())));
-	}
+	UpdateListBox(wtext);
 }
 
 System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
@@ -51,4 +45,14 @@ UFAFAC::Main::Main(void)
 {
 	InitializeComponent();
 	this->WindowState = FormWindowState::Maximized;
+}
+
+void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
+{
+	listBox1->Items->Clear();
+	auto filename = Utils::GetFilesByName(wtext, tempDatas);
+	for (auto&& i : filename) {
+		listBox1->Items->Add(System::Runtime::InteropServices::
+			Marshal::PtrToStringUni(IntPtr((void*)i.c_str())));
+	}
 }

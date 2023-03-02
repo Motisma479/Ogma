@@ -144,8 +144,7 @@ namespace UFAFAC {
 			this->button2->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
 			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->button2->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
+			this->button2->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(0)));
 			this->button2->Location = System::Drawing::Point(12, 567);
 			this->button2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button2->Name = L"button2";
@@ -185,11 +184,13 @@ namespace UFAFAC {
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
+			UpdateListBox(L"");
 		}
 #pragma endregion
 	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
+	private: void UpdateListBox(const std::wstring& wtext);
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
