@@ -1,5 +1,6 @@
 #include "../Main.h"
 #include "../Editor.h"
+#include "../Viewer.h"
 #include <string>
 
 using namespace System;
@@ -28,11 +29,21 @@ System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::
 System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	//Hide();
+}
+System::Void UFAFAC::Main::button2_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (editor)
+	{
+		editor->Close();
+	}
+	if (viewer)
+	{
+		viewer->Close();
+	}
 	editor = gcnew ref class Editor();
 	editor->mainForm = this;
 	editor->Show();
 }
-
 System::Void UFAFAC::Main::quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	Close();
@@ -55,5 +66,15 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 
 System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e)
 {
-
+	if (viewer)
+	{
+		viewer->Close();
+	}
+	if (editor)
+	{
+		editor->Close();
+	}
+	viewer = gcnew ref class Viewer();
+	viewer->mainForm = this;
+	viewer->Show();
 }

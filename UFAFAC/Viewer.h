@@ -1,4 +1,5 @@
 #pragma once
+#include "Main.h"
 
 namespace UFAFAC {
 
@@ -23,6 +24,7 @@ namespace UFAFAC {
 			//
 		}
 
+		Main^ mainForm;
 	protected:
 		/// <summary>
 		/// Nettoyage des ressources utilisées.
