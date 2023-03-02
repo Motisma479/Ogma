@@ -153,6 +153,7 @@ namespace UFAFAC {
 			this->button2->TabIndex = 3;
 			this->button2->Text = L"Ajouter du contenu";
 			this->button2->UseVisualStyleBackColor = false;
+			this->button2->Click += gcnew System::EventHandler(this, &Main::button2_Click);
 			// 
 			// listBox1
 			// 
@@ -189,5 +190,6 @@ namespace UFAFAC {
 	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
