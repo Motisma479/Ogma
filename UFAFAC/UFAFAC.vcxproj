@@ -36,6 +36,7 @@
     <ClCompile Include="Sources\Parsing\FileParser.cpp" />
     <ClCompile Include="Sources\Parsing\Serializer.cpp" />
     <ClCompile Include="Sources\Utils.cpp" />
+    <ClCompile Include="Sources\TagManager.cpp" />
     <ClCompile Include="Sources\Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +61,9 @@
     <ClInclude Include="Viewer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="TagManager.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Editor.resx">
@@ -70,6 +74,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Viewer.resx">
       <DependentUpon>Viewer.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TagManager.resx">
+      <DependentUpon>TagManager.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
