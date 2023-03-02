@@ -49,7 +49,11 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 	listBox1->Items->Clear();
 	auto filename = Utils::GetFilesByName(wtext, tempDatas);
 	for (auto&& i : filename) {
-		listBox1->Items->Add(System::Runtime::InteropServices::
-			Marshal::PtrToStringUni(IntPtr((void*)i.c_str())));
+		listBox1->Items->Add(System::Runtime::InteropServices::Marshal::PtrToStringUni(IntPtr((void*)i.c_str())));
 	}
+}
+
+System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e)
+{
+
 }
