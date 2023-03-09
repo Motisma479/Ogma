@@ -8,11 +8,3 @@ public:
 private:
 
 };
-
-File::File()
-{
-}
-
-File::~File()
-{
-}

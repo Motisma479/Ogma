@@ -1,4 +1,5 @@
 #include "DataStructure/DataBase.hpp"
+
 DataStructure::DataBase* DataStructure::DataBase::dataBase;
 
 void DataStructure::DataBase::Initialize()

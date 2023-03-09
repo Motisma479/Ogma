@@ -35,6 +35,7 @@ namespace DataStructure
 
 	private:
 		std::vector<StringInfo> strings;
+		std::vector<u32> availableSlots;
 
 		friend Parsing::FileParser;
 	};

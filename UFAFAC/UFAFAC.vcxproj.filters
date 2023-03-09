@@ -18,9 +18,6 @@
     <ClCompile Include="Sources\Main.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Sources\DataStructure\PlaceHolder.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Sources\Parsing\Conversion.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
