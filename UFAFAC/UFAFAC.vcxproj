@@ -52,6 +52,7 @@
     <ClInclude Include="Headers\DataStructure\StringsHolder.hpp" />
     <ClInclude Include="Headers\DataStructure\Tag.h" />
     <ClInclude Include="Headers\DataStructure\TagManager.hpp" />
+    <ClInclude Include="Headers\IsEditor.hpp" />
     <ClInclude Include="Headers\Parsing\Conversion.hpp" />
     <ClInclude Include="Headers\Parsing\Deserializer.hpp" />
     <ClInclude Include="Headers\Parsing\FileParser.hpp" />

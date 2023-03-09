@@ -31,12 +31,14 @@ namespace DataStructure
 
 		const DataBaseEntry& GetEntryByIndex(u64 index);
 
-		const DataBaseEntry& GetEntryByName(const std::wstring& name);
+		std::vector<const DataBaseEntry*> GetEntriesByName(const std::wstring& name);
 
 	private:
 		static DataBase* dataBase;
 		StringsHolder strings;
 		std::vector<DataBaseEntry> datas;
+
+		void ReferenceStrings();
 
 		friend Parsing::FileParser;
 	};

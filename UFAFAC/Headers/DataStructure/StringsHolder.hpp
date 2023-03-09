@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 #include "Core/Types.hpp"
 
@@ -19,6 +20,7 @@ namespace DataStructure
 
 		StringInfo() : refCount(0) {}
 		StringInfo(std::wstring&& str) : entry(str), refCount(0) {}
+		StringInfo(const std::wstring& str) : entry(str), refCount(0) {}
 	};
 
 	class StringsHolder
@@ -28,14 +30,18 @@ namespace DataStructure
 
 		~StringsHolder() = default;
 
-		const std::wstring& GetString(u32 index);
-		void ReleaseString(u32 index);
+		const std::wstring& GetString(u64 index);
+		void IncrementRef(u64 index);
+		void DecrementRef(u64 index);
+		void ReleaseString(u64 index);
 
-		u32 FindOrCreateString(const std::string& str);
+		u64 FindOrCreateString(const std::wstring& str);
+		u64 FindString(const std::wstring& str);
 
 	private:
 		std::vector<StringInfo> strings;
-		std::vector<u32> availableSlots;
+		std::vector<u64> availableSlots;
+		std::unordered_map<std::wstring, u64> unorderedStrings;
 
 		friend Parsing::FileParser;
 	};
