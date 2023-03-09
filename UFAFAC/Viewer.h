@@ -1,6 +1,11 @@
 #pragma once
 #include "Main.h"
 
+namespace DataStructure
+{
+	class DataBaseEntry;
+}
+
 namespace UFAFAC {
 
 	using namespace System;
@@ -25,6 +30,7 @@ namespace UFAFAC {
 		}
 
 		Main^ mainForm;
+		DataStructure::DataBaseEntry* selected;
 	protected:
 		/// <summary>
 		/// Nettoyage des ressources utilisées.
