@@ -20,12 +20,18 @@ namespace DataStructure
 
 		~DataBase() = default;
 
+		static DataBase& Get() { return *dataBase; }
+
+		static void Initialize();
+
+		static void Delete();
+
 		u64 PushEntry();
 
 	private:
+		static DataBase* dataBase;
 		std::vector<DataBaseEntry> datas;
 
 		friend Parsing::FileParser;
 	};
-
 }
