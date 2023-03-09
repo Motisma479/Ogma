@@ -24,9 +24,30 @@ const DataBaseEntry& DataBase::GetEntryByIndex(u64 index)
 	return datas[index];
 }
 
-const DataBaseEntry& DataBase::GetEntryByName(const std::wstring& name)
+std::vector<const DataBaseEntry&> DataBase::GetEntriesByName(const std::wstring& name)
 {
-	u64 index = -1;
-	// TODO: insérer une instruction return ici
-	return datas[index];
+	std::vector<const DataBaseEntry&> result;
+	std::wstring lower;
+	for (auto& c : name)
+	{
+		if (c == towlower(c))
+		{
+			lower.push_back(c);
+		}
+	}
+	for (auto& entry : datas)
+	{
+		if (strings.GetString(entry.name).find_first_of(lower) != std::wstring::npos) result.push_back(entry);
+	}
+	return result;
+}
+
+void DataStructure::DataBase::ReferenceStrings()
+{
+	for (auto& entry : datas)
+	{
+		strings.IncrementRef(entry.name);
+		strings.IncrementRef(entry.authors);
+		strings.IncrementRef(entry.description);
+	}
 }

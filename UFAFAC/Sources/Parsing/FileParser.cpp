@@ -77,11 +77,19 @@ bool FileParser::ReadStrings(DataStructure::StringsHolder& strings)
 	file.read((char*)FileData, dataSize);
 	file.close();
 	Parsing::Deserializer dr(FileData, dataSize);
+	u64 avStr;
+	if (!dr.Read(avStr)) return false;
+	for (u64 i = 0; i < avStr; i++)
+	{
+		strings.availableSlots.push_back(0);
+		if (!dr.Read(strings.availableSlots.back())) return false;
+	}
 	while (dr.CursorPos() != dr.BufferSize())
 	{
 		std::wstring entry;
 		u32 stringSize;
 		if (!dr.Read(stringSize) || !dr.Read(entry, stringSize)) return false;
+		strings.unorderedStrings.insert(std::pair<std::wstring, u64>(entry, strings.strings.size()));
 		strings.strings.push_back(std::move(entry));
 	}
 	if (strings.strings.size() == 0) strings.strings.push_back(std::wstring());
@@ -92,6 +100,11 @@ bool FileParser::ReadStrings(DataStructure::StringsHolder& strings)
 bool FileParser::WriteStrings(const DataStructure::StringsHolder& strings)
 {
 	Serializer sr;
+	sr.Write(strings.availableSlots.size());
+	for (u64 i = 0; i < strings.availableSlots.size(); i++)
+	{
+		sr.Write(strings.availableSlots[i]);
+	}
 	for (u64 i = 0; i < strings.strings.size(); i++)
 	{
 		sr.Write(strings.strings[i].entry.size());
