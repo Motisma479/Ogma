@@ -18,11 +18,7 @@ void main()
 System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
 {
 	TextBox^ value = ((TextBox^)sender);
-	System::String^ text = (*value).Text;
-	System::Runtime::InteropServices::Marshal::StringToCoTaskMemUni(text);
-	auto arr = text->ToCharArray();
-	auto wtext = std::wstring();
-	Utils::MarshalString(text, wtext);
+	auto wtext = Utils::SystemStringToStdWString(value->Text);
 
 	UpdateListBox(wtext);
 }
@@ -79,4 +75,11 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	viewer = gcnew ref class Viewer();
 	viewer->mainForm = this;
 	viewer->Show();
+
+	viewer->SetWindowName(listBox1->SelectedItem->ToString());
+}
+
+System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
+{
+	DataStructure::DataBase::Delete();
 }

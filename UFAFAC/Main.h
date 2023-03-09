@@ -1,5 +1,6 @@
 #pragma once
 #include "Utils.h"
+#include "IsEditor.hpp"
 
 #include <iostream>
 #include <vector>
@@ -73,7 +74,9 @@ namespace UFAFAC {
 			this->aideToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
+#if IS_EDITOR
 			this->button2 = (gcnew System::Windows::Forms::Button());
+#endif
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -142,7 +145,8 @@ namespace UFAFAC {
 			this->button1->UseVisualStyleBackColor = false;
 			// 
 			// button2
-			// 
+			//
+#if IS_EDITOR	
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->button2->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -157,6 +161,7 @@ namespace UFAFAC {
 			this->button2->Text = L"Ajouter du contenu";
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &Main::button2_Click);
+#endif // DEBUG
 			// 
 			// listBox1
 			// 
@@ -183,6 +188,7 @@ namespace UFAFAC {
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Main";
 			this->Text = L"Main";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Main::Main_FormClosing);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -203,5 +209,6 @@ private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ 
 }
 	private: void UpdateListBox(const std::wstring& wtext);
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 };
 }
