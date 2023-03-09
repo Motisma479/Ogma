@@ -314,10 +314,10 @@ namespace UFAFAC {
 			this->button3->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button3->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
-			this->button3->Location = System::Drawing::Point(30, 792);
+			this->button3->Location = System::Drawing::Point(27, 792);
 			this->button3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(645, 38);
+			this->button3->Size = System::Drawing::Size(648, 38);
 			this->button3->TabIndex = 19;
 			this->button3->Text = L"Joindre un fichier";
 			this->button3->UseVisualStyleBackColor = false;
