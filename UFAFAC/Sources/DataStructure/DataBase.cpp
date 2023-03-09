@@ -67,6 +67,18 @@ std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTimeStamp
 	return result;
 }
 
+s64 DataStructure::DataBase::TimeStampFromDate(const Date& dateIn)
+{
+	// TODO
+	return s64();
+}
+
+Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
+{
+	// TODO
+	return Date();
+}
+
 std::wstring DataBase::ToLower(const std::wstring& in)
 {
 	std::wstring result;

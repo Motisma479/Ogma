@@ -14,6 +14,13 @@ namespace Parsing
 
 namespace DataStructure
 {
+	struct Date
+	{
+		s32 year;
+		u8 month;
+		u8 day;
+	};
+
 	class DataBase
 	{
 	public:
@@ -35,6 +42,9 @@ namespace DataStructure
 		std::vector<const DataBaseEntry*> GetEntriesByAuthor(const std::wstring& author);
 		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
 		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
+
+		s64 TimeStampFromDate(const Date& dateIn);
+		Date DateFromTimeStamp(s64 tmIn);
 
 		std::wstring ToLower(const std::wstring& in);
 
