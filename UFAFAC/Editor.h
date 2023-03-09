@@ -221,24 +221,32 @@ namespace UFAFAC {
 			this->numericUpDown1->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown1->Location = System::Drawing::Point(100, 142);
 			this->numericUpDown1->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 31, 0, 0, 0 });
+			this->numericUpDown1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown1->Name = L"numericUpDown1";
 			this->numericUpDown1->Size = System::Drawing::Size(120, 34);
 			this->numericUpDown1->TabIndex = 10;
+			this->numericUpDown1->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// numericUpDown2
 			// 
 			this->numericUpDown2->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown2->Location = System::Drawing::Point(226, 140);
 			this->numericUpDown2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->numericUpDown2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 12, 0, 0, 0 });
+			this->numericUpDown2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown2->Name = L"numericUpDown2";
 			this->numericUpDown2->Size = System::Drawing::Size(120, 34);
 			this->numericUpDown2->TabIndex = 11;
+			this->numericUpDown2->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			// 
 			// numericUpDown3
 			// 
 			this->numericUpDown3->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown3->Location = System::Drawing::Point(361, 140);
 			this->numericUpDown3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
+			this->numericUpDown3->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
+			this->numericUpDown3->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, System::Int32::MinValue });
 			this->numericUpDown3->Name = L"numericUpDown3";
 			this->numericUpDown3->Size = System::Drawing::Size(120, 34);
 			this->numericUpDown3->TabIndex = 12;
@@ -306,10 +314,10 @@ namespace UFAFAC {
 			this->button3->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button3->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button3->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
-			this->button3->Location = System::Drawing::Point(30, 792);
+			this->button3->Location = System::Drawing::Point(27, 792);
 			this->button3->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->button3->Name = L"button3";
-			this->button3->Size = System::Drawing::Size(645, 38);
+			this->button3->Size = System::Drawing::Size(648, 38);
 			this->button3->TabIndex = 19;
 			this->button3->Text = L"Joindre un fichier";
 			this->button3->UseVisualStyleBackColor = false;

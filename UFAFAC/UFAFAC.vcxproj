@@ -29,7 +29,6 @@
   <ItemGroup>
     <ClCompile Include="Sources\DataStructure\DataBase.cpp" />
     <ClCompile Include="Sources\Editor.cpp" />
-    <ClCompile Include="Sources\DataStructure\PlaceHolder.cpp" />
     <ClCompile Include="Sources\DataStructure\StringsHolder.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\Parsing\Conversion.cpp" />
