@@ -2,6 +2,7 @@
 #include "../Editor.h"
 #include "../Viewer.h"
 #include <string>
+#include "DataStructure/DataBase.hpp"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -53,6 +54,7 @@ UFAFAC::Main::Main(void)
 {
 	InitializeComponent();
 	this->WindowState = FormWindowState::Maximized;
+	DataStructure::DataBase::Initialize();
 }
 
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
