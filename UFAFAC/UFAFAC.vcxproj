@@ -27,6 +27,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\DataStructure\DataBase.cpp" />
     <ClCompile Include="Sources\Editor.cpp" />
     <ClCompile Include="Sources\DataStructure\PlaceHolder.cpp" />
     <ClCompile Include="Sources\DataStructure\StringsHolder.cpp" />
