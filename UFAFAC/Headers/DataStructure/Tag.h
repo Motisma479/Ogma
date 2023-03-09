@@ -3,6 +3,7 @@
 class Tag
 {
 public:
+	Tag(const std::wstring& value) : name(value) {}
 private:
-	std::string name;
+	std::wstring name;
 };
