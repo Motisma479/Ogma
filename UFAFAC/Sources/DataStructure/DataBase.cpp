@@ -24,9 +24,9 @@ const DataBaseEntry& DataBase::GetEntryByIndex(u64 index)
 	return datas[index];
 }
 
-std::vector<const DataBaseEntry&> DataBase::GetEntriesByName(const std::wstring& name)
+std::vector<const DataBaseEntry*> DataBase::GetEntriesByName(const std::wstring& name)
 {
-	std::vector<const DataBaseEntry&> result;
+	std::vector<const DataBaseEntry*> result;
 	std::wstring lower;
 	for (auto& c : name)
 	{
@@ -37,7 +37,7 @@ std::vector<const DataBaseEntry&> DataBase::GetEntriesByName(const std::wstring&
 	}
 	for (auto& entry : datas)
 	{
-		if (strings.GetString(entry.name).find_first_of(lower) != std::wstring::npos) result.push_back(entry);
+		if (strings.GetString(entry.name).find_first_of(lower) != std::wstring::npos) result.push_back(&entry);
 	}
 	return result;
 }
