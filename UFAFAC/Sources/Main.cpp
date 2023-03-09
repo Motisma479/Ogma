@@ -80,3 +80,8 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	viewer->mainForm = this;
 	viewer->Show();
 }
+
+System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
+{
+	DataStructure::DataBase::Delete();
+}

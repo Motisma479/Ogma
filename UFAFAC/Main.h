@@ -183,6 +183,7 @@ namespace UFAFAC {
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->Name = L"Main";
 			this->Text = L"Main";
+			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Main::Main_FormClosing);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
@@ -203,5 +204,6 @@ private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ 
 }
 	private: void UpdateListBox(const std::wstring& wtext);
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
 };
 }
