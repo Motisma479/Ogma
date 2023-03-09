@@ -361,7 +361,7 @@ namespace UFAFAC {
 			// 
 			this->textBox5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->textBox5->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->textBox5->Location = System::Drawing::Point(731, 87);
+			this->textBox5->Location = System::Drawing::Point(731, 80);
 			this->textBox5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->textBox5->Name = L"textBox5";
 			this->textBox5->Size = System::Drawing::Size(389, 34);
@@ -372,10 +372,10 @@ namespace UFAFAC {
 			this->listBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->listBox2->FormattingEnabled = true;
 			this->listBox2->ItemHeight = 16;
-			this->listBox2->Location = System::Drawing::Point(731, 140);
+			this->listBox2->Location = System::Drawing::Point(731, 128);
 			this->listBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
 			this->listBox2->Name = L"listBox2";
-			this->listBox2->Size = System::Drawing::Size(389, 372);
+			this->listBox2->Size = System::Drawing::Size(389, 388);
 			this->listBox2->TabIndex = 24;
 			// 
 			// listBox3

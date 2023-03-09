@@ -1,10 +1,6 @@
 #pragma once
 #include "Main.h"
-
-namespace DataStructure
-{
-	class DataBaseEntry;
-}
+#include "DataStructure/DataBaseEntry.hpp"
 
 namespace UFAFAC {
 
@@ -28,6 +24,13 @@ namespace UFAFAC {
 			//TODO: ajoutez ici le code du constructeur
 			//
 		}
+
+		void SetWindowName(System::String^ name);
+		void SetAuthor(System::String^ author);
+		void SetDate(System::String^ date);
+		void SetDescription(System::String^ desc);
+		void SetEdition(System::String^ edit);
+		void SetEmplacement(System::String^ emp);
 
 		Main^ mainForm;
 		DataStructure::DataBaseEntry* selected;
