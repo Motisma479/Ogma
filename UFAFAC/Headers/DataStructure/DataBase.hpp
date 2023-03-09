@@ -32,6 +32,11 @@ namespace DataStructure
 		const DataBaseEntry& GetEntryByIndex(u64 index);
 
 		std::vector<const DataBaseEntry*> GetEntriesByName(const std::wstring& name);
+		std::vector<const DataBaseEntry*> GetEntriesByAuthor(const std::wstring& author);
+		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
+		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
+
+		std::wstring ToLower(const std::wstring& in);
 
 	private:
 		static DataBase* dataBase;

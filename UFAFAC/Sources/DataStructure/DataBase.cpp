@@ -27,14 +27,7 @@ const DataBaseEntry& DataBase::GetEntryByIndex(u64 index)
 std::vector<const DataBaseEntry*> DataBase::GetEntriesByName(const std::wstring& name)
 {
 	std::vector<const DataBaseEntry*> result;
-	std::wstring lower;
-	for (auto& c : name)
-	{
-		if (c == towlower(c))
-		{
-			lower.push_back(c);
-		}
-	}
+	std::wstring lower = ToLower(name);
 	for (auto& entry : datas)
 	{
 		if (strings.GetString(entry.name).find_first_of(lower) != std::wstring::npos) result.push_back(&entry);
@@ -42,7 +35,52 @@ std::vector<const DataBaseEntry*> DataBase::GetEntriesByName(const std::wstring&
 	return result;
 }
 
-void DataStructure::DataBase::ReferenceStrings()
+std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByAuthor(const std::wstring& author)
+{
+	std::vector<const DataBaseEntry*> result;
+	std::wstring lower = ToLower(author);
+	for (auto& entry : datas)
+	{
+		if (strings.GetString(entry.authors).find_first_of(lower) != std::wstring::npos) result.push_back(&entry);
+	}
+	return result;
+}
+
+std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByDescription(const std::wstring& desc)
+{
+	std::vector<const DataBaseEntry*> result;
+	std::wstring lower = ToLower(desc);
+	for (auto& entry : datas)
+	{
+		if (strings.GetString(entry.description).find_first_of(lower) != std::wstring::npos) result.push_back(&entry);
+	}
+	return result;
+}
+
+std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTimeStamp(s64 lower, s64 upper)
+{
+	std::vector<const DataBaseEntry*> result;
+	for (auto& entry : datas)
+	{
+		if (entry.date >= lower && entry.date <= upper) result.push_back(&entry);
+	}
+	return result;
+}
+
+std::wstring DataBase::ToLower(const std::wstring& in)
+{
+	std::wstring result;
+	for (auto& c : in)
+	{
+		if (c == towlower(c))
+		{
+			result.push_back(c);
+		}
+	}
+	return result;
+}
+
+void DataBase::ReferenceStrings()
 {
 	for (auto& entry : datas)
 	{
