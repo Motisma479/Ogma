@@ -1,5 +1,6 @@
 #pragma once
 #include "Main.h"
+#include "DataStructure/DataBaseEntry.hpp"
 
 namespace UFAFAC {
 
@@ -24,7 +25,15 @@ namespace UFAFAC {
 			//
 		}
 
+		void SetWindowName(System::String^ name);
+		void SetAuthor(System::String^ author);
+		void SetDate(System::String^ date);
+		void SetDescription(System::String^ desc);
+		void SetEdition(System::String^ edit);
+		void SetEmplacement(System::String^ emp);
+
 		Main^ mainForm;
+		DataStructure::DataBaseEntry* selected;
 	protected:
 		/// <summary>
 		/// Nettoyage des ressources utilisées.

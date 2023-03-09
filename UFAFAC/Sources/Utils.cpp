@@ -25,12 +25,18 @@ std::vector<std::wstring> Utils::GetFilesByName(const std::wstring& searchBoxTex
 	return out;
 }
 
-std::string Utils::SystemStringToStdString(System::String^ string)
+std::wstring Utils::SystemStringToStdWString(System::String^ string)
 {
-	char cStr[50] = { 0 };
-	if (string->Length < sizeof(cStr))
-		sprintf_s(cStr, "%s", string);
-	return std::string(cStr);
+	System::String^ text = string;
+	System::Runtime::InteropServices::Marshal::StringToCoTaskMemUni(text);
+	auto wtext = std::wstring();
+	Utils::MarshalString(text, wtext);
+	return wtext;
+}
+
+System::String^ Utils::StdWStringToSystemString(const std::wstring& string)
+{
+	return System::Runtime::InteropServices::Marshal::PtrToStringUni(System::IntPtr((void*)string.c_str()));
 }
 
 void Utils::MarshalString(System::String^ s, std::wstring& os)
