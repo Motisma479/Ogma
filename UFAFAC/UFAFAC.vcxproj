@@ -27,6 +27,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Sources\DataStructure\TagManager.cpp" />
     <ClCompile Include="Sources\DataStructure\DataBase.cpp" />
     <ClCompile Include="Sources\Editor.cpp" />
     <ClCompile Include="Sources\DataStructure\StringsHolder.cpp" />
@@ -36,7 +37,7 @@
     <ClCompile Include="Sources\Parsing\FileParser.cpp" />
     <ClCompile Include="Sources\Parsing\Serializer.cpp" />
     <ClCompile Include="Sources\Utils.cpp" />
-    <ClCompile Include="Sources\TagManager.cpp" />
+    <ClCompile Include="Sources\TagWindow.cpp" />
     <ClCompile Include="Sources\Viewer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +51,7 @@
     <ClInclude Include="Headers\DataStructure\File.h" />
     <ClInclude Include="Headers\DataStructure\StringsHolder.hpp" />
     <ClInclude Include="Headers\DataStructure\Tag.h" />
+    <ClInclude Include="Headers\DataStructure\TagManager.hpp" />
     <ClInclude Include="Headers\Parsing\Conversion.hpp" />
     <ClInclude Include="Headers\Parsing\Deserializer.hpp" />
     <ClInclude Include="Headers\Parsing\FileParser.hpp" />
@@ -61,7 +63,7 @@
     <ClInclude Include="Viewer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="TagManager.h">
+    <ClInclude Include="TagWindow.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
@@ -75,8 +77,8 @@
     <EmbeddedResource Include="Viewer.resx">
       <DependentUpon>Viewer.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TagManager.resx">
-      <DependentUpon>TagManager.h</DependentUpon>
+    <EmbeddedResource Include="TagWindow.resx">
+      <DependentUpon>TagWindow.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

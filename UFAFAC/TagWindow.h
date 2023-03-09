@@ -10,24 +10,24 @@ namespace UFAFAC {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Description résumée de TagManager
+	/// Description résumée de TagWindow
 	/// </summary>
-	public ref class TagManager : public System::Windows::Forms::Form
+	public ref class TagWindow : public System::Windows::Forms::Form
 	{
 	public:
-		TagManager(void)
+		TagWindow(void)
 		{
 			InitializeComponent();
 			//
 			//TODO: ajoutez ici le code du constructeur
 			//
 		}
-
+		ref class Editor^ editor;
 	protected:
 		/// <summary>
 		/// Nettoyage des ressources utilisées.
 		/// </summary>
-		~TagManager()
+		~TagWindow()
 		{
 			if (components)
 			{
@@ -98,7 +98,7 @@ namespace UFAFAC {
 			this->textBox1->Size = System::Drawing::Size(422, 32);
 			this->textBox1->TabIndex = 4;
 			// 
-			// TagManager
+			// TagWindow
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -107,8 +107,8 @@ namespace UFAFAC {
 			this->Controls->Add(this->Delete);
 			this->Controls->Add(this->New);
 			this->Controls->Add(this->listBox1);
-			this->Name = L"TagManager";
-			this->Text = L"TagManager";
+			this->Name = L"TagWindow";
+			this->Text = L"TagWindow";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

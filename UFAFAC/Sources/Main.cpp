@@ -3,6 +3,7 @@
 #include "../Viewer.h"
 #include <string>
 #include "DataStructure/DataBase.hpp"
+#include "DataStructure/TagManager.hpp"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -51,6 +52,7 @@ UFAFAC::Main::Main(void)
 	InitializeComponent();
 	this->WindowState = FormWindowState::Maximized;
 	DataStructure::DataBase::Initialize();
+	DataStructure::TagManager::Initialize();
 }
 
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
@@ -82,4 +84,5 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
 {
 	DataStructure::DataBase::Delete();
+	DataStructure::TagManager::Delete();
 }
