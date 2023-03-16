@@ -43,6 +43,7 @@ namespace DataStructure
 		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
 		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
 
+		// Will return -1 if date is invalid
 		s64 TimeStampFromDate(const Date& dateIn);
 		Date DateFromTimeStamp(s64 tmIn);
 

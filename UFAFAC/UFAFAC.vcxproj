@@ -52,6 +52,7 @@
     <ClInclude Include="Headers\DataStructure\StringsHolder.hpp" />
     <ClInclude Include="Headers\DataStructure\Tag.h" />
     <ClInclude Include="Headers\DataStructure\TagManager.hpp" />
+    <ClInclude Include="Headers\date.h" />
     <ClInclude Include="Headers\IsEditor.hpp" />
     <ClInclude Include="Headers\Parsing\Conversion.hpp" />
     <ClInclude Include="Headers\Parsing\Deserializer.hpp" />
@@ -147,6 +148,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ConformanceMode>Default</ConformanceMode>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;</AdditionalDependencies>
@@ -160,6 +162,7 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ConformanceMode>Default</ConformanceMode>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;</AdditionalDependencies>
@@ -174,6 +177,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ConformanceMode>Default</ConformanceMode>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;</AdditionalDependencies>
@@ -187,6 +191,7 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>Headers</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <ConformanceMode>Default</ConformanceMode>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;</AdditionalDependencies>
