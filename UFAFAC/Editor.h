@@ -1,5 +1,6 @@
 #pragma once
 #include "Main.h"
+#include "DataStructure/DataBaseEntry.hpp"
 
 namespace UFAFAC {
 
@@ -26,6 +27,10 @@ namespace UFAFAC {
 		}
 		Main^ mainForm;
 		ref class TagWindow^ tagWindow;
+
+		DataStructure::DataBaseEntry* CurrentFile;
+
+		void LoadAllTags();
 
 	protected:
 		/// <summary>
@@ -62,8 +67,10 @@ namespace UFAFAC {
 	private: System::Windows::Forms::ListBox^ listBox1;
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::Button^ button4;
-	private: System::Windows::Forms::TextBox^ textBox5;
-	private: System::Windows::Forms::ListBox^ listBox2;
+	private: System::Windows::Forms::TextBox^ Tag_TextBox;
+	private: System::Windows::Forms::ListBox^ AllTags_ListBox;
+
+
 	private: System::Windows::Forms::ListBox^ listBox3;
 
 	protected:
@@ -72,7 +79,7 @@ namespace UFAFAC {
 		/// <summary>
 		/// Variable nécessaire au concepteur.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+		System::ComponentModel::Container^ components;
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -104,8 +111,8 @@ namespace UFAFAC {
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->listBox2 = (gcnew System::Windows::Forms::ListBox());
+			this->Tag_TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->AllTags_ListBox = (gcnew System::Windows::Forms::ListBox());
 			this->listBox3 = (gcnew System::Windows::Forms::ListBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
@@ -362,26 +369,28 @@ namespace UFAFAC {
 			this->button4->UseVisualStyleBackColor = false;
 			this->button4->Click += gcnew System::EventHandler(this, &Editor::button4_Click);
 			// 
-			// textBox5
+			// Tag_TextBox
 			// 
-			this->textBox5->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->textBox5->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->textBox5->Location = System::Drawing::Point(731, 80);
-			this->textBox5->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(389, 34);
-			this->textBox5->TabIndex = 23;
+			this->Tag_TextBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->Tag_TextBox->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
+			this->Tag_TextBox->Location = System::Drawing::Point(730, 80);
+			this->Tag_TextBox->Margin = System::Windows::Forms::Padding(2);
+			this->Tag_TextBox->Name = L"Tag_TextBox";
+			this->Tag_TextBox->Size = System::Drawing::Size(390, 34);
+			this->Tag_TextBox->TabIndex = 23;
+			this->Tag_TextBox->TextChanged += gcnew System::EventHandler(this, &Editor::Tag_TextBox_TextChanged);
 			// 
-			// listBox2
+			// AllTags_ListBox
 			// 
-			this->listBox2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->listBox2->FormattingEnabled = true;
-			this->listBox2->ItemHeight = 16;
-			this->listBox2->Location = System::Drawing::Point(731, 128);
-			this->listBox2->Margin = System::Windows::Forms::Padding(3, 2, 3, 2);
-			this->listBox2->Name = L"listBox2";
-			this->listBox2->Size = System::Drawing::Size(389, 388);
-			this->listBox2->TabIndex = 24;
+			this->AllTags_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->AllTags_ListBox->FormattingEnabled = true;
+			this->AllTags_ListBox->ItemHeight = 16;
+			this->AllTags_ListBox->Location = System::Drawing::Point(730, 128);
+			this->AllTags_ListBox->Margin = System::Windows::Forms::Padding(2);
+			this->AllTags_ListBox->Name = L"AllTags_ListBox";
+			this->AllTags_ListBox->Size = System::Drawing::Size(390, 388);
+			this->AllTags_ListBox->TabIndex = 24;
+			this->AllTags_ListBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::AllTags_ListBox_MouseDoubleClick);
 			// 
 			// listBox3
 			// 
@@ -400,8 +409,8 @@ namespace UFAFAC {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1544, 919);
 			this->Controls->Add(this->listBox3);
-			this->Controls->Add(this->listBox2);
-			this->Controls->Add(this->textBox5);
+			this->Controls->Add(this->AllTags_ListBox);
+			this->Controls->Add(this->Tag_TextBox);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->label10);
 			this->Controls->Add(this->listBox1);
@@ -430,6 +439,7 @@ namespace UFAFAC {
 			this->Name = L"Editor";
 			this->Text = L"Editor";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Editor::Editor_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &Editor::Editor_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->EndInit();
@@ -438,9 +448,13 @@ namespace UFAFAC {
 
 		}
 #pragma endregion
-private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
-private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e);
-private: System::Void Editor_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
-private: System::Void AddFile_Button_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void button1_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void button4_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Editor_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
+	private: System::Void Editor_Load(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Tag_TextBox_TextChanged(System::Object^ sender, System::EventArgs^ e);
+		   void UpdateAllTagsListBox(const std::wstring& wtext);
+	private: System::Void AllTags_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
+	private: System::Void AddFile_Button_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
