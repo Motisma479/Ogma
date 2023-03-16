@@ -33,6 +33,9 @@ namespace UFAFAC {
 		void SetEmplacement(System::String^ emp);
 
 		Main^ mainForm;
+	private: System::Windows::Forms::Label^ AttachedFiles_Label;
+	private: System::Windows::Forms::ListBox^ AttachedFiles_ListBox;
+	public:
 		DataStructure::DataBaseEntry* selected;
 	protected:
 		/// <summary>
@@ -70,6 +73,8 @@ namespace UFAFAC {
 			this->Date = (gcnew System::Windows::Forms::Label());
 			this->Edition = (gcnew System::Windows::Forms::Label());
 			this->Emplacement = (gcnew System::Windows::Forms::Label());
+			this->AttachedFiles_Label = (gcnew System::Windows::Forms::Label());
+			this->AttachedFiles_ListBox = (gcnew System::Windows::Forms::ListBox());
 			this->SuspendLayout();
 			// 
 			// DocumentTitle
@@ -132,11 +137,31 @@ namespace UFAFAC {
 			this->Emplacement->TabIndex = 5;
 			this->Emplacement->Text = L"Emplacement";
 			// 
+			// AttachedFiles_Label
+			// 
+			this->AttachedFiles_Label->AutoSize = true;
+			this->AttachedFiles_Label->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 12));
+			this->AttachedFiles_Label->Location = System::Drawing::Point(15, 489);
+			this->AttachedFiles_Label->Name = L"AttachedFiles_Label";
+			this->AttachedFiles_Label->Size = System::Drawing::Size(107, 20);
+			this->AttachedFiles_Label->TabIndex = 6;
+			this->AttachedFiles_Label->Text = L"Fichier(s) joint";
+			// 
+			// AttachedFiles_ListBox
+			// 
+			this->AttachedFiles_ListBox->FormattingEnabled = true;
+			this->AttachedFiles_ListBox->Location = System::Drawing::Point(13, 522);
+			this->AttachedFiles_ListBox->Name = L"AttachedFiles_ListBox";
+			this->AttachedFiles_ListBox->Size = System::Drawing::Size(495, 69);
+			this->AttachedFiles_ListBox->TabIndex = 7;
+			// 
 			// Viewer
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(993, 594);
+			this->Controls->Add(this->AttachedFiles_ListBox);
+			this->Controls->Add(this->AttachedFiles_Label);
 			this->Controls->Add(this->Emplacement);
 			this->Controls->Add(this->Edition);
 			this->Controls->Add(this->Date);
