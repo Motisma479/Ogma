@@ -30,18 +30,18 @@ namespace DataStructure
 
 		~StringsHolder() = default;
 
-		const std::wstring& GetString(u64 index);
-		void IncrementRef(u64 index);
-		void DecrementRef(u64 index);
-		void ReleaseString(u64 index);
+		const std::wstring& GetString(u32 index);
+		void IncrementRef(u32 index);
+		void DecrementRef(u32 index);
+		void ReleaseString(u32 index);
 
-		u64 FindOrCreateString(const std::wstring& str);
-		u64 FindString(const std::wstring& str);
+		u32 FindOrCreateString(const std::wstring& str);
+		u32 FindString(const std::wstring& str);
 
 	private:
 		std::vector<StringInfo> strings;
-		std::vector<u64> availableSlots;
-		std::unordered_map<std::wstring, u64> unorderedStrings;
+		std::vector<u32> availableSlots;
+		std::unordered_map<std::wstring, u32> unorderedStrings;
 
 		friend Parsing::FileParser;
 	};

@@ -34,15 +34,18 @@ namespace DataStructure
 
 		static void Delete();
 
-		u64 PushEntry();
+		u32 PushEntry();
 
-		const DataBaseEntry& GetEntryByIndex(u64 index);
+		void DeleteEntry(u32 index);
+
+		const DataBaseEntry& GetEntryByIndex(u32 index);
 
 		std::vector<const DataBaseEntry*> GetEntriesByName(const std::wstring& name);
 		std::vector<const DataBaseEntry*> GetEntriesByAuthor(const std::wstring& author);
 		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
 		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
 
+		// Will return -1 if date is invalid, year range is [-2000; 6000]
 		s64 TimeStampFromDate(const Date& dateIn);
 		Date DateFromTimeStamp(s64 tmIn);
 
@@ -52,6 +55,7 @@ namespace DataStructure
 		static DataBase* dataBase;
 		StringsHolder strings;
 		std::vector<DataBaseEntry> datas;
+		std::vector<u32> availableSlots;
 
 		void ReferenceStrings();
 

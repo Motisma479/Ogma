@@ -1,5 +1,10 @@
 #include "DataStructure/DataBase.hpp"
 
+#include <chrono>
+#include <sstream>
+#include <iostream>
+#include "date.h"
+
 using namespace DataStructure;
 
 DataBase* DataBase::dataBase;
@@ -14,12 +19,17 @@ void DataBase::Delete()
 	delete dataBase;
 }
 
-u64 DataBase::PushEntry()
+u32 DataBase::PushEntry()
 {
-	return u64();
+	return u32();
 }
 
-const DataBaseEntry& DataBase::GetEntryByIndex(u64 index)
+void DataBase::DeleteEntry(u32 index)
+{
+
+}
+
+const DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
 {
 	return datas[index];
 }
@@ -69,14 +79,25 @@ std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTimeStamp
 
 s64 DataStructure::DataBase::TimeStampFromDate(const Date& dateIn)
 {
-	// TODO
-	return s64();
+	if (dateIn.year < -2000 || dateIn.year > 6000 || dateIn.month > 12 || dateIn.day > 31) return -1;
+	std::stringstream timeStr; // = "01073-03-16T";
+	timeStr << dateIn.year << "-" << (u32)dateIn.month << "-" << (u32)dateIn.day << "T";
+	std::istringstream in{ timeStr.str() };
+	std::chrono::system_clock::time_point tp = std::chrono::system_clock::time_point(std::chrono::seconds(0x7fffffffffffffff));
+	in >> date::parse("%8FT", tp);
+	return std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch()).count();
 }
 
 Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
 {
-	// TODO
-	return Date();
+	std::chrono::time_point tp = std::chrono::system_clock::time_point(std::chrono::seconds(tmIn));
+	auto k = std::chrono::duration_cast<date::days>(tp.time_since_epoch());
+	date::year_month_day ymd = date::year_month_day(date::sys_days(k));
+	Date result = {};
+	result.year = (s32)ymd.year();
+	result.month = (u32)ymd.month();
+	result.day = (u32)ymd.day();
+	return result;
 }
 
 std::wstring DataBase::ToLower(const std::wstring& in)
