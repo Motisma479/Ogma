@@ -62,19 +62,20 @@ System::Void UFAFAC::Editor::AllTags_ListBox_MouseDoubleClick(System::Object^ se
 
 System::Void UFAFAC::Editor::AddFile_Button_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	Stream^ myStream;
 	OpenFileDialog^ openFileDialog = gcnew OpenFileDialog;
 
 	openFileDialog->InitialDirectory = "C:\\";
 	openFileDialog->Filter = "All files(*.*)|*.*";
 	openFileDialog->FilterIndex = 1;
 	openFileDialog->RestoreDirectory = true;
+	openFileDialog->Multiselect = true;
 
-	if (openFileDialog->ShowDialog() == System::Windows::Forms::DialogResult::OK)
+	auto dr = openFileDialog->ShowDialog();
+	if (dr == System::Windows::Forms::DialogResult::OK)
 	{
-		if ((myStream = openFileDialog->OpenFile()) != nullptr)
+		for (int i = 0; i < openFileDialog->FileNames->Length; i++)
 		{
-			myStream->Close();
+			listBox1->Items->Add(openFileDialog->FileNames[i]);
 		}
 	}
 }
