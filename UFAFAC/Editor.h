@@ -264,8 +264,8 @@ namespace UFAFAC {
 			this->numericUpDown3->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown3->Location = System::Drawing::Point(271, 114);
 			this->numericUpDown3->Margin = System::Windows::Forms::Padding(2);
-			this->numericUpDown3->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
-			this->numericUpDown3->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, System::Int32::MinValue });
+			this->numericUpDown3->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 6000, 0, 0, 0 });
+			this->numericUpDown3->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000, 0, 0, System::Int32::MinValue });
 			this->numericUpDown3->Name = L"numericUpDown3";
 			this->numericUpDown3->Size = System::Drawing::Size(90, 29);
 			this->numericUpDown3->TabIndex = 12;
