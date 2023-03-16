@@ -2,7 +2,7 @@
 #include <regex>
 #include <algorithm>
 
-std::wstring ToLower(std::wstring string)
+std::wstring Utils::ToLower(std::wstring string)
 {
 	std::transform(
 		string.begin(), string.end(),

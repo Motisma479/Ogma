@@ -17,6 +17,13 @@ namespace DataStructure
 		static void Delete();
 
 		void AddTag(const std::wstring& tag);
+
+		void RemoveTag(const std::wstring& tag);
+
+		bool IsInside(const std::wstring& tag);
+
+		std::vector<Tag> GetTagsByName(const std::wstring& tag);
+
 		std::vector<Tag> GetTags();
 	private:
 		std::vector<Tag> tags;
