@@ -57,7 +57,9 @@ void UFAFAC::Editor::UpdateAllTagsListBox(const std::wstring& wtext)
 
 System::Void UFAFAC::Editor::AllTags_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
-
+	//TODO : add To file
+	if (!Tag_ListBox->Items->Contains(AllTags_ListBox->SelectedItem))
+		Tag_ListBox->Items->Add(AllTags_ListBox->SelectedItem);
 }
 
 System::Void UFAFAC::Editor::AddFile_Button_Click(System::Object^ sender, System::EventArgs^ e)
@@ -78,4 +80,10 @@ System::Void UFAFAC::Editor::AddFile_Button_Click(System::Object^ sender, System
 			listBox1->Items->Add(openFileDialog->FileNames[i]);
 		}
 	}
+}
+
+System::Void UFAFAC::Editor::Tag_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+{
+	//TODO : Remove To file
+	Tag_ListBox->Items->Remove(Tag_ListBox->SelectedItem);
 }

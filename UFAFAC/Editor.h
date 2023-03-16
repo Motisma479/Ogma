@@ -71,9 +71,10 @@ namespace UFAFAC {
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::TextBox^ Tag_TextBox;
 	private: System::Windows::Forms::ListBox^ AllTags_ListBox;
+	private: System::Windows::Forms::ListBox^ Tag_ListBox;
 
 
-	private: System::Windows::Forms::ListBox^ listBox3;
+
 
 	protected:
 
@@ -115,7 +116,7 @@ namespace UFAFAC {
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->Tag_TextBox = (gcnew System::Windows::Forms::TextBox());
 			this->AllTags_ListBox = (gcnew System::Windows::Forms::ListBox());
-			this->listBox3 = (gcnew System::Windows::Forms::ListBox());
+			this->Tag_ListBox = (gcnew System::Windows::Forms::ListBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown2))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown3))->BeginInit();
@@ -128,7 +129,7 @@ namespace UFAFAC {
 			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
 			this->button1->Location = System::Drawing::Point(9, 700);
-			this->button1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button1->Margin = System::Windows::Forms::Padding(2);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(188, 31);
 			this->button1->TabIndex = 0;
@@ -143,7 +144,7 @@ namespace UFAFAC {
 			this->button2->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button2->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
 			this->button2->Location = System::Drawing::Point(959, 700);
-			this->button2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button2->Margin = System::Windows::Forms::Padding(2);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(188, 31);
 			this->button2->TabIndex = 1;
@@ -154,7 +155,7 @@ namespace UFAFAC {
 			// 
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->textBox1->Location = System::Drawing::Point(72, 23);
-			this->textBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(356, 29);
 			this->textBox1->TabIndex = 2;
@@ -229,7 +230,7 @@ namespace UFAFAC {
 			// 
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->textBox2->Location = System::Drawing::Point(86, 65);
-			this->textBox2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox2->Margin = System::Windows::Forms::Padding(2);
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->Size = System::Drawing::Size(236, 29);
 			this->textBox2->TabIndex = 9;
@@ -238,7 +239,7 @@ namespace UFAFAC {
 			// 
 			this->numericUpDown1->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown1->Location = System::Drawing::Point(75, 115);
-			this->numericUpDown1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->numericUpDown1->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 31, 0, 0, 0 });
 			this->numericUpDown1->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown1->Name = L"numericUpDown1";
@@ -250,7 +251,7 @@ namespace UFAFAC {
 			// 
 			this->numericUpDown2->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown2->Location = System::Drawing::Point(170, 114);
-			this->numericUpDown2->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->numericUpDown2->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDown2->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 12, 0, 0, 0 });
 			this->numericUpDown2->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
 			this->numericUpDown2->Name = L"numericUpDown2";
@@ -262,7 +263,7 @@ namespace UFAFAC {
 			// 
 			this->numericUpDown3->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->numericUpDown3->Location = System::Drawing::Point(271, 114);
-			this->numericUpDown3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->numericUpDown3->Margin = System::Windows::Forms::Padding(2);
 			this->numericUpDown3->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, 0 });
 			this->numericUpDown3->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1000000, 0, 0, System::Int32::MinValue });
 			this->numericUpDown3->Name = L"numericUpDown3";
@@ -306,7 +307,7 @@ namespace UFAFAC {
 			// 
 			this->textBox3->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->textBox3->Location = System::Drawing::Point(86, 162);
-			this->textBox3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox3->Margin = System::Windows::Forms::Padding(2);
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->Size = System::Drawing::Size(236, 29);
 			this->textBox3->TabIndex = 16;
@@ -315,7 +316,7 @@ namespace UFAFAC {
 			// 
 			this->textBox4->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->textBox4->Location = System::Drawing::Point(136, 221);
-			this->textBox4->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->textBox4->Margin = System::Windows::Forms::Padding(2);
 			this->textBox4->Name = L"textBox4";
 			this->textBox4->Size = System::Drawing::Size(236, 29);
 			this->textBox4->TabIndex = 17;
@@ -324,7 +325,7 @@ namespace UFAFAC {
 			// 
 			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->richTextBox1->Location = System::Drawing::Point(20, 306);
-			this->richTextBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->richTextBox1->Margin = System::Windows::Forms::Padding(2);
 			this->richTextBox1->Name = L"richTextBox1";
 			this->richTextBox1->Size = System::Drawing::Size(424, 175);
 			this->richTextBox1->TabIndex = 18;
@@ -336,7 +337,7 @@ namespace UFAFAC {
 			this->AddFile_Button->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->AddFile_Button->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
 			this->AddFile_Button->Location = System::Drawing::Point(20, 644);
-			this->AddFile_Button->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->AddFile_Button->Margin = System::Windows::Forms::Padding(2);
 			this->AddFile_Button->Name = L"AddFile_Button";
 			this->AddFile_Button->Size = System::Drawing::Size(486, 31);
 			this->AddFile_Button->TabIndex = 19;
@@ -348,7 +349,7 @@ namespace UFAFAC {
 			// 
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->Location = System::Drawing::Point(20, 507);
-			this->listBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->listBox1->Margin = System::Windows::Forms::Padding(2);
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(487, 134);
 			this->listBox1->TabIndex = 20;
@@ -372,7 +373,7 @@ namespace UFAFAC {
 			this->button4->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->button4->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
 			this->button4->Location = System::Drawing::Point(589, 20);
-			this->button4->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->button4->Margin = System::Windows::Forms::Padding(2);
 			this->button4->Name = L"button4";
 			this->button4->Size = System::Drawing::Size(184, 31);
 			this->button4->TabIndex = 22;
@@ -402,22 +403,23 @@ namespace UFAFAC {
 			this->AllTags_ListBox->TabIndex = 24;
 			this->AllTags_ListBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::AllTags_ListBox_MouseDoubleClick);
 			// 
-			// listBox3
+			// Tag_ListBox
 			// 
-			this->listBox3->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
-			this->listBox3->FormattingEnabled = true;
-			this->listBox3->Location = System::Drawing::Point(844, 65);
-			this->listBox3->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
-			this->listBox3->Name = L"listBox3";
-			this->listBox3->Size = System::Drawing::Size(293, 355);
-			this->listBox3->TabIndex = 25;
+			this->Tag_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->Tag_ListBox->FormattingEnabled = true;
+			this->Tag_ListBox->Location = System::Drawing::Point(844, 65);
+			this->Tag_ListBox->Margin = System::Windows::Forms::Padding(2);
+			this->Tag_ListBox->Name = L"Tag_ListBox";
+			this->Tag_ListBox->Size = System::Drawing::Size(293, 355);
+			this->Tag_ListBox->TabIndex = 25;
+			this->Tag_ListBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::Tag_ListBox_MouseDoubleClick);
 			// 
 			// Editor
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1158, 747);
-			this->Controls->Add(this->listBox3);
+			this->Controls->Add(this->Tag_ListBox);
 			this->Controls->Add(this->AllTags_ListBox);
 			this->Controls->Add(this->Tag_TextBox);
 			this->Controls->Add(this->button4);
@@ -443,7 +445,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
-			this->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
+			this->Margin = System::Windows::Forms::Padding(2);
 			this->MinimumSize = System::Drawing::Size(1173, 785);
 			this->Name = L"Editor";
 			this->Text = L"Editor";
@@ -465,5 +467,6 @@ namespace UFAFAC {
 		   void UpdateAllTagsListBox(const std::wstring& wtext);
 	private: System::Void AllTags_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 	private: System::Void AddFile_Button_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Tag_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 };
 }
