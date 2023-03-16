@@ -19,12 +19,17 @@ void DataBase::Delete()
 	delete dataBase;
 }
 
-u64 DataBase::PushEntry()
+u32 DataBase::PushEntry()
 {
-	return u64();
+	return u32();
 }
 
-const DataBaseEntry& DataBase::GetEntryByIndex(u64 index)
+void DataBase::DeleteEntry(u32 index)
+{
+
+}
+
+const DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
 {
 	return datas[index];
 }
