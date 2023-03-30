@@ -154,6 +154,7 @@ namespace UFAFAC {
 			this->AttachedFiles_ListBox->Name = L"AttachedFiles_ListBox";
 			this->AttachedFiles_ListBox->Size = System::Drawing::Size(495, 69);
 			this->AttachedFiles_ListBox->TabIndex = 7;
+			this->AttachedFiles_ListBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Viewer::AttachedFiles_ListBox_MouseDoubleClick);
 			// 
 			// Viewer
 			// 
@@ -170,10 +171,13 @@ namespace UFAFAC {
 			this->Controls->Add(this->DocumentTitle);
 			this->Name = L"Viewer";
 			this->Text = L"Viewer";
+			this->Load += gcnew System::EventHandler(this, &Viewer::Viewer_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
-	};
+	private: System::Void AttachedFiles_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
+private: System::Void Viewer_Load(System::Object^ sender, System::EventArgs^ e);
+};
 }

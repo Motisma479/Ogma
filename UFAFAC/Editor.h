@@ -65,8 +65,9 @@ namespace UFAFAC {
 	private: System::Windows::Forms::TextBox^ textBox4;
 	private: System::Windows::Forms::RichTextBox^ richTextBox1;
 	private: System::Windows::Forms::Button^ AddFile_Button;
+	private: System::Windows::Forms::ListBox^ JointFilesList;
 
-	private: System::Windows::Forms::ListBox^ listBox1;
+
 	private: System::Windows::Forms::Label^ label10;
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::TextBox^ Tag_TextBox;
@@ -111,7 +112,7 @@ namespace UFAFAC {
 			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
 			this->richTextBox1 = (gcnew System::Windows::Forms::RichTextBox());
 			this->AddFile_Button = (gcnew System::Windows::Forms::Button());
-			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->JointFilesList = (gcnew System::Windows::Forms::ListBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->button4 = (gcnew System::Windows::Forms::Button());
 			this->Tag_TextBox = (gcnew System::Windows::Forms::TextBox());
@@ -345,14 +346,15 @@ namespace UFAFAC {
 			this->AddFile_Button->UseVisualStyleBackColor = false;
 			this->AddFile_Button->Click += gcnew System::EventHandler(this, &Editor::AddFile_Button_Click);
 			// 
-			// listBox1
+			// JointFilesList
 			// 
-			this->listBox1->FormattingEnabled = true;
-			this->listBox1->Location = System::Drawing::Point(20, 507);
-			this->listBox1->Margin = System::Windows::Forms::Padding(2);
-			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(487, 134);
-			this->listBox1->TabIndex = 20;
+			this->JointFilesList->FormattingEnabled = true;
+			this->JointFilesList->Location = System::Drawing::Point(20, 507);
+			this->JointFilesList->Margin = System::Windows::Forms::Padding(2);
+			this->JointFilesList->Name = L"JointFilesList";
+			this->JointFilesList->Size = System::Drawing::Size(487, 134);
+			this->JointFilesList->TabIndex = 20;
+			this->JointFilesList->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::JointFilesList_MouseDoubleClick);
 			// 
 			// label10
 			// 
@@ -424,7 +426,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->Tag_TextBox);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->label10);
-			this->Controls->Add(this->listBox1);
+			this->Controls->Add(this->JointFilesList);
 			this->Controls->Add(this->AddFile_Button);
 			this->Controls->Add(this->richTextBox1);
 			this->Controls->Add(this->textBox4);
@@ -468,5 +470,6 @@ namespace UFAFAC {
 	private: System::Void AllTags_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 	private: System::Void AddFile_Button_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void Tag_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
+private: System::Void JointFilesList_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 };
 }
