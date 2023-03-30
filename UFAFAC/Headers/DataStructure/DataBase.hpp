@@ -6,6 +6,7 @@
 #include "Core/Types.hpp"
 #include "DataBaseEntry.hpp"
 #include "StringsHolder.hpp"
+#include "TagManager.hpp"
 
 namespace Parsing
 {
@@ -42,8 +43,11 @@ namespace DataStructure
 
 		std::vector<const DataBaseEntry*> GetEntriesByName(const std::wstring& name);
 		std::vector<const DataBaseEntry*> GetEntriesByAuthor(const std::wstring& author);
+		std::vector<const DataBaseEntry*> GetEntriesByLocation(const std::wstring& location);
+		std::vector<const DataBaseEntry*> GetEntriesByEdition(const std::wstring& edition);
 		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
 		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
+		std::vector<const DataBaseEntry*> GetEntriesByTags(const std::vector<u32>& tagList);
 
 		// Will return -1 if date is invalid, year range is [-2000; 6000]
 		s64 TimeStampFromDate(const Date& dateIn);
@@ -54,6 +58,7 @@ namespace DataStructure
 	private:
 		static DataBase* dataBase;
 		StringsHolder strings;
+		TagManager tags;
 		std::vector<DataBaseEntry> datas;
 		std::vector<u32> availableSlots;
 

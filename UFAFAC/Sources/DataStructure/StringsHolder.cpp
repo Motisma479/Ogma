@@ -7,7 +7,6 @@ using namespace DataStructure;
 const std::wstring& StringsHolder::GetString(u32 index)
 {
 	assert(index < strings.size());
-	strings[index].refCount++;
 	return strings[index].entry;
 }
 
@@ -21,17 +20,19 @@ void StringsHolder::DecrementRef(u32 index)
 {
 	assert(index < strings.size());
 	strings[index].refCount--;
-}
-
-void StringsHolder::ReleaseString(u32 index)
-{
-	assert(index < strings.size() && strings[index].refCount);
-	strings[index].refCount--;
 	if (!strings[index].refCount)
 	{
 		availableSlots.push_back(index);
 		unorderedStrings.erase(strings[index].entry);
 	}
+}
+
+void StringsHolder::ReleaseString(u32 index)
+{
+	assert(index < strings.size());
+	strings[index].refCount = 0;
+	availableSlots.push_back(index);
+	unorderedStrings.erase(strings[index].entry);
 }
 
 u32 StringsHolder::FindOrCreateString(const std::wstring& str)
@@ -47,7 +48,6 @@ u32 StringsHolder::FindOrCreateString(const std::wstring& str)
 		availableSlots.pop_back();
 		return slot;
 	}
-	StringInfo info = StringInfo(str);
 	strings.push_back(str);
 	unorderedStrings.insert(std::pair<std::wstring, u32>(str, strings.size() - 1));
 	return strings.size() - 1;
