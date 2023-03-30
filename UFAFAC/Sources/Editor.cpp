@@ -77,7 +77,7 @@ System::Void UFAFAC::Editor::AddFile_Button_Click(System::Object^ sender, System
 	{
 		for (int i = 0; i < openFileDialog->FileNames->Length; i++)
 		{
-			listBox1->Items->Add(openFileDialog->FileNames[i]);
+			JointFilesList->Items->Add(openFileDialog->FileNames[i]);
 		}
 	}
 }
@@ -86,4 +86,9 @@ System::Void UFAFAC::Editor::Tag_ListBox_MouseDoubleClick(System::Object^ sender
 {
 	//TODO : Remove To file
 	Tag_ListBox->Items->Remove(Tag_ListBox->SelectedItem);
+}
+
+System::Void UFAFAC::Editor::JointFilesList_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+{
+	JointFilesList->Items->Remove(JointFilesList->SelectedItem);
 }

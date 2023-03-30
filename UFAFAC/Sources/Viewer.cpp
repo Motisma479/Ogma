@@ -1,5 +1,10 @@
 #include "../Viewer.h"
 #include "Utils.h"
+#include "../Editor.h"
+#include "../Main.h"
+#include "../TagWindow.h"
+#include <stdlib.h>
+#include <filesystem>
 
 void UFAFAC::Viewer::SetWindowName(System::String^ name)
 {
@@ -30,4 +35,23 @@ void UFAFAC::Viewer::SetEdition(System::String^ edit)
 void UFAFAC::Viewer::SetEmplacement(System::String^ emp)
 {
 	this->Emplacement->Text = emp;
+}
+
+System::Void UFAFAC::Viewer::AttachedFiles_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+{
+	auto value = ((System::String^)AttachedFiles_ListBox->SelectedItem);
+	auto wtext = Utils::SystemStringToStdWString(value);
+
+	// Open File with Path
+	_wsystem(wtext.c_str());
+}
+
+System::Void UFAFAC::Viewer::Viewer_Load(System::Object^ sender, System::EventArgs^ e)
+{
+
+	//Debug
+	auto path = std::filesystem::current_path().wstring();
+	path = path.substr(0, path.find_last_of('\\')) + L"/UFAFAC.sln";
+	auto string = Utils::StdWStringToSystemString(path);
+	AttachedFiles_ListBox->Items->Add(string);
 }
