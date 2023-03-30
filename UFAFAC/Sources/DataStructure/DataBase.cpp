@@ -197,16 +197,6 @@ Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
 	return result;
 }
 
-std::wstring DataBase::ToLower(const std::wstring& in)
-{
-	std::wstring result;
-	for (auto& c : in)
-	{
-		result.push_back(towlower(c));
-	}
-	return result;
-}
-
 void DataBase::ReferenceStrings()
 {
 	for (auto& entry : datas)

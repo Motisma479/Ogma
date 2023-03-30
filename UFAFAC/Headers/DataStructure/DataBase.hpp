@@ -53,8 +53,6 @@ namespace DataStructure
 		s64 TimeStampFromDate(const Date& dateIn);
 		Date DateFromTimeStamp(s64 tmIn);
 
-		std::wstring ToLower(const std::wstring& in);
-
 	private:
 		static DataBase* dataBase;
 		StringsHolder strings;
