@@ -4,6 +4,12 @@
 
 #include "Tag.h"
 #include "Core/Types.hpp"
+
+namespace Parsing
+{
+	class FileParser;
+}
+
 namespace DataStructure
 {
 	struct TagListInfo
@@ -66,5 +72,7 @@ namespace DataStructure
 		std::vector<u32> availableSlots;
 		std::unordered_map<std::vector<u32>, u32, u32_vector_hasher> unorderedTags;
 		static TagManager* tagManager;
+
+		friend Parsing::FileParser;
 	};
 }

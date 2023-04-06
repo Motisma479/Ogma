@@ -61,6 +61,7 @@ namespace DataStructure
 		std::vector<u32> availableSlots;
 
 		void ReferenceStrings();
+		void ReferenceTags();
 
 		friend Parsing::FileParser;
 	};

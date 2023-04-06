@@ -1,5 +1,11 @@
 #pragma once
 #include <string>
+
+namespace Parsing
+{
+	class FileParser;
+}
+
 class Tag
 {
 public:
@@ -8,4 +14,5 @@ public:
 	std::wstring GetName() const { return name; }
 private:
 	std::wstring name;
+	friend Parsing::FileParser;
 };
