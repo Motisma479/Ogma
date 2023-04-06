@@ -49,7 +49,7 @@ u32 StringsHolder::FindOrCreateString(const std::wstring& str)
 		return slot;
 	}
 	strings.push_back(str);
-	unorderedStrings.insert(std::pair<std::wstring, u32>(str, (u32)strings.size() - (u32)1));
+	unorderedStrings.insert(std::pair<std::wstring, u32>(str, (u32)(strings.size() - 1)));
 	return (u32)strings.size() - (u32)1;
 }
 

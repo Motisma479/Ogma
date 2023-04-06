@@ -53,10 +53,10 @@ namespace DataStructure
 		s64 TimeStampFromDate(const Date& dateIn);
 		Date DateFromTimeStamp(s64 tmIn);
 
-	private:
-		static DataBase* dataBase;
 		StringsHolder strings;
 		TagManager tags;
+	private:
+		static DataBase* dataBase;
 		std::vector<DataBaseEntry> datas;
 		std::vector<u32> availableSlots;
 
