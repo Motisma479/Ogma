@@ -49,8 +49,8 @@ u32 StringsHolder::FindOrCreateString(const std::wstring& str)
 		return slot;
 	}
 	strings.push_back(str);
-	unorderedStrings.insert(std::pair<std::wstring, u32>(str, strings.size() - 1));
-	return strings.size() - 1;
+	unorderedStrings.insert(std::pair<std::wstring, u32>(str, static_cast<u32>(strings.size() - 1)));
+	return static_cast<u32>(strings.size() - 1);
 }
 
 u32 StringsHolder::FindString(const std::wstring& str)

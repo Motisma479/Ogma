@@ -103,8 +103,8 @@ u32 DataStructure::TagManager::FindOrCreateTagList(const std::vector<u32>& list)
 		return slot;
 	}
 	tagsInUse.push_back(list);
-	unorderedTags.insert(std::pair<std::vector<u32>, u32>(list, tagsInUse.size() - 1));
-	return tagsInUse.size() - 1;
+	unorderedTags.insert(std::pair<std::vector<u32>, u32>(list, static_cast<u32>(tagsInUse.size() - 1)));
+	return static_cast<u32>(tagsInUse.size() - 1);
 }
 
 u32 DataStructure::TagManager::FindTagList(const std::vector<u32>& list)
