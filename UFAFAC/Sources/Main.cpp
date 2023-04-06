@@ -3,6 +3,7 @@
 #include "../Viewer.h"
 #include <string>
 #include "DataStructure/DataBase.hpp"
+#include "DataStructure/DataBaseEntry.hpp"
 #include "DataStructure/TagManager.hpp"
 
 using namespace System;
@@ -61,9 +62,10 @@ UFAFAC::Main::Main(void)
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 {
 	listBox1->Items->Clear();
-	auto filename = Utils::GetFilesByName(wtext, tempDatas);
+	auto filename = DataStructure::DataBase::Get().GetEntriesByName(wtext);
 	for (auto&& i : filename) {
-		listBox1->Items->Add(System::Runtime::InteropServices::Marshal::PtrToStringUni(IntPtr((void*)i.c_str())));
+		auto string = Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(i->name));
+		listBox1->Items->Add(string);
 	}
 }
 

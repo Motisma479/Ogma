@@ -61,13 +61,13 @@ namespace DataStructure
 		s64 TimeStampFromDate(const Date& dateIn);
 		Date DateFromTimeStamp(s64 tmIn);
 
+		StringsHolder strings;
+		TagManager tags;
 		// TODO Remove
 		void CreateRandomEntries(u64 count);
 
 	private:
 		static DataBase* dataBase;
-		StringsHolder strings;
-		TagManager tags;
 		std::vector<DataBaseEntry> datas;
 		std::vector<u32> availableSlots;
 
