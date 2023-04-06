@@ -279,7 +279,14 @@ const std::wstring bufs[] =
 	L"Crewmate",
 	L"Sugoma",
 	L"Sugomus",
-	L"Ligma"
+	L"Ligma",
+	L"Maween",
+	L"Crashma",
+	L"Creer",
+	L"Skelon Musk",
+	L"Seema Balls",
+	L"E-TMA",
+	L"Médo",
 };
 
 std::wstring generateString(u32 stringsize)

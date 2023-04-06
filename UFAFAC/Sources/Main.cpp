@@ -56,7 +56,7 @@ UFAFAC::Main::Main(void)
 	this->WindowState = FormWindowState::Maximized;
 	DataStructure::DataBase::Initialize();
 	DataStructure::TagManager::Initialize();
-	DataStructure::DataBase::Get().CreateRandomEntries(200);
+	DataStructure::DataBase::Get().CreateRandomEntries(5000);
 }
 
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
