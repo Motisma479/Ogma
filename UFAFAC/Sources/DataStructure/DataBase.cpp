@@ -47,7 +47,7 @@ u32 DataBase::PushEntry()
 		return result;
 	}
 	datas.push_back(DataStructure::DataBaseEntry());
-	return fillSlot(static_cast<u32>(datas.size()));
+	return fillSlot(static_cast<u32>(datas.size() - 1));
 }
 
 void DataBase::DeleteEntry(u32 index)
@@ -294,6 +294,7 @@ std::wstring generateString(u32 stringsize)
 		if (i == 0 || result.back() == ' ') result.push_back(towupper(getRandomChar()));
 		else result.push_back(getRandomChar());
 	}
+	return result;
 }
 
 void DataStructure::DataBase::CreateRandomEntries(u64 count)
