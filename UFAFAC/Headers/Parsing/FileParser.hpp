@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "DataStructure/StringsHolder.hpp"
+#include "DataStructure/TagManager.hpp"
 #include "DataStructure/DataBase.hpp"
 
 namespace Parsing
@@ -21,6 +22,10 @@ namespace Parsing
 		bool ReadStrings(DataStructure::StringsHolder& strings);
 
 		bool WriteStrings(const DataStructure::StringsHolder& strings);
+
+		bool ReadTags(DataStructure::TagManager& tags);
+
+		bool WriteTags(const DataStructure::TagManager& tags);
 
 	private:
 

@@ -206,3 +206,11 @@ void DataBase::ReferenceStrings()
 		strings.IncrementRef(entry.description);
 	}
 }
+
+void DataStructure::DataBase::ReferenceTags()
+{
+	for (auto& entry : datas)
+	{
+		tags.IncrementRef(entry.tags);
+	}
+}

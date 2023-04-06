@@ -1,7 +1,8 @@
 #include "DataStructure/TagManager.hpp"
-#include "Utils.h"
 #include <regex>
 #include <assert.h>
+
+#include "Utils.h"
 
 DataStructure::TagManager* DataStructure::TagManager::tagManager;
 
