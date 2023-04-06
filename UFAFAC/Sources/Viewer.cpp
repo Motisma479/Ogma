@@ -3,6 +3,7 @@
 #include "../Editor.h"
 #include "../Main.h"
 #include "../TagWindow.h"
+#include <windows.h>
 #include <stdlib.h>
 #include <filesystem>
 
@@ -43,7 +44,7 @@ System::Void UFAFAC::Viewer::AttachedFiles_ListBox_MouseDoubleClick(System::Obje
 	auto wtext = Utils::SystemStringToStdWString(value);
 
 	// Open File with Path
-	_wsystem(wtext.c_str());
+	ShellExecuteW(NULL, L"open", wtext.c_str(), NULL, NULL, SW_SHOWDEFAULT);
 }
 
 System::Void UFAFAC::Viewer::Viewer_Load(System::Object^ sender, System::EventArgs^ e)

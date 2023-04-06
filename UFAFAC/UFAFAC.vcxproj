@@ -166,7 +166,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ws2_32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Shell32.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
       <NoEntryPoint>false</NoEntryPoint>
@@ -196,7 +196,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ws2_32.lib;</AdditionalDependencies>
+      <AdditionalDependencies>ws2_32.lib;Shell32.lib</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
       <NoEntryPoint>false</NoEntryPoint>
