@@ -264,11 +264,49 @@ Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
 	return result;
 }
 
+wchar_t getRandomChar()
+{
+	int r = rand() * 27 / RAND_MAX;
+	if (r == 26) return ' ';
+	return r + 'a';
+}
+// TODO Remove
+
+const std::wstring bufs[] =
+{
+	L"Amogus",
+	L"Suspiscious",
+	L"Crewmate",
+	L"Sugoma",
+	L"Sugomus",
+	L"Ligma"
+};
+
+std::wstring generateString(u32 stringsize)
+{
+	if (rand() < RAND_MAX / 100)
+	{
+		return bufs[rand() % (sizeof(bufs) / sizeof(bufs[0]))];
+	}
+	std::wstring result;
+	for (u32 i = 0; i < stringsize; i++)
+	{
+		if (i == 0 || result.back() == ' ') result.push_back(towupper(getRandomChar()));
+		else result.push_back(getRandomChar());
+	}
+}
+
 void DataStructure::DataBase::CreateRandomEntries(u64 count)
 {
 	for (u64 i = 0; i < count; ++i)
 	{
 		u32 entry = PushEntry();
+		SetEntryAuthor(entry, generateString(16));
+		SetEntryName(entry, generateString(16));
+		SetEntryDescrition(entry, generateString(128));
+		SetEntryLocation(entry, generateString(32));
+		SetEntryEdition(entry, generateString(16));
+		SetEntryTimeStamp(entry, time(nullptr) + (rand() - RAND_MAX/2));
 	}
 }
 
