@@ -117,11 +117,10 @@ bool FileParser::ReadStrings(DataStructure::StringsHolder& strings)
 	{
 		std::wstring entry;
 		if (!dr.Read(entry)) return exitFunc(false);
-		strings.unorderedStrings.insert(std::pair<std::wstring, u64>(entry, (u64)strings.strings.size()));
+		strings.unorderedStrings.insert(std::pair<std::wstring, u32>(entry, static_cast<u32>(strings.strings.size())));
 		strings.strings.push_back(std::move(entry));
 	}
 	if (strings.strings.size() == 0) strings.strings.push_back(std::wstring());
-	else if (strings.strings[0].entry.size() == 0) strings.strings[0].entry = std::wstring();
 	return exitFunc(true);
 }
 
@@ -199,7 +198,9 @@ bool Parsing::FileParser::ReadTags(DataStructure::TagManager& tags)
 			tags.tagsInUse[i].tags.push_back(0);
 			if (!dr.Read(tags.tagsInUse[i].tags.back())) return exitFunc(false);
 		}
+		tags.unorderedTags.insert(std::pair<std::vector<u32>, u32>(tags.tagsInUse[i].tags, static_cast<u32>(tags.tagsInUse.size() - 1)));
 	}
+	if (tags.tagsInUse.size() == 0) tags.tagsInUse.push_back(DataStructure::TagListInfo());
 	return exitFunc(true);
 }
 

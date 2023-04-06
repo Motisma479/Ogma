@@ -41,13 +41,21 @@ namespace DataStructure
 
 		const DataBaseEntry& GetEntryByIndex(u32 index);
 
+		void SetEntryName(u32 entry, const std::wstring& name);
+		void SetEntryAuthor(u32 entry, const std::wstring& name);
+		void SetEntryLocation(u32 entry, const std::wstring& name);
+		void SetEntryEdition(u32 entry, const std::wstring& name);
+		void SetEntryDescrition(u32 entry, const std::wstring& name);
+		void SetEntryTimeStamp(u32 entry, s64 timeStamp);
+		void SetEntryTags(u32 entry, const std::vector<u32>& tagList);
+
 		std::vector<const DataBaseEntry*> GetEntriesByName(const std::wstring& name);
 		std::vector<const DataBaseEntry*> GetEntriesByAuthor(const std::wstring& author);
 		std::vector<const DataBaseEntry*> GetEntriesByLocation(const std::wstring& location);
 		std::vector<const DataBaseEntry*> GetEntriesByEdition(const std::wstring& edition);
 		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
 		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
-		std::vector<const DataBaseEntry*> GetEntriesByTags(const std::vector<u32>& tagList);
+		std::vector<const DataBaseEntry*> GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags);
 
 		// Will return -1 if date is invalid, year range is [-2000; 6000]
 		s64 TimeStampFromDate(const Date& dateIn);
@@ -55,6 +63,9 @@ namespace DataStructure
 
 		StringsHolder strings;
 		TagManager tags;
+		// TODO Remove
+		void CreateRandomEntries(u64 count);
+
 	private:
 		static DataBase* dataBase;
 		std::vector<DataBaseEntry> datas;

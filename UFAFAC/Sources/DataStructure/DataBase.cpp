@@ -23,7 +23,7 @@ void DataBase::Delete()
 
 u32 DataBase::PushEntry()
 {
-	auto fillSLot = [&](u32 slot) -> void
+	auto fillSlot = [&](u32 slot) -> u32
 	{
 		datas[slot] = DataBaseEntry();
 		u32 str = strings.FindOrCreateString(std::wstring(L""));
@@ -37,23 +37,17 @@ u32 DataBase::PushEntry()
 		strings.IncrementRef(str);
 		strings.IncrementRef(str);
 		strings.IncrementRef(str);
+		return slot;
 	};
 	if (!availableSlots.empty())
 	{
-		u32 slot = availableSlots.front();
-		datas[slot] = DataBaseEntry();
-		u32 str = strings.FindOrCreateString(std::wstring(L""));
-		datas[slot].name = str;
-		datas[slot].authors = str;
-		datas[slot].description = str;
-		strings.IncrementRef(str);
-		strings.IncrementRef(str);
-		strings.IncrementRef(str);
+		u32 result = fillSlot(availableSlots.front());
 		std::copy(availableSlots.data() + 1, availableSlots.data() + availableSlots.size(), availableSlots.data());
 		availableSlots.pop_back();
-		return slot;
+		return result;
 	}
-	return u32();
+	datas.push_back(DataStructure::DataBaseEntry());
+	return fillSlot(static_cast<u32>(datas.size()));
 }
 
 void DataBase::DeleteEntry(u32 index)
@@ -151,27 +145,100 @@ std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTimeStamp
 	return result;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32>& tagList)
+std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags)
 {
 	std::vector<const DataBaseEntry*> result;
 	for (auto& data : datas)
 	{
+		bool entryAdded = true;
 		for (auto tag : tags.GetTagList(data.tags))
 		{
-			bool entryAdded = false;
+			entryAdded = requireAllTags;
 			for (auto id : tagList)
 			{
-				if (id == tag)
+				if (requireAllTags)
 				{
-					result.push_back(&data);
-					entryAdded = true;
-					break;
+					if (id != tag)
+					{
+						entryAdded = false;
+						break;
+					}
+				}
+				else
+				{
+					if (id == tag)
+					{
+						result.push_back(&data);
+						entryAdded = true;
+						break;
+					}
 				}
 			}
-			if (entryAdded) break;
+			if (requireAllTags != entryAdded) break;
 		}
+		if (requireAllTags && entryAdded) result.push_back(&data);
 	}
 	return result;
+}
+
+void DataStructure::DataBase::SetEntryName(u32 entry, const std::wstring& name)
+{
+	assert(entry < datas.size());
+	auto& e = datas[entry];
+	strings.DecrementRef(e.name);
+	e.name = strings.FindOrCreateString(name);
+	strings.IncrementRef(e.name);
+}
+
+void DataStructure::DataBase::SetEntryAuthor(u32 entry, const std::wstring& name)
+{
+	assert(entry < datas.size());
+	auto& e = datas[entry];
+	strings.DecrementRef(e.authors);
+	e.authors = strings.FindOrCreateString(name);
+	strings.IncrementRef(e.authors);
+}
+
+void DataStructure::DataBase::SetEntryLocation(u32 entry, const std::wstring& name)
+{
+	assert(entry < datas.size());
+	auto& e = datas[entry];
+	strings.DecrementRef(e.location);
+	e.location = strings.FindOrCreateString(name);
+	strings.IncrementRef(e.location);
+}
+
+void DataStructure::DataBase::SetEntryEdition(u32 entry, const std::wstring& name)
+{
+	assert(entry < datas.size());
+	auto& e = datas[entry];
+	strings.DecrementRef(e.edition);
+	e.edition = strings.FindOrCreateString(name);
+	strings.IncrementRef(e.edition);
+}
+
+void DataStructure::DataBase::SetEntryDescrition(u32 entry, const std::wstring& name)
+{
+	assert(entry < datas.size());
+	auto& e = datas[entry];
+	strings.DecrementRef(e.description);
+	e.description = strings.FindOrCreateString(name);
+	strings.IncrementRef(e.description);
+}
+
+void DataStructure::DataBase::SetEntryTimeStamp(u32 entry, s64 timeStamp)
+{
+	assert(entry < datas.size());
+	datas[entry].date = timeStamp;
+}
+
+void DataStructure::DataBase::SetEntryTags(u32 entry, const std::vector<u32>& tagList)
+{
+	assert(entry < datas.size());
+	auto& e = datas[entry];
+	tags.DecrementRef(e.tags);
+	e.tags = tags.FindOrCreateTagList(tagList);
+	tags.IncrementRef(e.tags);
 }
 
 s64 DataStructure::DataBase::TimeStampFromDate(const Date& dateIn)
@@ -195,6 +262,14 @@ Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
 	result.month = (u32)ymd.month();
 	result.day = (u32)ymd.day();
 	return result;
+}
+
+void DataStructure::DataBase::CreateRandomEntries(u64 count)
+{
+	for (u64 i = 0; i < count; ++i)
+	{
+		u32 entry = PushEntry();
+	}
 }
 
 void DataBase::ReferenceStrings()
