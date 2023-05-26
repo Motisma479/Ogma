@@ -1,7 +1,6 @@
 #pragma once
 #include "Main.h"
 #include "DataStructure/DataBaseEntry.hpp"
-
 namespace UFAFAC {
 
 	using namespace System;
@@ -31,6 +30,8 @@ namespace UFAFAC {
 		void SetDescription(System::String^ desc);
 		void SetEdition(System::String^ edit);
 		void SetEmplacement(System::String^ emp);
+		void SetAttachedFiles(System::String^ file);
+
 
 		Main^ mainForm;
 	private: System::Windows::Forms::Label^ AttachedFiles_Label;

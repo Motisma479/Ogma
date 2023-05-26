@@ -20,6 +20,11 @@ namespace DataStructure
 		s32 year;
 		u8 month;
 		u8 day;
+
+		inline System::String^ ToString()
+		{
+			return day<10 ? "0" : "" + day.ToString() + " / " + (month < 10 ? "0" : "") + month.ToString() + " / " + year.ToString();
+		}
 	};
 
 	class DataBase
@@ -49,13 +54,13 @@ namespace DataStructure
 		void SetEntryTimeStamp(u32 entry, s64 timeStamp);
 		void SetEntryTags(u32 entry, const std::vector<u32>& tagList);
 
-		std::vector<const DataBaseEntry*> GetEntriesByName(const std::wstring& name);
-		std::vector<const DataBaseEntry*> GetEntriesByAuthor(const std::wstring& author);
-		std::vector<const DataBaseEntry*> GetEntriesByLocation(const std::wstring& location);
-		std::vector<const DataBaseEntry*> GetEntriesByEdition(const std::wstring& edition);
-		std::vector<const DataBaseEntry*> GetEntriesByDescription(const std::wstring& desc);
-		std::vector<const DataBaseEntry*> GetEntriesByTimeStamp(s64 lower, s64 upper);
-		std::vector<const DataBaseEntry*> GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags);
+		std::vector<u32> GetEntriesByName(const std::wstring& name);
+		std::vector<u32> GetEntriesByAuthor(const std::wstring& author);
+		std::vector<u32> GetEntriesByLocation(const std::wstring& location);
+		std::vector<u32> GetEntriesByEdition(const std::wstring& edition);
+		std::vector<u32> GetEntriesByDescription(const std::wstring& desc);
+		std::vector<u32> GetEntriesByTimeStamp(s64 lower, s64 upper);
+		std::vector<u32> GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags);
 
 		// Will return -1 if date is invalid, year range is [-2000; 6000]
 		s64 TimeStampFromDate(const Date& dateIn);

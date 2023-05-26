@@ -65,93 +65,93 @@ const DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
 	return datas[index];
 }
 
-std::vector<const DataBaseEntry*> DataBase::GetEntriesByName(const std::wstring& name)
+std::vector<u32> DataBase::GetEntriesByName(const std::wstring& name)
 {
 	std::wregex regexSearch(Utils::ToLower(name));
-	std::vector<const DataBaseEntry*> out;
-	for (const auto& str : datas)
+	std::vector<u32> out;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(str.name)), regexSearch))
+		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].name)), regexSearch))
 		{
-			out.push_back(&str);
+			out.push_back(i);
 		}
 	}
 	return out;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByAuthor(const std::wstring& author)
+std::vector<u32> DataStructure::DataBase::GetEntriesByAuthor(const std::wstring& author)
 {
 	std::wregex regexSearch(Utils::ToLower(author));
-	std::vector<const DataBaseEntry*> out;
-	for (const auto& str : datas)
+	std::vector<u32> out;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(str.authors)), regexSearch))
+		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].authors)), regexSearch))
 		{
-			out.push_back(&str);
+			out.push_back(i);
 		}
 	}
 	return out;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByLocation(const std::wstring& location)
+std::vector<u32> DataStructure::DataBase::GetEntriesByLocation(const std::wstring& location)
 {
 	std::wregex regexSearch(Utils::ToLower(location));
-	std::vector<const DataBaseEntry*> out;
-	for (const auto& str : datas)
+	std::vector<u32> out;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(str.location)), regexSearch))
+		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].location)), regexSearch))
 		{
-			out.push_back(&str);
+			out.push_back(i);
 		}
 	}
 	return out;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByEdition(const std::wstring& edition)
+std::vector<u32> DataStructure::DataBase::GetEntriesByEdition(const std::wstring& edition)
 {
 	std::wregex regexSearch(Utils::ToLower(edition));
-	std::vector<const DataBaseEntry*> out;
-	for (const auto& str : datas)
+	std::vector<u32> out;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(str.edition)), regexSearch))
+		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].edition)), regexSearch))
 		{
-			out.push_back(&str);
+			out.push_back(i);
 		}
 	}
 	return out;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByDescription(const std::wstring& desc)
+std::vector<u32> DataStructure::DataBase::GetEntriesByDescription(const std::wstring& desc)
 {
 	std::wregex regexSearch(Utils::ToLower(desc));
-	std::vector<const DataBaseEntry*> out;
-	for (const auto& str : datas)
+	std::vector<u32> out;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(str.description)), regexSearch))
+		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].description)), regexSearch))
 		{
-			out.push_back(&str);
+			out.push_back(i);
 		}
 	}
 	return out;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTimeStamp(s64 lower, s64 upper)
+std::vector<u32> DataStructure::DataBase::GetEntriesByTimeStamp(s64 lower, s64 upper)
 {
-	std::vector<const DataBaseEntry*> result;
-	for (auto& entry : datas)
+	std::vector<u32> result;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (entry.date >= lower && entry.date <= upper) result.push_back(&entry);
+		if (datas[i].date >= lower && datas[i].date <= upper) result.push_back(i);
 	}
 	return result;
 }
 
-std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags)
+std::vector<u32> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags)
 {
-	std::vector<const DataBaseEntry*> result;
-	for (auto& data : datas)
+	std::vector<u32> result;
+	for (u32 i = 0; i < datas.size(); ++i)
 	{
 		bool entryAdded = true;
-		for (auto tag : tags.GetTagList(data.tags))
+		for (auto tag : tags.GetTagList(datas[i].tags))
 		{
 			entryAdded = requireAllTags;
 			for (auto id : tagList)
@@ -168,7 +168,7 @@ std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTags(cons
 				{
 					if (id == tag)
 					{
-						result.push_back(&data);
+						result.push_back(i);
 						entryAdded = true;
 						break;
 					}
@@ -176,7 +176,7 @@ std::vector<const DataBaseEntry*> DataStructure::DataBase::GetEntriesByTags(cons
 			}
 			if (requireAllTags != entryAdded) break;
 		}
-		if (requireAllTags && entryAdded) result.push_back(&data);
+		if (requireAllTags && entryAdded) result.push_back(i);
 	}
 	return result;
 }

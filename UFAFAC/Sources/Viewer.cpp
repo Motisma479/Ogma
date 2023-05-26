@@ -38,6 +38,11 @@ void UFAFAC::Viewer::SetEmplacement(System::String^ emp)
 	this->Emplacement->Text = emp;
 }
 
+void UFAFAC::Viewer::SetAttachedFiles(System::String^ file)
+{
+		this->AttachedFiles_ListBox->Items->Add(file);
+}
+
 System::Void UFAFAC::Viewer::AttachedFiles_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
 	auto value = ((System::String^)AttachedFiles_ListBox->SelectedItem);
