@@ -59,13 +59,33 @@ UFAFAC::Main::Main(void)
 	DataStructure::DataBase::Get().CreateRandomEntries(5000);
 }
 
+ref class ListBoxItem
+{
+public:
+	int ID;
+	System::String^ Text;
+
+	ListBoxItem(int id, System::String^ text)
+	{
+		ID = id;
+		Text = text;
+	}
+
+	virtual System::String^ ToString() override
+	{
+		return Text;
+	}
+};
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 {
 	listBox1->Items->Clear();
-	auto filename = DataStructure::DataBase::Get().GetEntriesByName(wtext);
-	for (auto&& i : filename) {
-		auto string = Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(i->name));
-		listBox1->Items->Add(string);
+	auto fileIds = DataStructure::DataBase::Get().GetEntriesByName(wtext);
+	for (auto&& i : fileIds) {
+		auto file = DataStructure::DataBase::Get().GetEntryByIndex(i);
+		auto string = Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(file.name));
+		ListBoxItem^ item = gcnew ListBoxItem(i, string);
+		
+		listBox1->Items->Add(item);
 	}
 }
 
@@ -82,8 +102,23 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	viewer = gcnew ref class Viewer();
 	viewer->mainForm = this;
 	viewer->Show();
-
+	sender;
 	viewer->SetWindowName(listBox1->SelectedItem->ToString());
+	DataStructure::DataBaseEntry entry = DataStructure::DataBase::Get().GetEntryByIndex(static_cast<ListBoxItem^>(listBox1->SelectedItem)->ID);
+	viewer->SetAuthor(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.authors)));
+
+	viewer->SetDate(DataStructure::DataBase::Get().DateFromTimeStamp(entry.date).ToString());
+
+	viewer->SetDescription(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.description)));
+
+	viewer->SetEdition(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.edition)));
+	
+	viewer->SetEmplacement(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.location)));
+
+	//TODO
+	//Change deez line by the actual stuff.
+	viewer->SetAttachedFiles("The_TEST"); 
+	/*viewer->SetDescription(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.files)));*/
 }
 
 System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)

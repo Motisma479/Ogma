@@ -45,10 +45,10 @@ namespace UFAFAC {
 
 	private: System::Windows::Forms::MenuStrip^ menuStrip1;
 	private: System::Windows::Forms::ToolStripMenuItem^ quiterToolStripMenuItem;
-	private: System::Windows::Forms::ToolStripMenuItem^ exploreToolStripMenuItem;
+
 	private: System::Windows::Forms::ToolStripMenuItem^ aideToolStripMenuItem;
 	private: System::Windows::Forms::TextBox^ textBox1;
-	private: System::Windows::Forms::Button^ button1;
+
 	private: System::Windows::Forms::Button^ button2;
 	private: System::ComponentModel::IContainer^ components;
 	protected:
@@ -70,13 +70,9 @@ namespace UFAFAC {
 		{
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->quiterToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->exploreToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aideToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
-#if IS_EDITOR
 			this->button2 = (gcnew System::Windows::Forms::Button());
-#endif
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
@@ -84,9 +80,9 @@ namespace UFAFAC {
 			// menuStrip1
 			// 
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->quiterToolStripMenuItem,
-					this->exploreToolStripMenuItem, this->aideToolStripMenuItem
+					this->aideToolStripMenuItem
 			});
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
@@ -101,12 +97,6 @@ namespace UFAFAC {
 			this->quiterToolStripMenuItem->Size = System::Drawing::Size(56, 20);
 			this->quiterToolStripMenuItem->Text = L"Quitter";
 			this->quiterToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::quiterToolStripMenuItem_Click);
-			// 
-			// exploreToolStripMenuItem
-			// 
-			this->exploreToolStripMenuItem->Name = L"exploreToolStripMenuItem";
-			this->exploreToolStripMenuItem->Size = System::Drawing::Size(58, 20);
-			this->exploreToolStripMenuItem->Text = L"Explore";
 			// 
 			// aideToolStripMenuItem
 			// 
@@ -128,25 +118,8 @@ namespace UFAFAC {
 			this->textBox1->Enter += gcnew System::EventHandler(this, &Main::textBox1_Enter);
 			this->textBox1->Leave += gcnew System::EventHandler(this, &Main::textBox1_Leave);
 			// 
-			// button1
-			// 
-			this->button1->Anchor = System::Windows::Forms::AnchorStyles::None;
-			this->button1->BackColor = System::Drawing::SystemColors::ActiveCaption;
-			this->button1->Cursor = System::Windows::Forms::Cursors::Hand;
-			this->button1->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
-			this->button1->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(0)));
-			this->button1->Location = System::Drawing::Point(322, 306);
-			this->button1->Margin = System::Windows::Forms::Padding(2);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(188, 31);
-			this->button1->TabIndex = 2;
-			this->button1->Text = L"Rechercher";
-			this->button1->UseVisualStyleBackColor = false;
-			// 
 			// button2
-			//
-#if IS_EDITOR	
+			// 
 			this->button2->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->button2->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->button2->Cursor = System::Windows::Forms::Cursors::Hand;
@@ -161,7 +134,6 @@ namespace UFAFAC {
 			this->button2->Text = L"Ajouter du contenu";
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &Main::button2_Click);
-#endif // DEBUG
 			// 
 			// listBox1
 			// 
@@ -170,7 +142,7 @@ namespace UFAFAC {
 			this->listBox1->Location = System::Drawing::Point(98, 176);
 			this->listBox1->Margin = System::Windows::Forms::Padding(2);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(621, 56);
+			this->listBox1->Size = System::Drawing::Size(621, 108);
 			this->listBox1->TabIndex = 4;
 			this->listBox1->SelectedValueChanged += gcnew System::EventHandler(this, &Main::listBox1_SelectedValueChanged);
 			// 
@@ -181,7 +153,6 @@ namespace UFAFAC {
 			this->ClientSize = System::Drawing::Size(800, 501);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->button2);
-			this->Controls->Add(this->button1);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
