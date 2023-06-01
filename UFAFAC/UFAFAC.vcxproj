@@ -30,7 +30,6 @@
     <ClCompile Include="Sources\DataStructure\TagManager.cpp" />
     <ClCompile Include="Sources\DataStructure\DataBase.cpp" />
     <ClCompile Include="Sources\Editor.cpp" />
-    <ClCompile Include="Sources\DataStructure\StringsHolder.cpp" />
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\Parsing\Conversion.cpp" />
     <ClCompile Include="Sources\Parsing\Deserializer.cpp" />
@@ -49,7 +48,6 @@
     <ClInclude Include="Headers\DataStructure\DataBase.hpp" />
     <ClInclude Include="Headers\DataStructure\DataBaseEntry.hpp" />
     <ClInclude Include="Headers\DataStructure\File.h" />
-    <ClInclude Include="Headers\DataStructure\StringsHolder.hpp" />
     <ClInclude Include="Headers\DataStructure\Tag.h" />
     <ClInclude Include="Headers\DataStructure\TagManager.hpp" />
     <ClInclude Include="Headers\date.h" />

@@ -130,3 +130,24 @@ bool Deserializer::Read(std::wstring& str)
 	u64 size;
 	return (Read(size) && Read(str, size));
 }
+
+bool Deserializer::Read(std::vector<u32>& vec, u64 strSize)
+{
+	vec.resize(strSize);
+	if (!strSize) return true;
+
+	if (cPos + strSize * sizeof(u32) > bufferSize) return false;
+	u32 val;
+	for (u64 i = 0; i < strSize; i++)
+	{
+		Read(val);
+		vec[i] = val;
+	}
+	return true;
+}
+
+bool Deserializer::Read(std::vector<u32>& vec)
+{
+	u64 size;
+	return (Read(size) && Read(vec, size));
+}

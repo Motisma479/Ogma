@@ -33,6 +33,8 @@ namespace Parsing
 		bool Read(std::string& str); // Size is	assumed to be 64 bits wide
 		bool Read(std::wstring& str, u64 strSize);
 		bool Read(std::wstring& str); // Size is assumed to be 64 bits wide
+		bool Read(std::vector<u32>& vec, u64 strSize);
+		bool Read(std::vector<u32>& vec); // Size is assumed to be 64 bits wide
 	private:
 		const u8* buffer;
 		const u64 bufferSize;

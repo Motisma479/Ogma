@@ -35,7 +35,7 @@ System::Void UFAFAC::TagWindow::textBox1_KeyPress(System::Object^ sender, System
 bool UFAFAC::TagWindow::AddTag()
 {
 	auto string = Utils::SystemStringToStdWString(textBox1->Text);
-	if (string.empty() || DataStructure::TagManager::Get().IsInside(string))
+	if (string.empty() || DataStructure::TagManager::Get().FindTag(string) != ~0u)
 		return false;
 	DataStructure::TagManager::Get().AddTag(string);
 	listBox1->Items->Add(textBox1->Text);

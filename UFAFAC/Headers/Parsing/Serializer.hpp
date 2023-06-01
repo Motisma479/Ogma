@@ -30,6 +30,7 @@ namespace Parsing
 		void Write(const u8* dataIn, u64 dataSize);
 		void Write(const std::string& str, bool writeSize = true); // Size is written as 64 bits wide integer
 		void Write(const std::wstring& str, bool writeSize = true); // Size is written as 64 bits wide integer
+		void Write(const std::vector<u32>& vec, bool writeSize = true); // Size is written as 64 bits wide integer
 	private:
 		std::vector<u8> buffer;
 	};

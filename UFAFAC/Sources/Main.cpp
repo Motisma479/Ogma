@@ -82,7 +82,7 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 	auto fileIds = DataStructure::DataBase::Get().GetEntriesByName(wtext);
 	for (auto&& i : fileIds) {
 		auto file = DataStructure::DataBase::Get().GetEntryByIndex(i);
-		auto string = Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(file.name));
+		auto string = Utils::StdWStringToSystemString(file.name);
 		ListBoxItem^ item = gcnew ListBoxItem(i, string);
 		
 		listBox1->Items->Add(item);
@@ -105,15 +105,15 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	sender;
 	viewer->SetWindowName(listBox1->SelectedItem->ToString());
 	DataStructure::DataBaseEntry entry = DataStructure::DataBase::Get().GetEntryByIndex(static_cast<ListBoxItem^>(listBox1->SelectedItem)->ID);
-	viewer->SetAuthor(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.authors)));
+	viewer->SetAuthor(Utils::StdWStringToSystemString(entry.authors));
 
 	viewer->SetDate(DataStructure::DataBase::Get().DateFromTimeStamp(entry.date).ToString());
 
-	viewer->SetDescription(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.description)));
+	viewer->SetDescription(Utils::StdWStringToSystemString(entry.description));
 
-	viewer->SetEdition(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.edition)));
+	viewer->SetEdition(Utils::StdWStringToSystemString(entry.edition));
 	
-	viewer->SetEmplacement(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.location)));
+	viewer->SetEmplacement(Utils::StdWStringToSystemString(entry.location));
 
 	//TODO
 	//Change deez line by the actual stuff.

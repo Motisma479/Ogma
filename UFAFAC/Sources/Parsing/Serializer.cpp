@@ -99,3 +99,12 @@ void Serializer::Write(const std::wstring& str, bool writeSize)
 		Write(c); 
 	}
 }
+
+void Serializer::Write(const std::vector<u32>& vec, bool writeSize)
+{
+	if (writeSize) Write(vec.size());
+	for (u64 i = 0; i < vec.size(); i++)
+	{
+		Write(vec[i]);
+	}
+}

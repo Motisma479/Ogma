@@ -16,12 +16,12 @@ namespace DataStructure
 
 		~DataBaseEntry() = default;
 
-		u32 name = -1;
-		u32 authors = -1;
-		u32 edition = -1;
-		u32 description = -1;
-		u32 location = -1;
-		u32 tags = -1;
+		std::wstring name = L"Nouveau Document";
+		std::wstring authors = L"";
+		std::wstring edition = L"";
+		std::wstring description = L"";
+		std::wstring location = L"";
+		std::vector<u32> tags = {};
 		s64 date = -1;
 		std::vector<File*> files;
 	private:

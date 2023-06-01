@@ -4,42 +4,82 @@
 
 #include "Utils.h"
 
-DataStructure::TagManager* DataStructure::TagManager::tagManager;
+using namespace DataStructure;
 
-DataStructure::TagManager::TagManager()
+TagManager* TagManager::tagManager;
+
+TagManager::TagManager()
 {
 }
 
-DataStructure::TagManager::~TagManager()
+TagManager::~TagManager()
 {
 }
 
-void DataStructure::TagManager::Initialize()
+void TagManager::Initialize()
 {
-	tagManager = new DataStructure::TagManager();
+	tagManager = new TagManager();
 }
 
-void DataStructure::TagManager::Delete()
+void TagManager::Delete()
 {
 	delete tagManager;
 }
 
-void DataStructure::TagManager::AddTag(const std::wstring& tag)
+bool TagManager::IsTagValid(u32 index)
 {
-	this->tags.push_back(Tag(tag));
+	if (index >= tags.size()) return false;
+	for (auto slot : availableSlots)
+	{
+		if (slot == index) return false;
+	}
+	return true;
 }
 
-void DataStructure::TagManager::RemoveTag(const std::wstring& tag)
+u32 TagManager::FindTag(const std::wstring& tag)
 {
-	tags.erase(std::remove_if(tags.begin(), tags.end(), [tag](const Tag& o) { return tag == o.GetName(); }), tags.end());
+	for (u32 i = 0; i < (u32)tags.size(); ++i)
+	{
+		if (tags[i].GetName() == tag) return i;
+	}
+	return ~0u;
 }
 
-bool DataStructure::TagManager::IsInside(const std::wstring& tag)
+u32 TagManager::AddTag(const std::wstring& tag)
 {
-	return std::find_if(tags.begin(), tags.end(), [tag](const Tag& o) { return Utils::ToLower(tag) == Utils::ToLower(o.GetName()); }) != tags.end();
+	u32 result = FindTag(tag);
+	if (result != ~0u) return result;
+	if (!availableSlots.empty())
+	{
+		result = availableSlots.back();
+		tags[result] = Tag(tag);
+		availableSlots.pop_back();
+		return result;
+	}
+	tags.push_back(std::move(Tag(tag)));
+	return (u32)tags.size() - 1;
 }
 
-std::vector<Tag> DataStructure::TagManager::GetTagsByName(const std::wstring& tag)
+void TagManager::RemoveTag(const std::wstring& tag)
+{
+	u32 result = FindTag(tag);
+	if (result != ~0u)
+	{
+		availableSlots.push_back(result);
+		tags[result] = std::move(Tag(L""));
+	}
+}
+
+void TagManager::RemoveTag(u32 index)
+{
+	if (IsTagValid(index))
+	{
+		availableSlots.push_back(index);
+		tags[index] = std::move(Tag(L""));
+	}
+}
+
+std::vector<Tag> TagManager::GetTagsByName(const std::wstring& tag)
 {
 	std::wregex regexSearch(Utils::ToLower(tag));
 	std::vector<Tag> out;
@@ -53,66 +93,22 @@ std::vector<Tag> DataStructure::TagManager::GetTagsByName(const std::wstring& ta
 	return out;
 }
 
-std::vector<Tag> DataStructure::TagManager::GetTags()
+std::vector<Tag> TagManager::GetTags()
 {
-	return tags;
-}
-
-const std::vector<u32>& DataStructure::TagManager::GetTagList(u32 index)
-{
-	assert(index < tagsInUse.size());
-	return tagsInUse[index].tags;
-}
-
-void DataStructure::TagManager::IncrementRef(u32 index)
-{
-	assert(index < tagsInUse.size());
-	tagsInUse[index].refCount++;
-}
-
-void DataStructure::TagManager::DecrementRef(u32 index)
-{
-	assert(index < tagsInUse.size());
-	tagsInUse[index].refCount--;
-	if (!tagsInUse[index].refCount)
+	if (availableSlots.empty()) return tags;
+	std::vector<Tag> result;
+	for (u32 i = 0; i < (u32)tags.size(); ++i)
 	{
-		availableSlots.push_back(index);
-		unorderedTags.erase(tagsInUse[index].tags);
+		bool found = false;
+		for (auto slot : availableSlots)
+		{
+			if (slot == i)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (!found) result.push_back(tags[i]);
 	}
-}
-
-void DataStructure::TagManager::ReleaseTagList(u32 index)
-{
-	assert(index < tagsInUse.size());
-	tagsInUse[index].refCount = 0;
-	availableSlots.push_back(index);
-	unorderedTags.erase(tagsInUse[index].tags);
-}
-
-u32 DataStructure::TagManager::FindOrCreateTagList(const std::vector<u32>& list)
-{
-	u32 res = FindTagList(list);
-	if (res != -1) return res;
-	if (!availableSlots.empty())
-	{
-		u32 slot = availableSlots.front();
-		tagsInUse[slot] = TagListInfo(list);
-		unorderedTags.insert(std::pair<std::vector<u32>, u32>(list, slot));
-		std::copy(availableSlots.data() + 1, availableSlots.data() + availableSlots.size(), availableSlots.data());
-		availableSlots.pop_back();
-		return slot;
-	}
-	tagsInUse.push_back(list);
-	unorderedTags.insert(std::pair<std::vector<u32>, u32>(list, static_cast<u32>(tagsInUse.size() - 1)));
-	return static_cast<u32>(tagsInUse.size() - 1);
-}
-
-u32 DataStructure::TagManager::FindTagList(const std::vector<u32>& list)
-{
-	auto t = unorderedTags.find(list);
-	if (t != unorderedTags.end())
-	{
-		return t->second;
-	}
-	return -1;
+	return result;
 }

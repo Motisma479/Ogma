@@ -21,28 +21,16 @@ void DataBase::Delete()
 	delete dataBase;
 }
 
-u32 DataBase::PushEntry()
+u32 DataBase::CreateEntry()
 {
 	auto fillSlot = [&](u32 slot) -> u32
 	{
 		datas[slot] = DataBaseEntry();
-		u32 str = strings.FindOrCreateString(std::wstring(L""));
-		datas[slot].name = str;
-		datas[slot].authors = str;
-		datas[slot].description = str;
-		datas[slot].edition = str;
-		datas[slot].location = str;
-		strings.IncrementRef(str);
-		strings.IncrementRef(str);
-		strings.IncrementRef(str);
-		strings.IncrementRef(str);
-		strings.IncrementRef(str);
 		return slot;
 	};
 	if (!availableSlots.empty())
 	{
-		u32 result = fillSlot(availableSlots.front());
-		std::copy(availableSlots.data() + 1, availableSlots.data() + availableSlots.size(), availableSlots.data());
+		u32 result = fillSlot(availableSlots.back());
 		availableSlots.pop_back();
 		return result;
 	}
@@ -57,10 +45,11 @@ void DataBase::DeleteEntry(u32 index)
 	{
 		if (value == index) return;
 	}
+	datas[index] = DataBaseEntry();
 	availableSlots.push_back(index);
 }
 
-const DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
+DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
 {
 	return datas[index];
 }
@@ -71,7 +60,7 @@ std::vector<u32> DataBase::GetEntriesByName(const std::wstring& name)
 	std::vector<u32> out;
 	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].name)), regexSearch))
+		if (std::regex_search(Utils::ToLower(datas[i].name), regexSearch))
 		{
 			out.push_back(i);
 		}
@@ -85,7 +74,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByAuthor(const std::wstring&
 	std::vector<u32> out;
 	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].authors)), regexSearch))
+		if (std::regex_search(Utils::ToLower(datas[i].authors), regexSearch))
 		{
 			out.push_back(i);
 		}
@@ -99,7 +88,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByLocation(const std::wstrin
 	std::vector<u32> out;
 	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].location)), regexSearch))
+		if (std::regex_search(Utils::ToLower(datas[i].location), regexSearch))
 		{
 			out.push_back(i);
 		}
@@ -113,7 +102,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByEdition(const std::wstring
 	std::vector<u32> out;
 	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].edition)), regexSearch))
+		if (std::regex_search(Utils::ToLower(datas[i].edition), regexSearch))
 		{
 			out.push_back(i);
 		}
@@ -127,7 +116,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByDescription(const std::wst
 	std::vector<u32> out;
 	for (u32 i = 0; i < datas.size(); ++i)
 	{
-		if (std::regex_search(Utils::ToLower(strings.GetString(datas[i].description)), regexSearch))
+		if (std::regex_search(Utils::ToLower(datas[i].description), regexSearch))
 		{
 			out.push_back(i);
 		}
@@ -148,10 +137,10 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByTimeStamp(s64 lower, s64 u
 std::vector<u32> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags)
 {
 	std::vector<u32> result;
-	for (u32 i = 0; i < datas.size(); ++i)
+	for (u32 i = 0; i < (u32)datas.size(); ++i)
 	{
-		bool entryAdded = true;
-		for (auto tag : tags.GetTagList(datas[i].tags))
+		bool entryAdded = false;
+		for (u32 tag: datas[i].tags)
 		{
 			entryAdded = requireAllTags;
 			for (auto id : tagList)
@@ -179,66 +168,6 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32
 		if (requireAllTags && entryAdded) result.push_back(i);
 	}
 	return result;
-}
-
-void DataStructure::DataBase::SetEntryName(u32 entry, const std::wstring& name)
-{
-	assert(entry < datas.size());
-	auto& e = datas[entry];
-	strings.DecrementRef(e.name);
-	e.name = strings.FindOrCreateString(name);
-	strings.IncrementRef(e.name);
-}
-
-void DataStructure::DataBase::SetEntryAuthor(u32 entry, const std::wstring& name)
-{
-	assert(entry < datas.size());
-	auto& e = datas[entry];
-	strings.DecrementRef(e.authors);
-	e.authors = strings.FindOrCreateString(name);
-	strings.IncrementRef(e.authors);
-}
-
-void DataStructure::DataBase::SetEntryLocation(u32 entry, const std::wstring& name)
-{
-	assert(entry < datas.size());
-	auto& e = datas[entry];
-	strings.DecrementRef(e.location);
-	e.location = strings.FindOrCreateString(name);
-	strings.IncrementRef(e.location);
-}
-
-void DataStructure::DataBase::SetEntryEdition(u32 entry, const std::wstring& name)
-{
-	assert(entry < datas.size());
-	auto& e = datas[entry];
-	strings.DecrementRef(e.edition);
-	e.edition = strings.FindOrCreateString(name);
-	strings.IncrementRef(e.edition);
-}
-
-void DataStructure::DataBase::SetEntryDescrition(u32 entry, const std::wstring& name)
-{
-	assert(entry < datas.size());
-	auto& e = datas[entry];
-	strings.DecrementRef(e.description);
-	e.description = strings.FindOrCreateString(name);
-	strings.IncrementRef(e.description);
-}
-
-void DataStructure::DataBase::SetEntryTimeStamp(u32 entry, s64 timeStamp)
-{
-	assert(entry < datas.size());
-	datas[entry].date = timeStamp;
-}
-
-void DataStructure::DataBase::SetEntryTags(u32 entry, const std::vector<u32>& tagList)
-{
-	assert(entry < datas.size());
-	auto& e = datas[entry];
-	tags.DecrementRef(e.tags);
-	e.tags = tags.FindOrCreateTagList(tagList);
-	tags.IncrementRef(e.tags);
 }
 
 s64 DataStructure::DataBase::TimeStampFromDate(const Date& dateIn)
@@ -287,6 +216,7 @@ const std::wstring bufs[] =
 	L"Seema Balls",
 	L"E-TMA",
 	L"Médo",
+	L"Maween",
 };
 
 std::wstring generateString(u32 stringsize)
@@ -308,30 +238,12 @@ void DataStructure::DataBase::CreateRandomEntries(u64 count)
 {
 	for (u64 i = 0; i < count; ++i)
 	{
-		u32 entry = PushEntry();
-		SetEntryAuthor(entry, generateString(16));
-		SetEntryName(entry, generateString(16));
-		SetEntryDescrition(entry, generateString(128));
-		SetEntryLocation(entry, generateString(32));
-		SetEntryEdition(entry, generateString(16));
-		SetEntryTimeStamp(entry, time(nullptr) + (rand() - RAND_MAX/2));
-	}
-}
-
-void DataBase::ReferenceStrings()
-{
-	for (auto& entry : datas)
-	{
-		strings.IncrementRef(entry.name);
-		strings.IncrementRef(entry.authors);
-		strings.IncrementRef(entry.description);
-	}
-}
-
-void DataStructure::DataBase::ReferenceTags()
-{
-	for (auto& entry : datas)
-	{
-		tags.IncrementRef(entry.tags);
+		auto& entry = GetEntryByIndex(CreateEntry());
+		entry.authors = generateString(16);
+		entry.name = generateString(16);
+		entry.description = generateString(128);
+		entry.location = generateString(32);
+		entry.edition = generateString(16);
+		entry.date = time(nullptr) + (rand() - RAND_MAX/2);
 	}
 }

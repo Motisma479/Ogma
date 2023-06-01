@@ -5,7 +5,6 @@
 
 #include "Core/Types.hpp"
 #include "DataBaseEntry.hpp"
-#include "StringsHolder.hpp"
 #include "TagManager.hpp"
 
 namespace Parsing
@@ -40,19 +39,11 @@ namespace DataStructure
 
 		static void Delete();
 
-		u32 PushEntry();
+		u32 CreateEntry();
 
 		void DeleteEntry(u32 index);
 
-		const DataBaseEntry& GetEntryByIndex(u32 index);
-
-		void SetEntryName(u32 entry, const std::wstring& name);
-		void SetEntryAuthor(u32 entry, const std::wstring& name);
-		void SetEntryLocation(u32 entry, const std::wstring& name);
-		void SetEntryEdition(u32 entry, const std::wstring& name);
-		void SetEntryDescrition(u32 entry, const std::wstring& name);
-		void SetEntryTimeStamp(u32 entry, s64 timeStamp);
-		void SetEntryTags(u32 entry, const std::vector<u32>& tagList);
+		DataBaseEntry& GetEntryByIndex(u32 index);
 
 		std::vector<u32> GetEntriesByName(const std::wstring& name);
 		std::vector<u32> GetEntriesByAuthor(const std::wstring& author);
@@ -66,7 +57,6 @@ namespace DataStructure
 		s64 TimeStampFromDate(const Date& dateIn);
 		Date DateFromTimeStamp(s64 tmIn);
 
-		StringsHolder strings;
 		TagManager tags;
 		// TODO Remove
 		void CreateRandomEntries(u64 count);
@@ -75,9 +65,6 @@ namespace DataStructure
 		static DataBase* dataBase;
 		std::vector<DataBaseEntry> datas;
 		std::vector<u32> availableSlots;
-
-		void ReferenceStrings();
-		void ReferenceTags();
 
 		friend Parsing::FileParser;
 	};
