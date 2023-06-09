@@ -45,6 +45,7 @@ namespace DataStructure
 
 		DataBaseEntry& GetEntryByIndex(u32 index);
 
+		std::vector<u32> GetEntries();
 		std::vector<u32> GetEntriesByName(const std::wstring& name);
 		std::vector<u32> GetEntriesByAuthor(const std::wstring& author);
 		std::vector<u32> GetEntriesByLocation(const std::wstring& location);
@@ -60,12 +61,19 @@ namespace DataStructure
 		TagManager tags;
 		// TODO Remove
 		void CreateRandomEntries(u64 count);
+		// TODO Remove
+		void CreateRandomTags(u64 count);
+		// TODO Remove
+		const std::vector<DataBaseEntry>& GetRawDatas() { return datas; }
 
 	private:
 		static DataBase* dataBase;
 		std::vector<DataBaseEntry> datas;
 		std::vector<u32> availableSlots;
 
+		void OnDeleteTag(u32 index);
+
 		friend Parsing::FileParser;
+		friend TagManager;
 	};
 }

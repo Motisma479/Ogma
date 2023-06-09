@@ -12,17 +12,13 @@ namespace Parsing
 
 namespace DataStructure
 {
+	class DataBase;
+
 	class TagManager
 	{
 	public:
 		TagManager();
 		~TagManager();
-
-		static void Initialize();
-
-		static TagManager& Get() { return *tagManager; }
-
-		static void Delete();
 
 		u32 AddTag(const std::wstring& tag);
 
@@ -31,8 +27,8 @@ namespace DataStructure
 
 		bool IsTagValid(u32 index);
 
-		void RemoveTag(const std::wstring& tag);
-		void RemoveTag(u32 index);
+		// Warning : this will remove the tag AND update all of the database to remove the tag of all files, which can take a large amount of time
+		void RemoveTag(u32 index, DataBase& dataBase);
 
 		std::vector<Tag> GetTagsByName(const std::wstring& tag);
 
@@ -40,7 +36,6 @@ namespace DataStructure
 	private:
 		std::vector<Tag> tags;
 		std::vector<u32> availableSlots;
-		static TagManager* tagManager;
 
 		friend Parsing::FileParser;
 	};

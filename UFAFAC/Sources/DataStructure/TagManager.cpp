@@ -3,10 +3,9 @@
 #include <assert.h>
 
 #include "Utils.h"
+#include "DataStructure/DataBase.hpp"
 
 using namespace DataStructure;
-
-TagManager* TagManager::tagManager;
 
 TagManager::TagManager()
 {
@@ -14,16 +13,6 @@ TagManager::TagManager()
 
 TagManager::~TagManager()
 {
-}
-
-void TagManager::Initialize()
-{
-	tagManager = new TagManager();
-}
-
-void TagManager::Delete()
-{
-	delete tagManager;
 }
 
 bool TagManager::IsTagValid(u32 index)
@@ -60,23 +49,12 @@ u32 TagManager::AddTag(const std::wstring& tag)
 	return (u32)tags.size() - 1;
 }
 
-void TagManager::RemoveTag(const std::wstring& tag)
+void TagManager::RemoveTag(u32 index, DataBase& dataBase)
 {
-	u32 result = FindTag(tag);
-	if (result != ~0u)
-	{
-		availableSlots.push_back(result);
-		tags[result] = std::move(Tag(L""));
-	}
-}
-
-void TagManager::RemoveTag(u32 index)
-{
-	if (IsTagValid(index))
-	{
-		availableSlots.push_back(index);
-		tags[index] = std::move(Tag(L""));
-	}
+	if (!IsTagValid(index)) return;
+	availableSlots.push_back(index);
+	tags[index] = std::move(Tag(L""));
+	dataBase.OnDeleteTag(index);
 }
 
 std::vector<Tag> TagManager::GetTagsByName(const std::wstring& tag)

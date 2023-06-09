@@ -56,9 +56,6 @@
     <ClInclude Include="Headers\DataStructure\Data.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\DataStructure\File.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\DataStructure\Tag.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

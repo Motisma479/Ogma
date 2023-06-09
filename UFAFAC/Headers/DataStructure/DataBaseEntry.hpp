@@ -5,7 +5,6 @@
 
 #include "Core/Types.hpp"
 #include "Tag.h"
-#include "File.h"
 
 namespace DataStructure
 {
@@ -23,7 +22,7 @@ namespace DataStructure
 		std::wstring location = L"";
 		std::vector<u32> tags = {};
 		s64 date = -1;
-		std::vector<File*> files;
+		std::vector<std::wstring> files;
 	private:
 
 	};

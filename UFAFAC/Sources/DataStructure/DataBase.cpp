@@ -34,7 +34,7 @@ u32 DataBase::CreateEntry()
 		availableSlots.pop_back();
 		return result;
 	}
-	datas.push_back(DataStructure::DataBaseEntry());
+	datas.push_back(DataBaseEntry());
 	return fillSlot(static_cast<u32>(datas.size() - 1));
 }
 
@@ -54,6 +54,26 @@ DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
 	return datas[index];
 }
 
+std::vector<u32> DataStructure::DataBase::GetEntries()
+{
+	std::vector<u32> out;
+	for (u32 i = 0; i < datas.size(); ++i)
+	{
+		bool found = false;
+		for (u32 j = 0; j < availableSlots.size(); ++j)
+		{
+			if (availableSlots[j] == i)
+			{
+				found = true;
+				break;
+			}
+		}
+		if (found) continue;
+		out.push_back(i);
+	}
+	return out;
+}
+
 std::vector<u32> DataBase::GetEntriesByName(const std::wstring& name)
 {
 	std::wregex regexSearch(Utils::ToLower(name));
@@ -68,7 +88,7 @@ std::vector<u32> DataBase::GetEntriesByName(const std::wstring& name)
 	return out;
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntriesByAuthor(const std::wstring& author)
+std::vector<u32> DataBase::GetEntriesByAuthor(const std::wstring& author)
 {
 	std::wregex regexSearch(Utils::ToLower(author));
 	std::vector<u32> out;
@@ -82,7 +102,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByAuthor(const std::wstring&
 	return out;
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntriesByLocation(const std::wstring& location)
+std::vector<u32> DataBase::GetEntriesByLocation(const std::wstring& location)
 {
 	std::wregex regexSearch(Utils::ToLower(location));
 	std::vector<u32> out;
@@ -96,7 +116,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByLocation(const std::wstrin
 	return out;
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntriesByEdition(const std::wstring& edition)
+std::vector<u32> DataBase::GetEntriesByEdition(const std::wstring& edition)
 {
 	std::wregex regexSearch(Utils::ToLower(edition));
 	std::vector<u32> out;
@@ -110,7 +130,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByEdition(const std::wstring
 	return out;
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntriesByDescription(const std::wstring& desc)
+std::vector<u32> DataBase::GetEntriesByDescription(const std::wstring& desc)
 {
 	std::wregex regexSearch(Utils::ToLower(desc));
 	std::vector<u32> out;
@@ -124,7 +144,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByDescription(const std::wst
 	return out;
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntriesByTimeStamp(s64 lower, s64 upper)
+std::vector<u32> DataBase::GetEntriesByTimeStamp(s64 lower, s64 upper)
 {
 	std::vector<u32> result;
 	for (u32 i = 0; i < datas.size(); ++i)
@@ -134,7 +154,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByTimeStamp(s64 lower, s64 u
 	return result;
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags)
+std::vector<u32> DataBase::GetEntriesByTags(const std::vector<u32>& tagList, bool requireAllTags)
 {
 	std::vector<u32> result;
 	for (u32 i = 0; i < (u32)datas.size(); ++i)
@@ -170,7 +190,7 @@ std::vector<u32> DataStructure::DataBase::GetEntriesByTags(const std::vector<u32
 	return result;
 }
 
-s64 DataStructure::DataBase::TimeStampFromDate(const Date& dateIn)
+s64 DataBase::TimeStampFromDate(const Date& dateIn)
 {
 	if (dateIn.year < -2000 || dateIn.year > 6000 || dateIn.month > 12 || dateIn.day > 31) return -1;
 	std::stringstream timeStr; // = "01073-03-16T";
@@ -181,7 +201,7 @@ s64 DataStructure::DataBase::TimeStampFromDate(const Date& dateIn)
 	return std::chrono::duration_cast<std::chrono::seconds>(tp.time_since_epoch()).count();
 }
 
-Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
+Date DataBase::DateFromTimeStamp(s64 tmIn)
 {
 	std::chrono::time_point tp = std::chrono::system_clock::time_point(std::chrono::seconds(tmIn));
 	auto k = std::chrono::duration_cast<date::days>(tp.time_since_epoch());
@@ -191,6 +211,21 @@ Date DataStructure::DataBase::DateFromTimeStamp(s64 tmIn)
 	result.month = (u32)ymd.month();
 	result.day = (u32)ymd.day();
 	return result;
+}
+
+void DataBase::OnDeleteTag(u32 index)
+{
+	for (auto& entry : datas)
+	{
+		for (u64 i = 0; i < entry.tags.size(); ++i)
+		{
+			if (entry.tags[i] == index)
+			{
+				std::copy(&entry.tags[i + 1], &entry.tags[entry.tags.size()], &entry.tags[i]);
+				entry.tags.pop_back();
+			}
+		}
+	}
 }
 
 wchar_t getRandomChar()
@@ -221,7 +256,7 @@ const std::wstring bufs[] =
 
 std::wstring generateString(u32 stringsize)
 {
-	if (rand() < RAND_MAX / 100)
+	if (rand() < RAND_MAX / 2)
 	{
 		return bufs[rand() % (sizeof(bufs) / sizeof(bufs[0]))];
 	}
@@ -234,16 +269,34 @@ std::wstring generateString(u32 stringsize)
 	return result;
 }
 
-void DataStructure::DataBase::CreateRandomEntries(u64 count)
+void DataBase::CreateRandomEntries(u64 count)
 {
+	u32 max = (u32)tags.GetTags().size();
 	for (u64 i = 0; i < count; ++i)
 	{
 		auto& entry = GetEntryByIndex(CreateEntry());
 		entry.authors = generateString(16);
-		entry.name = generateString(16);
-		entry.description = generateString(128);
-		entry.location = generateString(32);
-		entry.edition = generateString(16);
+		entry.name = generateString(32);
+		entry.description = generateString(256);
+		entry.location = generateString(64);
+		entry.edition = generateString(32);
 		entry.date = time(nullptr) + (rand() - RAND_MAX/2);
+		if (rand() < RAND_MAX / 2)
+		{
+			entry.files.push_back(L"C:\\Users\\Amogus\\Sussy_Stuff\\impostor_names.txt");
+		}
+		for (u32 j = 0; j < max; ++j)
+		{
+			if (rand() < RAND_MAX / 2) continue;
+			entry.tags.push_back(j);
+		}
+	}
+}
+
+void DataBase::CreateRandomTags(u64 count)
+{
+	for (u64 i = 0; i < count; ++i)
+	{
+		tags.AddTag(generateString(16));
 	}
 }

@@ -1,12 +1,12 @@
 #include "../Editor.h"
 #include "../Main.h"
 #include "../TagWindow.h"
-#include "DataStructure/TagManager.hpp"
+#include "DataStructure/DataBase.hpp"
 
 void UFAFAC::Editor::LoadAllTags()
 {
 	AllTags_ListBox->Items->Clear();
-	for (auto&& tag : DataStructure::TagManager::Get().GetTags())
+	for (auto&& tag : DataStructure::DataBase::Get().tags.GetTags())
 	{
 		AllTags_ListBox->Items->Add(Utils::StdWStringToSystemString(tag.GetName()));
 	}
@@ -49,7 +49,7 @@ System::Void UFAFAC::Editor::Tag_TextBox_TextChanged(System::Object^ sender, Sys
 void UFAFAC::Editor::UpdateAllTagsListBox(const std::wstring& wtext)
 {
 	AllTags_ListBox->Items->Clear();
-	auto filename = DataStructure::TagManager::Get().GetTagsByName(wtext);
+	auto filename = DataStructure::DataBase::Get().tags.GetTagsByName(wtext);
 	for (auto&& i : filename) {
 		AllTags_ListBox->Items->Add(System::Runtime::InteropServices::Marshal::PtrToStringUni(IntPtr((void*)i.GetName().c_str())));
 	}

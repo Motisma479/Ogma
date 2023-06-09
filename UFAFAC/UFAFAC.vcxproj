@@ -47,7 +47,6 @@
     <ClInclude Include="Headers\DataStructure\Data.h" />
     <ClInclude Include="Headers\DataStructure\DataBase.hpp" />
     <ClInclude Include="Headers\DataStructure\DataBaseEntry.hpp" />
-    <ClInclude Include="Headers\DataStructure\File.h" />
     <ClInclude Include="Headers\DataStructure\Tag.h" />
     <ClInclude Include="Headers\DataStructure\TagManager.hpp" />
     <ClInclude Include="Headers\date.h" />

@@ -8,7 +8,6 @@
 
 using namespace Parsing;
 std::filesystem::path mainFile = std::filesystem::current_path().append("Data/DataBase.bin");
-std::filesystem::path strFile = std::filesystem::current_path().append("Data/Strings.bin");
 std::filesystem::path tagFile = std::filesystem::current_path().append("Data/Tags.bin");
 
 bool FileParser::ReadMainFile(DataStructure::DataBase& dataBase)
@@ -43,7 +42,14 @@ bool FileParser::ReadMainFile(DataStructure::DataBase& dataBase)
 	for (u64 i = 0; i < dataBaseSize; ++i)
 	{
 		DataStructure::DataBaseEntry entry;
-		if (!dr.Read(entry.name) || !dr.Read(entry.description) || !dr.Read(entry.authors) || !dr.Read(entry.tags) || !dr.Read(entry.date)) return false;
+		if (!dr.Read(entry.name) || !dr.Read(entry.description) || !dr.Read(entry.authors) || !dr.Read(entry.tags) || !dr.Read(entry.date)) return exitFunc(false);
+		u64 fileCount = 0;
+		if (!dr.Read(fileCount)) return exitFunc(false);
+		entry.files.resize(fileCount);
+		for (u64 j = 0; j < fileCount; ++j)
+		{
+			if (!dr.Read(entry.files[j])) return exitFunc(false);
+		}
 		dataBase.datas.push_back(std::move(entry));
 	}
 	return exitFunc(true);
@@ -56,11 +62,21 @@ bool FileParser::WriteMainFile(const DataStructure::DataBase& dataBase)
 	sr.Write(dataBase.datas.size());
 	for (u64 i = 0; i < dataBase.datas.size(); i++)
 	{
-		sr.Write(dataBase.datas[i].name);
-		sr.Write(dataBase.datas[i].description);
-		sr.Write(dataBase.datas[i].authors);
-		sr.Write(dataBase.datas[i].tags);
-		sr.Write(dataBase.datas[i].date);
+		auto& entry = dataBase.datas[i];
+		sr.Write(entry.name);
+		sr.Write(entry.description);
+		sr.Write(entry.authors);
+		sr.Write(entry.tags);
+		sr.Write(entry.date);
+		sr.Write(entry.files.size());
+		for (u64 j = 0; j < entry.files.size(); j++)
+		{
+			sr.Write(entry.files[j]);
+		}
+	}
+	if (!std::filesystem::exists(mainFile.parent_path()))
+	{
+		std::filesystem::create_directories(mainFile.parent_path());
 	}
 	std::ofstream file(mainFile, std::ios::binary |std::ios::trunc);
 	if (file.fail())
@@ -119,6 +135,10 @@ bool Parsing::FileParser::WriteTags(const DataStructure::TagManager& tags)
 	for (u64 i = 0; i < tags.tags.size(); i++)
 	{
 		sr.Write(tags.tags[i].name);
+	}
+	if (!std::filesystem::exists(tagFile.parent_path()))
+	{
+		std::filesystem::create_directories(tagFile.parent_path());
 	}
 	std::ofstream file(tagFile, std::ios::binary | std::ios::trunc);
 	if (file.fail())

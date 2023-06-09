@@ -5,6 +5,7 @@
 #include "DataStructure/DataBase.hpp"
 #include "DataStructure/DataBaseEntry.hpp"
 #include "DataStructure/TagManager.hpp"
+#include "Parsing/FileParser.hpp"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -55,8 +56,16 @@ UFAFAC::Main::Main(void)
 	InitializeComponent();
 	this->WindowState = FormWindowState::Maximized;
 	DataStructure::DataBase::Initialize();
-	DataStructure::TagManager::Initialize();
-	DataStructure::DataBase::Get().CreateRandomEntries(5000);
+	auto& dataBase = DataStructure::DataBase::Get();
+	Parsing::FileParser parser;
+	/*
+	parser.ReadTags(dataBase.tags);
+	parser.ReadMainFile(dataBase);
+	*/
+	dataBase.CreateRandomTags(16);
+	dataBase.CreateRandomEntries(16384);
+	parser.WriteMainFile(dataBase);
+	parser.WriteTags(dataBase.tags);
 }
 
 ref class ListBoxItem
@@ -79,7 +88,15 @@ public:
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 {
 	listBox1->Items->Clear();
-	auto fileIds = DataStructure::DataBase::Get().GetEntriesByName(wtext);
+	std::vector<u32> fileIds;
+	if (wtext.size() == 0)
+	{
+		fileIds = DataStructure::DataBase::Get().GetEntries();
+	}
+	else
+	{
+		fileIds = DataStructure::DataBase::Get().GetEntriesByName(wtext);
+	}
 	for (auto&& i : fileIds) {
 		auto file = DataStructure::DataBase::Get().GetEntryByIndex(i);
 		auto string = Utils::StdWStringToSystemString(file.name);
@@ -124,5 +141,4 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
 {
 	DataStructure::DataBase::Delete();
-	DataStructure::TagManager::Delete();
 }
