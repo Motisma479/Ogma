@@ -2,6 +2,7 @@
 #include "../Main.h"
 #include "../TagWindow.h"
 #include "DataStructure/DataBase.hpp"
+#include "Parsing/FileParser.hpp"
 
 void UFAFAC::Editor::LoadAllTags()
 {
@@ -91,4 +92,44 @@ System::Void UFAFAC::Editor::Tag_ListBox_MouseDoubleClick(System::Object^ sender
 System::Void UFAFAC::Editor::JointFilesList_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
 	JointFilesList->Items->Remove(JointFilesList->SelectedItem);
+}
+
+System::Void UFAFAC::Editor::button2_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	auto& dataBase = DataStructure::DataBase::Get();
+	u32 idData = dataBase.CreateEntry();
+	DataStructure::DataBaseEntry& entry = DataStructure::DataBase::Get().GetEntryByIndex(idData);
+
+	entry.name = Utils::SystemStringToStdWString(textBox1->Text);
+
+	entry.authors = Utils::SystemStringToStdWString(textBox2->Text);
+
+	DataStructure::Date date;
+	date.day = static_cast<int>(numericUpDown1->Value);
+	date.month = static_cast<int>(numericUpDown2->Value);
+	date.year = static_cast<int>(numericUpDown3->Value);
+	entry.date = dataBase.TimeStampFromDate(date);
+		
+	entry.edition = Utils::SystemStringToStdWString(textBox3->Text);
+	
+	entry.location = Utils::SystemStringToStdWString(textBox4->Text);
+
+	entry.description = Utils::SystemStringToStdWString(richTextBox1->Text);
+
+	auto& tags = DataStructure::DataBase::Get().tags;
+	for (int i = 0; i < Tag_ListBox->Items->Count; i++)
+	{
+		entry.tags.push_back(tags.FindTag(Utils::SystemStringToStdWString(Tag_ListBox->Items[i]->ToString())));
+	}
+
+	for (int i = 0; i < JointFilesList->Items->Count; i++)
+	{
+		entry.files.push_back(Utils::SystemStringToStdWString(JointFilesList->Items[i]->ToString()));
+	}
+
+	Parsing::FileParser parser;
+	parser.WriteMainFile(dataBase);
+	parser.WriteTags(dataBase.tags);
+
+	Hide();
 }

@@ -134,7 +134,10 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 
 	//TODO
 	//Change deez line by the actual stuff.
-	viewer->SetAttachedFiles("The_TEST"); 
+	for (size_t i = 0; i < entry.files.size(); i++)
+	{
+		viewer->SetAttachedFiles(Utils::StdWStringToSystemString(entry.files[i]));
+	}
 	/*viewer->SetDescription(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.files)));*/
 }
 

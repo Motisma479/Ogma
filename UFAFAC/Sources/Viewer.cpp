@@ -56,8 +56,8 @@ System::Void UFAFAC::Viewer::Viewer_Load(System::Object^ sender, System::EventAr
 {
 
 	//Debug
-	auto path = std::filesystem::current_path().wstring();
+	/*auto path = std::filesystem::current_path().wstring();
 	path = path.substr(0, path.find_last_of('\\')) + L"/UFAFAC.sln";
 	auto string = Utils::StdWStringToSystemString(path);
-	AttachedFiles_ListBox->Items->Add(string);
+	AttachedFiles_ListBox->Items->Add(string);*/
 }
