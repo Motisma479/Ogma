@@ -33,6 +33,7 @@
     <ClCompile Include="Sources\Main.cpp" />
     <ClCompile Include="Sources\Parsing\Conversion.cpp" />
     <ClCompile Include="Sources\Parsing\Deserializer.cpp" />
+    <ClCompile Include="Sources\Parsing\FileCompressor.cpp" />
     <ClCompile Include="Sources\Parsing\FileParser.cpp" />
     <ClCompile Include="Sources\Parsing\Serializer.cpp" />
     <ClCompile Include="Sources\Utils.cpp" />
@@ -53,6 +54,7 @@
     <ClInclude Include="Headers\IsEditor.hpp" />
     <ClInclude Include="Headers\Parsing\Conversion.hpp" />
     <ClInclude Include="Headers\Parsing\Deserializer.hpp" />
+    <ClInclude Include="Headers\Parsing\FileCompressor.hpp" />
     <ClInclude Include="Headers\Parsing\FileParser.hpp" />
     <ClInclude Include="Headers\Parsing\Serializer.hpp" />
     <ClInclude Include="Headers\Utils.h" />
