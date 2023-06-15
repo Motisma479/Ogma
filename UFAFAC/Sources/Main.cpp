@@ -121,6 +121,8 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 	listBox1->Items->Clear();
 	std::vector<u32> fileIds;
 
+	this->button2->Text = Utils::StdWStringToSystemString(wtext);
+
 	std::wstring filterValue = Utils::SystemStringToStdWString(FilterComboBox->Text);
 	FilterMode filter = StringToFilter(filterValue);
 
@@ -138,8 +140,22 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 		case FilterMode::Author:
 			fileIds = DataStructure::DataBase::Get().GetEntriesByAuthor(wtext);
 			break;
-		case FilterMode::Date:
+		case FilterMode::Date: {
+			DataStructure::DataBase& dataBase = DataStructure::DataBase::Get();
+			DataStructure::Date fromDate;
+			DataStructure::Date toDate;
+			fromDate.day = static_cast<int>(FromDateDay->Value);
+			fromDate.month = static_cast<int>(FromDateMonth->Value);
+			fromDate.year = static_cast<int>(FromDateYear->Value);
+			toDate.day = static_cast<int>(ToDateDay->Value);
+			toDate.month = static_cast<int>(ToDateMonth->Value);
+			toDate.year = static_cast<int>(ToDateYear->Value);
+
+			auto date1 = dataBase.TimeStampFromDate(fromDate);
+			auto date2 = dataBase.TimeStampFromDate(toDate);
+			fileIds = DataStructure::DataBase::Get().GetEntriesByTimeStamp(date1, date2);
 			break;
+		}
 		case FilterMode::Edition:
 			fileIds = DataStructure::DataBase::Get().GetEntriesByEdition(wtext);
 			break;
@@ -212,7 +228,32 @@ System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Wind
 
 System::Void UFAFAC::Main::FilterComboBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e)
 {
-
+	std::wstring filterValue = Utils::SystemStringToStdWString(FilterComboBox->Text);
+	FilterMode filter = StringToFilter(filterValue);
+	if (filter == FilterMode::Date)
+	{
+		textBox1->Hide();
+		FromDateDay->Show();
+		ToDateDay->Show();
+		FromDateMonth->Show();
+		ToDateMonth->Show();
+		FromDateYear->Show();
+		ToDateYear->Show();
+		FromText->Show();
+		ToText->Show();
+	}
+	else
+	{
+		textBox1->Show();
+		FromDateDay->Hide();
+		ToDateDay->Hide();
+		FromDateMonth->Hide();
+		ToDateMonth->Hide();
+		FromDateYear->Hide();
+		ToDateYear->Hide();
+		FromText->Hide();
+		ToText->Hide();
+	}
 }
 
 System::Void UFAFAC::Main::textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e)
@@ -230,10 +271,34 @@ System::Void UFAFAC::Main::textBox1_KeyPress(System::Object^ sender, System::Win
 System::Void UFAFAC::Main::textBox1_Enter(System::Object^ sender, System::EventArgs^ e)
 {
 	listBox1->Show();
-	/*UpdateListBox(L"");*/
 }
 
-System::Void UFAFAC::Main::textBox1_Leave(System::Object^ sender, System::EventArgs^ e)
+System::Void UFAFAC::Main::FromDateYear_ValueChanged(System::Object^ sender, System::EventArgs^ e)
 {
-	//listBox1->Hide();
+	UpdateListBox(L"Time");
+}
+
+System::Void UFAFAC::Main::FromDateMonth_ValueChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	UpdateListBox(L"Time");
+}
+
+System::Void UFAFAC::Main::FromDateDay_ValueChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	UpdateListBox(L"Time");
+}
+
+System::Void UFAFAC::Main::ToDateYear_ValueChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	UpdateListBox(L"Time");
+}
+
+System::Void UFAFAC::Main::ToDateMonth_ValueChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	UpdateListBox(L"Time");
+}
+
+System::Void UFAFAC::Main::ToDateDay_ValueChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	UpdateListBox(L"Time");
 }
