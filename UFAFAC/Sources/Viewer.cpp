@@ -43,6 +43,11 @@ void UFAFAC::Viewer::SetAttachedFiles(System::String^ file)
 		this->AttachedFiles_ListBox->Items->Add(file);
 }
 
+void UFAFAC::Viewer::SetTags(System::String^ file)
+{
+	this->Tags_listBox->Items->Add(file);
+}
+
 System::Void UFAFAC::Viewer::AttachedFiles_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
 	auto value = ((System::String^)AttachedFiles_ListBox->SelectedItem);
@@ -61,4 +66,12 @@ System::Void UFAFAC::Viewer::Viewer_Load(System::Object^ sender, System::EventAr
 	path = path.substr(0, path.find_last_of('\\')) + L"/UFAFAC.sln";
 	auto string = Utils::StdWStringToSystemString(path);
 	AttachedFiles_ListBox->Items->Add(string);*/
+}
+
+System::Void UFAFAC::Viewer::Edit_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	Close();
+	
+	editor = gcnew ref class Editor(selected);
+	editor->Show();
 }

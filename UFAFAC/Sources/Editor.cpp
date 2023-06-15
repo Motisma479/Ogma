@@ -1,8 +1,36 @@
 #include "../Editor.h"
 #include "../Main.h"
 #include "../TagWindow.h"
+#include <Windows.h>
 #include "DataStructure/DataBase.hpp"
 #include "Parsing/FileParser.hpp"
+
+UFAFAC::Editor::Editor(DataStructure::DataBaseEntry* _selected)
+{
+	InitializeComponent();
+
+	selected = _selected;
+
+	textBox1->Text = Utils::StdWStringToSystemString(_selected->name);
+	textBox2->Text = Utils::StdWStringToSystemString(_selected->authors);
+
+	numericUpDown1->Value = DataStructure::DataBase::Get().DateFromTimeStamp(_selected->date).day;
+	numericUpDown2->Value = DataStructure::DataBase::Get().DateFromTimeStamp(_selected->date).month;
+	numericUpDown3->Value = DataStructure::DataBase::Get().DateFromTimeStamp(_selected->date).year;
+
+	textBox3->Text = Utils::StdWStringToSystemString(_selected->edition);
+	textBox4->Text = Utils::StdWStringToSystemString(_selected->location);
+	richTextBox1->Text = Utils::StdWStringToSystemString(_selected->description);
+	for (size_t i = 0; i < _selected->files.size(); i++)
+	{
+		JointFilesList->Items->Add(Utils::StdWStringToSystemString(_selected->files[i]));
+	}
+	std::vector<::Tag>& tags = DataStructure::DataBase::Get().tags.GetTags();
+	for (size_t i = 0; i < _selected->tags.size(); i++)
+	{
+		Tag_ListBox->Items->Add(Utils::StdWStringToSystemString(tags[_selected->tags[i]].GetName()));
+	}
+}
 
 void UFAFAC::Editor::LoadAllTags()
 {
@@ -97,9 +125,11 @@ System::Void UFAFAC::Editor::JointFilesList_MouseDoubleClick(System::Object^ sen
 System::Void UFAFAC::Editor::button2_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	auto& dataBase = DataStructure::DataBase::Get();
-	u32 idData = dataBase.CreateEntry();
-	DataStructure::DataBaseEntry& entry = DataStructure::DataBase::Get().GetEntryByIndex(idData);
-
+	u32 idData;
+	if (selected == nullptr)
+		idData = dataBase.CreateEntry();
+	DataStructure::DataBaseEntry& entry = selected == nullptr ? DataStructure::DataBase::Get().GetEntryByIndex(idData) : *selected;
+	//dataBase.
 	entry.name = Utils::SystemStringToStdWString(textBox1->Text);
 
 	entry.authors = Utils::SystemStringToStdWString(textBox2->Text);
@@ -127,7 +157,15 @@ System::Void UFAFAC::Editor::button2_Click(System::Object^ sender, System::Event
 		entry.files.push_back(Utils::SystemStringToStdWString(JointFilesList->Items[i]->ToString()));
 	}
 
-	Parsing::FileParser::SaveToFile(dataBase);
 
-	Hide();
+	if (entry.name.size() > 0)
+	{
+		Parsing::FileParser::SaveToFile(dataBase);
+
+		Hide();
+	}
+	else
+	{
+		::MessageBox(static_cast<HWND>(Handle.ToPointer()), L"Veuillez donner un nom au document.", L"Attention", MB_OK | MB_ICONWARNING);
+	}
 }

@@ -25,6 +25,10 @@ namespace UFAFAC {
 			//TODO: ajoutez ici le code du constructeur
 			//
 		}
+
+		Editor(DataStructure::DataBaseEntry* selected);
+		DataStructure::DataBaseEntry* selected;
+
 		Main^ mainForm;
 		ref class TagWindow^ tagWindow;
 
@@ -325,16 +329,20 @@ namespace UFAFAC {
 			// 
 			// richTextBox1
 			// 
+			this->richTextBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->richTextBox1->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
 			this->richTextBox1->Location = System::Drawing::Point(20, 306);
 			this->richTextBox1->Margin = System::Windows::Forms::Padding(2);
 			this->richTextBox1->Name = L"richTextBox1";
-			this->richTextBox1->Size = System::Drawing::Size(424, 175);
+			this->richTextBox1->Size = System::Drawing::Size(516, 189);
 			this->richTextBox1->TabIndex = 18;
 			this->richTextBox1->Text = L"";
 			// 
 			// AddFile_Button
 			// 
+			this->AddFile_Button->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->AddFile_Button->BackColor = System::Drawing::SystemColors::ActiveCaption;
 			this->AddFile_Button->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
 			this->AddFile_Button->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
@@ -349,11 +357,13 @@ namespace UFAFAC {
 			// 
 			// JointFilesList
 			// 
+			this->JointFilesList->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->JointFilesList->FormattingEnabled = true;
 			this->JointFilesList->Location = System::Drawing::Point(20, 507);
 			this->JointFilesList->Margin = System::Windows::Forms::Padding(2);
 			this->JointFilesList->Name = L"JointFilesList";
-			this->JointFilesList->Size = System::Drawing::Size(487, 134);
+			this->JointFilesList->Size = System::Drawing::Size(516, 134);
 			this->JointFilesList->TabIndex = 20;
 			this->JointFilesList->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Editor::JointFilesList_MouseDoubleClick);
 			// 
@@ -397,7 +407,8 @@ namespace UFAFAC {
 			// 
 			// AllTags_ListBox
 			// 
-			this->AllTags_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->AllTags_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->AllTags_ListBox->FormattingEnabled = true;
 			this->AllTags_ListBox->Location = System::Drawing::Point(548, 104);
 			this->AllTags_ListBox->Margin = System::Windows::Forms::Padding(2);
@@ -408,7 +419,8 @@ namespace UFAFAC {
 			// 
 			// Tag_ListBox
 			// 
-			this->Tag_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->Tag_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->Tag_ListBox->FormattingEnabled = true;
 			this->Tag_ListBox->Location = System::Drawing::Point(844, 65);
 			this->Tag_ListBox->Margin = System::Windows::Forms::Padding(2);
