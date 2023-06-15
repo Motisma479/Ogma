@@ -33,7 +33,7 @@ System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::
 
 System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	ShellExecute(0, 0, L"https://github.com/Motisma479/UFAFAC", 0, 0, SW_SHOW);
+	ShellExecute(0, 0, L"https://github.com/Motisma479/UFAFAC/wiki", 0, 0, SW_SHOW);
 }
 
 System::Void UFAFAC::Main::saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
