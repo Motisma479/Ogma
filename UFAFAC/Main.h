@@ -43,6 +43,9 @@ namespace UFAFAC {
 	private: System::Windows::Forms::NumericUpDown^ ToDateDay;
 	private: System::Windows::Forms::Label^ FromText;
 	private: System::Windows::Forms::Label^ ToText;
+	private: System::Windows::Forms::ListBox^ Tag_ListBox;
+	private: System::Windows::Forms::ListBox^ AllTags_ListBox;
+	private: System::Windows::Forms::TextBox^ Tag_TextBox;
 
 
 
@@ -102,6 +105,9 @@ namespace UFAFAC {
 			this->ToDateDay = (gcnew System::Windows::Forms::NumericUpDown());
 			this->FromText = (gcnew System::Windows::Forms::Label());
 			this->ToText = (gcnew System::Windows::Forms::Label());
+			this->Tag_ListBox = (gcnew System::Windows::Forms::ListBox());
+			this->AllTags_ListBox = (gcnew System::Windows::Forms::ListBox());
+			this->Tag_TextBox = (gcnew System::Windows::Forms::TextBox());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateYear))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateMonth))->BeginInit();
@@ -301,11 +307,47 @@ namespace UFAFAC {
 			this->ToText->TabIndex = 20;
 			this->ToText->Text = L"Jusqu\'à";
 			// 
+			// Tag_ListBox
+			// 
+			this->Tag_ListBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->Tag_ListBox->FormattingEnabled = true;
+			this->Tag_ListBox->Location = System::Drawing::Point(778, 217);
+			this->Tag_ListBox->Margin = System::Windows::Forms::Padding(2);
+			this->Tag_ListBox->Name = L"Tag_ListBox";
+			this->Tag_ListBox->Size = System::Drawing::Size(293, 82);
+			this->Tag_ListBox->TabIndex = 28;
+			this->Tag_ListBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Main::Tag_ListBox_MouseDoubleClick);
+			// 
+			// AllTags_ListBox
+			// 
+			this->AllTags_ListBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->AllTags_ListBox->FormattingEnabled = true;
+			this->AllTags_ListBox->Location = System::Drawing::Point(490, 256);
+			this->AllTags_ListBox->Margin = System::Windows::Forms::Padding(2);
+			this->AllTags_ListBox->Name = L"AllTags_ListBox";
+			this->AllTags_ListBox->Size = System::Drawing::Size(286, 43);
+			this->AllTags_ListBox->TabIndex = 27;
+			this->AllTags_ListBox->DoubleClick += gcnew System::EventHandler(this, &Main::AllTags_ListBox_DoubleClick);
+			// 
+			// Tag_TextBox
+			// 
+			this->Tag_TextBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->Tag_TextBox->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
+			this->Tag_TextBox->Location = System::Drawing::Point(490, 217);
+			this->Tag_TextBox->Margin = System::Windows::Forms::Padding(2);
+			this->Tag_TextBox->Name = L"Tag_TextBox";
+			this->Tag_TextBox->Size = System::Drawing::Size(286, 29);
+			this->Tag_TextBox->TabIndex = 26;
+			this->Tag_TextBox->TextChanged += gcnew System::EventHandler(this, &Main::Tag_TextBox_TextChanged);
+			// 
 			// Main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1585, 757);
+			this->Controls->Add(this->Tag_ListBox);
+			this->Controls->Add(this->AllTags_ListBox);
+			this->Controls->Add(this->Tag_TextBox);
 			this->Controls->Add(this->ToText);
 			this->Controls->Add(this->FromText);
 			this->Controls->Add(this->ToDateYear);
@@ -354,5 +396,9 @@ namespace UFAFAC {
 	private: System::Void ToDateYear_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void ToDateMonth_ValueChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void ToDateDay_ValueChanged(System::Object^ sender, System::EventArgs^ e);
+
+	private: System::Void AllTags_ListBox_DoubleClick(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void Tag_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
+	private: System::Void Tag_TextBox_TextChanged(System::Object^ sender, System::EventArgs^ e);
 	};
 }

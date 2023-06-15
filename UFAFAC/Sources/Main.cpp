@@ -165,9 +165,15 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 		case FilterMode::Description:
 			fileIds = DataStructure::DataBase::Get().GetEntriesByDescription(wtext);
 			break;
-		case FilterMode::Tags:
-			//fileIds = DataStructure::DataBase::Get().GetEntriesByTags(wtext);
+		case FilterMode::Tags: {
+			std::vector<u32> tagsId;
+			for (int i = 0; i < Tag_ListBox->Items->Count; i++)
+			{
+				tagsId.push_back(DataStructure::DataBase::Get().tags.FindTag(Utils::SystemStringToStdWString(Tag_ListBox->Items[i]->ToString())));
+			}
+			fileIds = DataStructure::DataBase::Get().GetEntriesByTags(tagsId, false);
 			break;
+		}
 		default:
 			break;
 		}
@@ -233,6 +239,7 @@ System::Void UFAFAC::Main::FilterComboBox_SelectedIndexChanged(System::Object^ s
 	if (filter == FilterMode::Date)
 	{
 		textBox1->Hide();
+
 		FromDateDay->Show();
 		ToDateDay->Show();
 		FromDateMonth->Show();
@@ -241,10 +248,13 @@ System::Void UFAFAC::Main::FilterComboBox_SelectedIndexChanged(System::Object^ s
 		ToDateYear->Show();
 		FromText->Show();
 		ToText->Show();
+		Tag_ListBox->Hide();
+		AllTags_ListBox->Hide();
+		Tag_TextBox->Hide();
 	}
-	else
+	else if (filter == FilterMode::Tags)
 	{
-		textBox1->Show();
+		textBox1->Hide();
 		FromDateDay->Hide();
 		ToDateDay->Hide();
 		FromDateMonth->Hide();
@@ -253,6 +263,32 @@ System::Void UFAFAC::Main::FilterComboBox_SelectedIndexChanged(System::Object^ s
 		ToDateYear->Hide();
 		FromText->Hide();
 		ToText->Hide();
+
+		Tag_ListBox->Show();
+		AllTags_ListBox->Show();
+		Tag_TextBox->Show();
+
+		AllTags_ListBox->Items->Clear();
+		for (auto&& tag : DataStructure::DataBase::Get().tags.GetTags())
+		{
+			AllTags_ListBox->Items->Add(Utils::StdWStringToSystemString(tag.GetName()));
+		}
+	}
+	else
+	{
+		FromDateDay->Hide();
+		ToDateDay->Hide();
+		FromDateMonth->Hide();
+		ToDateMonth->Hide();
+		FromDateYear->Hide();
+		ToDateYear->Hide();
+		FromText->Hide();
+		ToText->Hide();
+		Tag_ListBox->Hide();
+		AllTags_ListBox->Hide();
+		Tag_TextBox->Hide();
+
+		textBox1->Show();
 	}
 }
 
@@ -301,4 +337,31 @@ System::Void UFAFAC::Main::ToDateMonth_ValueChanged(System::Object^ sender, Syst
 System::Void UFAFAC::Main::ToDateDay_ValueChanged(System::Object^ sender, System::EventArgs^ e)
 {
 	UpdateListBox(L"Time");
+}
+
+System::Void UFAFAC::Main::AllTags_ListBox_DoubleClick(System::Object^ sender, System::EventArgs^ e)
+{
+	if (!Tag_ListBox->Items->Contains(AllTags_ListBox->SelectedItem))
+		Tag_ListBox->Items->Add(AllTags_ListBox->SelectedItem);
+
+	UpdateListBox(L"Tags");
+}
+
+System::Void UFAFAC::Main::Tag_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
+{
+	Tag_ListBox->Items->Remove(Tag_ListBox->SelectedItem);
+	UpdateListBox(L"Tags");
+}
+
+System::Void UFAFAC::Main::Tag_TextBox_TextChanged(System::Object^ sender, System::EventArgs^ e)
+{
+
+	TextBox^ value = ((TextBox^)sender);
+	auto wtext = Utils::SystemStringToStdWString(value->Text);
+
+	AllTags_ListBox->Items->Clear();
+	auto filename = DataStructure::DataBase::Get().tags.GetTagsByName(wtext);
+	for (auto&& i : filename) {
+		AllTags_ListBox->Items->Add(System::Runtime::InteropServices::Marshal::PtrToStringUni(IntPtr((void*)i.GetName().c_str())));
+	}
 }
