@@ -38,8 +38,10 @@ System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, S
 
 System::Void UFAFAC::Main::saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	auto& dataBase = DataStructure::DataBase::Get();
+	Parsing::FileParser::SaveToFile(dataBase);
 	Parsing::Serializer sr;
-	Parsing::FileParser::WriteMainFile(DataStructure::DataBase::Get(), sr);
+	Parsing::FileParser::WriteMainFile(dataBase, sr);
 	time_t timeLocal;
 	struct tm dateTime;
 	char text[64];
@@ -52,7 +54,14 @@ System::Void UFAFAC::Main::saveToolStripMenuItem_Click(System::Object^ sender, S
 		name.push_back(text[i]);
 	}
 	name.append(L".zip");
-	Parsing::FileCompressor::CompressToFile(sr, name);
+	if (Parsing::FileCompressor::CompressToFile(sr, name))
+	{
+		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"Fichier sauvegardé en tant que \"" + name + L"\".").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
+	}
+	else
+	{
+		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"le fichier \"" + name + L"\" n'a pas pu être sauvegardé.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
+	}
 }
 
 System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
@@ -111,13 +120,13 @@ UFAFAC::Main::Main(void)
 	this->WindowState = FormWindowState::Maximized;
 	DataStructure::DataBase::Initialize();
 	auto& dataBase = DataStructure::DataBase::Get();
+	FilterComboBox->SelectedIndex = 0;
 	
 	if (Parsing::FileParser::ReadFromFile(dataBase)) return;
 	
 	dataBase.CreateRandomTags(16);
 	dataBase.CreateRandomEntries(16384);
 	Parsing::FileParser::SaveToFile(dataBase);
-	FilterComboBox->SelectedIndex = 0;
 }
 
 ref class ListBoxItem
