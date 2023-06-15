@@ -61,6 +61,7 @@
     <ClInclude Include="Main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Viewer.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -84,6 +85,13 @@
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="DeclareDPIAware.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UFAFAC.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="ICO.ico" />
+    <Image Include="icon1.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
