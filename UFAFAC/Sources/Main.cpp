@@ -53,7 +53,8 @@ System::Void UFAFAC::Main::saveToolStripMenuItem_Click(System::Object^ sender, S
 	{
 		name.push_back(text[i]);
 	}
-	name.append(L".zip");
+	CreateDirectory(L"Backups", NULL);
+	name.append(L".back");
 	if (Parsing::FileCompressor::CompressToFile(sr, name))
 	{
 		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"Fichier sauvegardé en tant que \"" + name + L"\".").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
@@ -73,7 +74,7 @@ System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, S
 	ofn.hwndOwner = static_cast<HWND>(Handle.ToPointer());
 	ofn.lpstrFile = szFile;
 	ofn.nMaxFile = sizeof(szFile);
-	ofn.lpstrFilter = L"*.zip";
+	ofn.lpstrFilter = L"*.back";
 	ofn.nFilterIndex = 1;
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 	if (GetOpenFileNameW(&ofn) == TRUE)
@@ -86,12 +87,24 @@ System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, S
 		}
 		if (viewer)
 		{
+			if (viewer->editor)
+			{
+				viewer->editor->Close();
+			}
 			viewer->Close();
 		}
+		listBox1->Items->Clear();
 		DataStructure::DataBase::Delete();
 		DataStructure::DataBase::Initialize();
 		auto& dataBase = DataStructure::DataBase::Get();
-		Parsing::FileParser::ReadMainFile(dataBase, Parsing::Deserializer(result));
+		if (Parsing::FileParser::ReadMainFile(dataBase, Parsing::Deserializer(result)))
+		{
+			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"Fichier \"") + ofn.lpstrFile + L"\" Chargé avec succès.").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
+		}
+		else
+		{
+			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"le fichier \"") + ofn.lpstrFile + L"\" n'a pas pu être chargé.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
+		}
 	}
 }
 
@@ -260,6 +273,7 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	{
 		editor->Close();
 	}
+	if (listBox1->SelectedItem == nullptr) return;
 	viewer = gcnew ref class Viewer();
 	viewer->mainForm = this;
 	viewer->Show();
