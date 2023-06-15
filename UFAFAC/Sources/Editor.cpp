@@ -146,6 +146,12 @@ System::Void UFAFAC::Editor::button2_Click(System::Object^ sender, System::Event
 
 	entry.description = Utils::SystemStringToStdWString(richTextBox1->Text);
 
+	if (selected != nullptr)
+	{
+		entry.tags.clear();
+		entry.files.clear();
+	}
+
 	auto& tags = DataStructure::DataBase::Get().tags;
 	for (int i = 0; i < Tag_ListBox->Items->Count; i++)
 	{
