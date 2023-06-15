@@ -6,6 +6,7 @@
 #include "DataStructure/DataBaseEntry.hpp"
 #include "DataStructure/TagManager.hpp"
 #include "Parsing/FileParser.hpp"
+#include "DataStructure/Tag.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -207,7 +208,9 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	viewer->Show();
 	sender;
 	viewer->SetWindowName(listBox1->SelectedItem->ToString());
-	DataStructure::DataBaseEntry entry = DataStructure::DataBase::Get().GetEntryByIndex(static_cast<ListBoxItem^>(listBox1->SelectedItem)->ID);
+	DataStructure::DataBaseEntry& entry = DataStructure::DataBase::Get().GetEntryByIndex(static_cast<ListBoxItem^>(listBox1->SelectedItem)->ID);
+	viewer->selected = &entry;
+
 	viewer->SetAuthor(Utils::StdWStringToSystemString(entry.authors));
 
 	viewer->SetDate(DataStructure::DataBase::Get().DateFromTimeStamp(entry.date).ToString());
@@ -218,12 +221,17 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 
 	viewer->SetEmplacement(Utils::StdWStringToSystemString(entry.location));
 
-	//TODO
-	//Change deez line by the actual stuff.
 	for (size_t i = 0; i < entry.files.size(); i++)
 	{
 		viewer->SetAttachedFiles(Utils::StdWStringToSystemString(entry.files[i]));
 	}
+	
+	std::vector<::Tag>& tags = DataStructure::DataBase::Get().tags.GetTags();
+	for (size_t i = 0; i < entry.tags.size(); i++)
+	{
+		viewer->SetTags(Utils::StdWStringToSystemString(tags[entry.tags[i]].GetName()));
+	}
+	
 	/*viewer->SetDescription(Utils::StdWStringToSystemString(DataStructure::DataBase::Get().strings.GetString(entry.files)));*/
 }
 

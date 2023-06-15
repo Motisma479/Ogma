@@ -119,6 +119,7 @@ namespace UFAFAC {
 			// 
 			// menuStrip1
 			// 
+			this->menuStrip1->BackColor = System::Drawing::SystemColors::ControlLightLight;
 			this->menuStrip1->ImageScalingSize = System::Drawing::Size(20, 20);
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
 				this->quiterToolStripMenuItem,
