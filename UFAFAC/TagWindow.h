@@ -108,12 +108,14 @@ namespace UFAFAC {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->AutoSizeMode = System::Windows::Forms::AutoSizeMode::GrowAndShrink;
 			this->ClientSize = System::Drawing::Size(334, 292);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->Delete);
 			this->Controls->Add(this->New);
 			this->Controls->Add(this->listBox1);
 			this->Margin = System::Windows::Forms::Padding(2);
+			this->MaximizeBox = false;
 			this->Name = L"TagWindow";
 			this->Text = L"TagWindow";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &TagWindow::TagWindow_FormClosing);

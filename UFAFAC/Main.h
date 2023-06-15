@@ -128,7 +128,7 @@ namespace UFAFAC {
 			this->menuStrip1->Location = System::Drawing::Point(0, 0);
 			this->menuStrip1->Name = L"menuStrip1";
 			this->menuStrip1->Padding = System::Windows::Forms::Padding(4, 2, 0, 2);
-			this->menuStrip1->Size = System::Drawing::Size(1585, 24);
+			this->menuStrip1->Size = System::Drawing::Size(1021, 24);
 			this->menuStrip1->TabIndex = 0;
 			this->menuStrip1->Text = L"menuStrip1";
 			// 
@@ -148,9 +148,9 @@ namespace UFAFAC {
 			// 
 			// textBox1
 			// 
-			this->textBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->textBox1->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 15));
-			this->textBox1->Location = System::Drawing::Point(490, 273);
+			this->textBox1->Location = System::Drawing::Point(208, 221);
 			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->Size = System::Drawing::Size(580, 30);
@@ -178,25 +178,28 @@ namespace UFAFAC {
 			// 
 			// listBox1
 			// 
-			this->listBox1->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->listBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->listBox1->FormattingEnabled = true;
-			this->listBox1->Location = System::Drawing::Point(490, 304);
+			this->listBox1->Location = System::Drawing::Point(50, 252);
 			this->listBox1->Margin = System::Windows::Forms::Padding(2);
+			this->listBox1->MaximumSize = System::Drawing::Size(6550, 4070);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(580, 108);
+			this->listBox1->Size = System::Drawing::Size(915, 446);
 			this->listBox1->TabIndex = 4;
 			this->listBox1->SelectedValueChanged += gcnew System::EventHandler(this, &Main::listBox1_SelectedValueChanged);
 			// 
 			// FilterComboBox
 			// 
-			this->FilterComboBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->FilterComboBox->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->FilterComboBox->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->FilterComboBox->FormattingEnabled = true;
 			this->FilterComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {
 				L"Nom", L"Auteurs", L"Date", L"Emplacement",
 					L"Edition", L"Description", L"Tags"
 			});
-			this->FilterComboBox->Location = System::Drawing::Point(1075, 278);
+			this->FilterComboBox->Location = System::Drawing::Point(793, 226);
 			this->FilterComboBox->Name = L"FilterComboBox";
 			this->FilterComboBox->Size = System::Drawing::Size(89, 21);
 			this->FilterComboBox->TabIndex = 5;
@@ -204,9 +207,9 @@ namespace UFAFAC {
 			// 
 			// FromDateYear
 			// 
-			this->FromDateYear->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->FromDateYear->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->FromDateYear->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->FromDateYear->Location = System::Drawing::Point(598, 270);
+			this->FromDateYear->Location = System::Drawing::Point(316, 218);
 			this->FromDateYear->Margin = System::Windows::Forms::Padding(2);
 			this->FromDateYear->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 6000, 0, 0, 0 });
 			this->FromDateYear->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000, 0, 0, System::Int32::MinValue });
@@ -217,9 +220,9 @@ namespace UFAFAC {
 			// 
 			// FromDateMonth
 			// 
-			this->FromDateMonth->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->FromDateMonth->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->FromDateMonth->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->FromDateMonth->Location = System::Drawing::Point(544, 270);
+			this->FromDateMonth->Location = System::Drawing::Point(262, 218);
 			this->FromDateMonth->Margin = System::Windows::Forms::Padding(2);
 			this->FromDateMonth->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 12, 0, 0, 0 });
 			this->FromDateMonth->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
@@ -231,9 +234,9 @@ namespace UFAFAC {
 			// 
 			// FromDateDay
 			// 
-			this->FromDateDay->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->FromDateDay->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->FromDateDay->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->FromDateDay->Location = System::Drawing::Point(490, 270);
+			this->FromDateDay->Location = System::Drawing::Point(208, 218);
 			this->FromDateDay->Margin = System::Windows::Forms::Padding(2);
 			this->FromDateDay->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 31, 0, 0, 0 });
 			this->FromDateDay->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
@@ -245,9 +248,9 @@ namespace UFAFAC {
 			// 
 			// ToDateYear
 			// 
-			this->ToDateYear->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->ToDateYear->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->ToDateYear->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->ToDateYear->Location = System::Drawing::Point(997, 270);
+			this->ToDateYear->Location = System::Drawing::Point(715, 218);
 			this->ToDateYear->Margin = System::Windows::Forms::Padding(2);
 			this->ToDateYear->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 6000, 0, 0, 0 });
 			this->ToDateYear->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 2000, 0, 0, System::Int32::MinValue });
@@ -258,9 +261,9 @@ namespace UFAFAC {
 			// 
 			// ToDateMonth
 			// 
-			this->ToDateMonth->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->ToDateMonth->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->ToDateMonth->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->ToDateMonth->Location = System::Drawing::Point(943, 270);
+			this->ToDateMonth->Location = System::Drawing::Point(661, 218);
 			this->ToDateMonth->Margin = System::Windows::Forms::Padding(2);
 			this->ToDateMonth->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 12, 0, 0, 0 });
 			this->ToDateMonth->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
@@ -272,9 +275,9 @@ namespace UFAFAC {
 			// 
 			// ToDateDay
 			// 
-			this->ToDateDay->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->ToDateDay->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->ToDateDay->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->ToDateDay->Location = System::Drawing::Point(889, 270);
+			this->ToDateDay->Location = System::Drawing::Point(607, 218);
 			this->ToDateDay->Margin = System::Windows::Forms::Padding(2);
 			this->ToDateDay->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 31, 0, 0, 0 });
 			this->ToDateDay->Minimum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 1, 0, 0, 0 });
@@ -286,10 +289,10 @@ namespace UFAFAC {
 			// 
 			// FromText
 			// 
-			this->FromText->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->FromText->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->FromText->AutoSize = true;
 			this->FromText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16));
-			this->FromText->Location = System::Drawing::Point(485, 242);
+			this->FromText->Location = System::Drawing::Point(203, 190);
 			this->FromText->Name = L"FromText";
 			this->FromText->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->FromText->Size = System::Drawing::Size(115, 26);
@@ -298,10 +301,10 @@ namespace UFAFAC {
 			// 
 			// ToText
 			// 
-			this->ToText->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->ToText->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->ToText->AutoSize = true;
 			this->ToText->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 16));
-			this->ToText->Location = System::Drawing::Point(985, 242);
+			this->ToText->Location = System::Drawing::Point(703, 190);
 			this->ToText->Name = L"ToText";
 			this->ToText->RightToLeft = System::Windows::Forms::RightToLeft::No;
 			this->ToText->Size = System::Drawing::Size(86, 26);
@@ -310,31 +313,31 @@ namespace UFAFAC {
 			// 
 			// Tag_ListBox
 			// 
-			this->Tag_ListBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->Tag_ListBox->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->Tag_ListBox->FormattingEnabled = true;
-			this->Tag_ListBox->Location = System::Drawing::Point(778, 217);
+			this->Tag_ListBox->Location = System::Drawing::Point(496, 100);
 			this->Tag_ListBox->Margin = System::Windows::Forms::Padding(2);
 			this->Tag_ListBox->Name = L"Tag_ListBox";
-			this->Tag_ListBox->Size = System::Drawing::Size(293, 82);
+			this->Tag_ListBox->Size = System::Drawing::Size(293, 147);
 			this->Tag_ListBox->TabIndex = 28;
 			this->Tag_ListBox->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Main::Tag_ListBox_MouseDoubleClick);
 			// 
 			// AllTags_ListBox
 			// 
-			this->AllTags_ListBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->AllTags_ListBox->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->AllTags_ListBox->FormattingEnabled = true;
-			this->AllTags_ListBox->Location = System::Drawing::Point(490, 256);
+			this->AllTags_ListBox->Location = System::Drawing::Point(208, 139);
 			this->AllTags_ListBox->Margin = System::Windows::Forms::Padding(2);
 			this->AllTags_ListBox->Name = L"AllTags_ListBox";
-			this->AllTags_ListBox->Size = System::Drawing::Size(286, 43);
+			this->AllTags_ListBox->Size = System::Drawing::Size(286, 108);
 			this->AllTags_ListBox->TabIndex = 27;
 			this->AllTags_ListBox->DoubleClick += gcnew System::EventHandler(this, &Main::AllTags_ListBox_DoubleClick);
 			// 
 			// Tag_TextBox
 			// 
-			this->Tag_TextBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->Tag_TextBox->Anchor = System::Windows::Forms::AnchorStyles::Top;
 			this->Tag_TextBox->Font = (gcnew System::Drawing::Font(L"Calibri", 13));
-			this->Tag_TextBox->Location = System::Drawing::Point(490, 217);
+			this->Tag_TextBox->Location = System::Drawing::Point(208, 100);
 			this->Tag_TextBox->Margin = System::Windows::Forms::Padding(2);
 			this->Tag_TextBox->Name = L"Tag_TextBox";
 			this->Tag_TextBox->Size = System::Drawing::Size(286, 29);
@@ -345,7 +348,7 @@ namespace UFAFAC {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1585, 757);
+			this->ClientSize = System::Drawing::Size(1021, 757);
 			this->Controls->Add(this->Tag_ListBox);
 			this->Controls->Add(this->AllTags_ListBox);
 			this->Controls->Add(this->Tag_TextBox);
@@ -364,6 +367,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
 			this->Margin = System::Windows::Forms::Padding(2);
+			this->MinimumSize = System::Drawing::Size(1037, 796);
 			this->Name = L"Main";
 			this->Text = L"Main";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Main::Main_FormClosing);

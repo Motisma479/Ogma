@@ -407,7 +407,8 @@ namespace UFAFAC {
 			// 
 			// AllTags_ListBox
 			// 
-			this->AllTags_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->AllTags_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->AllTags_ListBox->FormattingEnabled = true;
 			this->AllTags_ListBox->Location = System::Drawing::Point(548, 104);
 			this->AllTags_ListBox->Margin = System::Windows::Forms::Padding(2);
@@ -418,7 +419,8 @@ namespace UFAFAC {
 			// 
 			// Tag_ListBox
 			// 
-			this->Tag_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->Tag_ListBox->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->Tag_ListBox->FormattingEnabled = true;
 			this->Tag_ListBox->Location = System::Drawing::Point(844, 65);
 			this->Tag_ListBox->Margin = System::Windows::Forms::Padding(2);

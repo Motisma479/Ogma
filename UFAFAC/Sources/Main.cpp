@@ -122,8 +122,6 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 	listBox1->Items->Clear();
 	std::vector<u32> fileIds;
 
-	this->button2->Text = Utils::StdWStringToSystemString(wtext);
-
 	std::wstring filterValue = Utils::SystemStringToStdWString(FilterComboBox->Text);
 	FilterMode filter = StringToFilter(filterValue);
 
