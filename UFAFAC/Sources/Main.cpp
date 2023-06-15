@@ -1,6 +1,7 @@
 #include "../Main.h"
 #include "../Editor.h"
 #include "../Viewer.h"
+#include <filesystem>
 #include <windows.h>
 #include <shobjidl_core.h>
 #include <string>
@@ -76,6 +77,8 @@ System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, S
 	ofn.nMaxFile = sizeof(szFile);
 	ofn.lpstrFilter = L"*.back";
 	ofn.nFilterIndex = 1;
+	auto string = std::filesystem::current_path().append(L"Backups").wstring();
+	ofn.lpstrInitialDir = string.c_str();
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 	if (GetOpenFileNameW(&ofn) == TRUE)
 	{
