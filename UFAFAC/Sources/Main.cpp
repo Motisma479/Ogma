@@ -1,11 +1,14 @@
 #include "../Main.h"
 #include "../Editor.h"
 #include "../Viewer.h"
+#include <windows.h>
+#include <shobjidl_core.h>
 #include <string>
 #include "DataStructure/DataBase.hpp"
 #include "DataStructure/DataBaseEntry.hpp"
 #include "DataStructure/TagManager.hpp"
 #include "Parsing/FileParser.hpp"
+#include "Parsing/FileCompressor.hpp"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -19,7 +22,6 @@ void main()
 	Application::Run(% form);
 }
 
-
 System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e)
 {
 	TextBox^ value = ((TextBox^)sender);
@@ -30,8 +32,59 @@ System::Void UFAFAC::Main::textBox1_TextChanged(System::Object^ sender, System::
 
 System::Void UFAFAC::Main::aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	//Hide();
+	ShellExecute(0, 0, L"https://github.com/Motisma479/UFAFAC", 0, 0, SW_SHOW);
 }
+
+System::Void UFAFAC::Main::saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	Parsing::Serializer sr;
+	Parsing::FileParser::WriteMainFile(DataStructure::DataBase::Get(), sr);
+	time_t timeLocal;
+	struct tm dateTime;
+	char text[64];
+	std::wstring name = L"Backups\\Database_backup_";
+	_time64(&timeLocal);
+	_localtime64_s(&dateTime, &timeLocal);
+	strftime(text, 64, "%Y_%m_%d-%H_%M_%S", &dateTime);
+	for (u8 i = 0; i < 64 && text[i]; ++i)
+	{
+		name.push_back(text[i]);
+	}
+	name.append(L".zip");
+	Parsing::FileCompressor::CompressToFile(sr, name);
+}
+
+System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	OPENFILENAMEW ofn;
+	WCHAR szFile[1024] = { 0 };
+	ZeroMemory(&ofn, sizeof(OPENFILENAMEW));
+	ofn.lStructSize = sizeof(OPENFILENAMEW);
+	ofn.hwndOwner = static_cast<HWND>(Handle.ToPointer());
+	ofn.lpstrFile = szFile;
+	ofn.nMaxFile = sizeof(szFile);
+	ofn.lpstrFilter = L"*.zip";
+	ofn.nFilterIndex = 1;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+	if (GetOpenFileNameW(&ofn) == TRUE)
+	{
+		std::vector<u8> result;
+		Parsing::FileCompressor::DecompressFromFile(result, ofn.lpstrFile);
+		if (editor)
+		{
+			editor->Close();
+		}
+		if (viewer)
+		{
+			viewer->Close();
+		}
+		DataStructure::DataBase::Delete();
+		DataStructure::DataBase::Initialize();
+		auto& dataBase = DataStructure::DataBase::Get();
+		Parsing::FileParser::ReadMainFile(dataBase, Parsing::Deserializer(result));
+	}
+}
+
 System::Void UFAFAC::Main::button2_Click(System::Object^ sender, System::EventArgs^ e)
 {
 	if (editor)
@@ -57,15 +110,12 @@ UFAFAC::Main::Main(void)
 	this->WindowState = FormWindowState::Maximized;
 	DataStructure::DataBase::Initialize();
 	auto& dataBase = DataStructure::DataBase::Get();
-	Parsing::FileParser parser;
-	/*
-	parser.ReadTags(dataBase.tags);
-	parser.ReadMainFile(dataBase);
-	*/
+	
+	if (Parsing::FileParser::ReadFromFile(dataBase)) return;
+	
 	dataBase.CreateRandomTags(16);
 	dataBase.CreateRandomEntries(16384);
-	parser.WriteMainFile(dataBase);
-	parser.WriteTags(dataBase.tags);
+	Parsing::FileParser::SaveToFile(dataBase);
 }
 
 ref class ListBoxItem
@@ -143,5 +193,6 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 
 System::Void UFAFAC::Main::Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
 {
+	Parsing::FileParser::SaveToFile(DataStructure::DataBase::Get());
 	DataStructure::DataBase::Delete();
 }

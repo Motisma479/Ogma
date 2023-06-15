@@ -170,6 +170,8 @@ namespace UFAFAC {
 	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void loadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e);
 private: System::Void textBox1_Leave(System::Object^ sender, System::EventArgs^ e) {
 	//listBox1->Hide();

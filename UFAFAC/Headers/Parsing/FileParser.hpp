@@ -7,6 +7,9 @@
 
 namespace Parsing
 {
+	class Serializer;
+	class Deserializer;
+
 	class FileParser
 	{
 	public:
@@ -14,16 +17,18 @@ namespace Parsing
 
 		~FileParser() = default;
 
-		bool ReadMainFile(DataStructure::DataBase& dataBase);
+		static bool ReadMainFile(DataStructure::DataBase& dataBase, Deserializer& dr);
 
-		bool WriteMainFile(const DataStructure::DataBase& dataBase);
+		static void WriteMainFile(const DataStructure::DataBase& dataBase, Serializer& sr);
 
-		bool ReadTags(DataStructure::TagManager& tags);
+		static bool ReadFromFile(DataStructure::DataBase& dataBase);
 
-		bool WriteTags(const DataStructure::TagManager& tags);
+		static bool SaveToFile(const DataStructure::DataBase& dataBase);
 
 	private:
+		static bool ReadTags(DataStructure::TagManager& tags, Deserializer& dr);
 
+		static void WriteTags(const DataStructure::TagManager& tags, Serializer& sr);
 	};
 
 }

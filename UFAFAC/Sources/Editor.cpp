@@ -127,9 +127,7 @@ System::Void UFAFAC::Editor::button2_Click(System::Object^ sender, System::Event
 		entry.files.push_back(Utils::SystemStringToStdWString(JointFilesList->Items[i]->ToString()));
 	}
 
-	Parsing::FileParser parser;
-	parser.WriteMainFile(dataBase);
-	parser.WriteTags(dataBase.tags);
+	Parsing::FileParser::SaveToFile(dataBase);
 
 	Hide();
 }
