@@ -389,14 +389,6 @@ namespace UFAFAC {
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void loadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
-private: System::Void listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e);
-private: System::Void textBox1_Leave(System::Object^ sender, System::EventArgs^ e) {
-	//listBox1->Hide();
-}
-private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e) {
-	listBox1->Show();
-	UpdateListBox(L"");
-}
 	private: System::Void listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e);
 	private: void UpdateListBox(const std::wstring& wtext);
