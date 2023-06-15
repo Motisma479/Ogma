@@ -12,7 +12,7 @@ bool FileCompressor::CompressToFile(Serializer& sr, const std::wstring& path)
     BOOL Success;
     HANDLE CompressedFile = INVALID_HANDLE_VALUE;
     SIZE_T CompressedDataSize, CompressedBufferSize;
-    DWORD ByteRead, ByteWritten;
+    DWORD ByteWritten;
 
     auto ClearData = [&](bool noDeleteFile) -> bool
     {
@@ -81,7 +81,7 @@ bool FileCompressor::CompressToFile(Serializer& sr, const std::wstring& path)
         return ClearData(false);
     }
 
-    Success = WriteFile(CompressedFile, CompressedBuffer, CompressedDataSize, &ByteWritten, NULL);
+    Success = WriteFile(CompressedFile, CompressedBuffer, (DWORD)CompressedDataSize, &ByteWritten, NULL);
     if ((ByteWritten != CompressedDataSize) || (!Success))
     {
         wprintf(L"Cannot write compressed data to file: %d.\n", GetLastError());
@@ -98,7 +98,7 @@ bool Parsing::FileCompressor::DecompressFromFile(std::vector<u8>& result, const 
     HANDLE InputFile = INVALID_HANDLE_VALUE;
     BOOL Success;
     SIZE_T DecompressedBufferSize, DecompressedDataSize;
-    DWORD InputFileSize, ByteRead, ByteWritten;
+    DWORD InputFileSize, ByteRead;
     LARGE_INTEGER FileSize;
 
     auto ClearData = [&](bool isValid)

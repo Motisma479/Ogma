@@ -217,13 +217,12 @@ void DataBase::OnDeleteTag(u32 index)
 {
 	for (auto& entry : datas)
 	{
-		for (s64 i = 0; i < entry.tags.size(); ++i)
+		for (u64 i = 0; i < entry.tags.size(); ++i)
 		{
-			if (entry.tags[i] == index)
+			while (i < entry.tags.size() && entry.tags[i] == index)
 			{
 				std::copy(entry.tags.data() + (i + 1), entry.tags.data() + entry.tags.size(), entry.tags.data() + i);
 				entry.tags.pop_back();
-				--i;
 			}
 		}
 	}

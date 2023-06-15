@@ -46,6 +46,7 @@ void UFAFAC::Viewer::SetAttachedFiles(System::String^ file)
 System::Void UFAFAC::Viewer::AttachedFiles_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
 	auto value = ((System::String^)AttachedFiles_ListBox->SelectedItem);
+	if (value == nullptr) return;
 	auto wtext = Utils::SystemStringToStdWString(value);
 
 	// Open File with Path
