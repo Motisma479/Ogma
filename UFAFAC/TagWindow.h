@@ -53,6 +53,7 @@ namespace UFAFAC {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(TagWindow::typeid));
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->New = (gcnew System::Windows::Forms::Button());
 			this->Delete = (gcnew System::Windows::Forms::Button());
@@ -114,6 +115,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->Delete);
 			this->Controls->Add(this->New);
 			this->Controls->Add(this->listBox1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->MaximizeBox = false;
 			this->Name = L"TagWindow";

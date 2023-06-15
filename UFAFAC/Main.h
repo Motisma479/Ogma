@@ -96,6 +96,7 @@ namespace UFAFAC {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Main::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->fichierToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aideToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -404,6 +405,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->menuStrip1);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MainMenuStrip = this->menuStrip1;
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->MinimumSize = System::Drawing::Size(1037, 796);

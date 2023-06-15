@@ -76,6 +76,7 @@ namespace UFAFAC {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Viewer::typeid));
 			this->DocumentTitle = (gcnew System::Windows::Forms::Label());
 			this->Author = (gcnew System::Windows::Forms::Label());
 			this->Date = (gcnew System::Windows::Forms::Label());
@@ -216,9 +217,7 @@ namespace UFAFAC {
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(993, 594);
-//#if IS_EDITOR
 			this->Controls->Add(this->Edit);
-//#endif
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->Tags_listBox);
 			this->Controls->Add(this->Description);
@@ -229,6 +228,7 @@ namespace UFAFAC {
 			this->Controls->Add(this->Date);
 			this->Controls->Add(this->Author);
 			this->Controls->Add(this->DocumentTitle);
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MinimumSize = System::Drawing::Size(1009, 633);
 			this->Name = L"Viewer";
 			this->Text = L"Viewer";

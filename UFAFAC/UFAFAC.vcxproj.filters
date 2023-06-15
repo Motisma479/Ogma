@@ -107,8 +107,24 @@
     <ClInclude Include="Headers\Parsing\FileCompressor.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="DeclareDPIAware.manifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="UFAFAC.rc">
+      <Filter>Fichiers de ressources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="ICO.ico">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
