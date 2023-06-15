@@ -32,6 +32,12 @@ namespace UFAFAC {
 	public:
 
 		ref class Editor^ editor;
+	private: System::Windows::Forms::ComboBox^ FilterComboBox;
+	public:
+
+	public:
+
+	public:
 		ref class Viewer^ viewer;
 
 	protected:
@@ -74,6 +80,7 @@ namespace UFAFAC {
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
+			this->FilterComboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
@@ -112,10 +119,11 @@ namespace UFAFAC {
 			this->textBox1->Location = System::Drawing::Point(98, 145);
 			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Name = L"textBox1";
-			this->textBox1->Size = System::Drawing::Size(621, 30);
+			this->textBox1->Size = System::Drawing::Size(580, 30);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Main::textBox1_TextChanged);
 			this->textBox1->Enter += gcnew System::EventHandler(this, &Main::textBox1_Enter);
+			this->textBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Main::textBox1_KeyPress);
 			this->textBox1->Leave += gcnew System::EventHandler(this, &Main::textBox1_Leave);
 			// 
 			// button2
@@ -142,15 +150,31 @@ namespace UFAFAC {
 			this->listBox1->Location = System::Drawing::Point(98, 176);
 			this->listBox1->Margin = System::Windows::Forms::Padding(2);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(621, 108);
+			this->listBox1->Size = System::Drawing::Size(580, 108);
 			this->listBox1->TabIndex = 4;
 			this->listBox1->SelectedValueChanged += gcnew System::EventHandler(this, &Main::listBox1_SelectedValueChanged);
+			// 
+			// FilterComboBox
+			// 
+			this->FilterComboBox->Anchor = System::Windows::Forms::AnchorStyles::None;
+			this->FilterComboBox->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
+			this->FilterComboBox->FormattingEnabled = true;
+			this->FilterComboBox->Items->AddRange(gcnew cli::array< System::Object^  >(7) {
+				L"Nom", L"Auteurs", L"Date", L"Emplacement",
+					L"Edition", L"Description", L"Tags"
+			});
+			this->FilterComboBox->Location = System::Drawing::Point(683, 150);
+			this->FilterComboBox->Name = L"FilterComboBox";
+			this->FilterComboBox->Size = System::Drawing::Size(89, 21);
+			this->FilterComboBox->TabIndex = 5;
+			this->FilterComboBox->SelectedIndexChanged += gcnew System::EventHandler(this, &Main::FilterComboBox_SelectedIndexChanged);
 			// 
 			// Main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(800, 501);
+			this->Controls->Add(this->FilterComboBox);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox1);
@@ -170,16 +194,13 @@ namespace UFAFAC {
 	private: System::Void quiterToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void aideToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
-private: System::Void listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e);
-private: System::Void textBox1_Leave(System::Object^ sender, System::EventArgs^ e) {
-	//listBox1->Hide();
-}
-private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e) {
-	listBox1->Show();
-	UpdateListBox(L"");
-}
+	private: System::Void listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void textBox1_Leave(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e);
 	private: void UpdateListBox(const std::wstring& wtext);
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
-private: System::Void Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
+	private: System::Void Main_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e);
+	private: System::Void FilterComboBox_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void textBox1_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e);
 };
 }
