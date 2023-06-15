@@ -22,7 +22,7 @@ namespace DataStructure
 
 		inline System::String^ ToString()
 		{
-			return day<10 ? "0" : "" + day.ToString() + " / " + (month < 10 ? "0" : "") + month.ToString() + " / " + year.ToString();
+			return (day<10 ? "0" : "") + day.ToString() + " / " + (month < 10 ? "0" : "") + month.ToString() + " / " + year.ToString();
 		}
 	};
 
