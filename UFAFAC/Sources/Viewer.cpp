@@ -3,6 +3,7 @@
 #include "../Editor.h"
 #include "../Main.h"
 #include "../TagWindow.h"
+#include "DataStructure/DataBase.hpp"
 #include <windows.h>
 #include <stdlib.h>
 #include <filesystem>
@@ -74,4 +75,12 @@ System::Void UFAFAC::Viewer::Edit_Click(System::Object^ sender, System::EventArg
 	
 	editor = gcnew ref class Editor(selected);
 	editor->Show();
+}
+
+System::Void UFAFAC::Viewer::Supr_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	auto& dataBase = DataStructure::DataBase::Get();
+	DataStructure::DataBaseEntry& entry = *selected;
+
+	//dataBase.
 }

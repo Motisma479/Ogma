@@ -24,6 +24,12 @@ namespace UFAFAC {
 			//TODO: ajoutez ici le code du constructeur
 			//
 		}
+	private: System::Windows::Forms::Button^ Supr;
+	public:
+
+	public:
+
+	public:
 		ref class Editor^ editor;
 
 		void SetWindowName(System::String^ name);
@@ -88,6 +94,7 @@ namespace UFAFAC {
 			this->Tags_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->Edit = (gcnew System::Windows::Forms::Button());
+			this->Supr = (gcnew System::Windows::Forms::Button());
 			this->SuspendLayout();
 			// 
 			// DocumentTitle
@@ -212,11 +219,27 @@ namespace UFAFAC {
 			this->Edit->UseVisualStyleBackColor = false;
 			this->Edit->Click += gcnew System::EventHandler(this, &Viewer::Edit_Click);
 			// 
+			// Supr
+			// 
+			this->Supr->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
+			this->Supr->BackColor = System::Drawing::SystemColors::ActiveCaption;
+			this->Supr->Cursor = System::Windows::Forms::Cursors::Hand;
+			this->Supr->FlatStyle = System::Windows::Forms::FlatStyle::Popup;
+			this->Supr->Font = (gcnew System::Drawing::Font(L"Calibri", 13, System::Drawing::FontStyle::Bold));
+			this->Supr->Location = System::Drawing::Point(791, 12);
+			this->Supr->Name = L"Supr";
+			this->Supr->Size = System::Drawing::Size(102, 35);
+			this->Supr->TabIndex = 23;
+			this->Supr->Text = L"Suprimer";
+			this->Supr->UseVisualStyleBackColor = false;
+			this->Supr->Click += gcnew System::EventHandler(this, &Viewer::Supr_Click);
+			// 
 			// Viewer
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(993, 594);
+			this->Controls->Add(this->Supr);
 			this->Controls->Add(this->Edit);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->Tags_listBox);
@@ -241,5 +264,6 @@ namespace UFAFAC {
 	private: System::Void AttachedFiles_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 private: System::Void Viewer_Load(System::Object^ sender, System::EventArgs^ e);
 private: System::Void Edit_Click(System::Object^ sender, System::EventArgs^ e);
+private: System::Void Supr_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
