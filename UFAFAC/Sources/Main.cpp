@@ -84,19 +84,7 @@ System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, S
 	{
 		std::vector<u8> result;
 		Parsing::FileCompressor::DecompressFromFile(result, ofn.lpstrFile);
-		if (editor)
-		{
-			editor->Close();
-		}
-		if (viewer)
-		{
-			if (viewer->editor)
-			{
-				viewer->editor->Close();
-			}
-			viewer->Close();
-		}
-		listBox1->Items->Clear();
+		CloseEverything();
 		DataStructure::DataBase::Delete();
 		DataStructure::DataBase::Initialize();
 		auto& dataBase = DataStructure::DataBase::Get();
@@ -109,6 +97,27 @@ System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, S
 			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"le fichier \"") + ofn.lpstrFile + L"\" n'a pas pu être chargé.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
 		}
 	}
+}
+
+void UFAFAC::Main::CloseEverything()
+{
+	if (editor)
+	{
+		editor->Close();
+	}
+	if (viewer)
+	{
+		if (viewer->editor)
+		{
+			viewer->editor->Close();
+		}
+		viewer->Close();
+	}
+	listBox1->Items->Clear();
+}
+void UFAFAC::Main::RemoveSelectedFromList()
+{
+	listBox1->Items->Remove(listBox1->SelectedItem);
 }
 
 System::Void UFAFAC::Main::button2_Click(System::Object^ sender, System::EventArgs^ e)
@@ -132,6 +141,7 @@ System::Void UFAFAC::Main::quiterToolStripMenuItem_Click(System::Object^ sender,
 
 UFAFAC::Main::Main(void)
 {
+	instance = this;
 	InitializeComponent();
 	this->WindowState = FormWindowState::Maximized;
 	DataStructure::DataBase::Initialize();
@@ -284,7 +294,7 @@ System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender,
 	viewer->SetWindowName(listBox1->SelectedItem->ToString());
 	DataStructure::DataBaseEntry& entry = DataStructure::DataBase::Get().GetEntryByIndex(static_cast<ListBoxItem^>(listBox1->SelectedItem)->ID);
 	viewer->selected = &entry;
-
+	
 	viewer->SetAuthor(Utils::StdWStringToSystemString(entry.authors));
 
 	viewer->SetDate(DataStructure::DataBase::Get().DateFromTimeStamp(entry.date).ToString());

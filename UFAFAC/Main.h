@@ -28,6 +28,8 @@ namespace UFAFAC {
 	public:
 
 		Main(void);
+		void CloseEverything();
+		void RemoveSelectedFromList();
 	private: System::Windows::Forms::ListBox^ listBox1;
 	public:
 
@@ -61,7 +63,7 @@ namespace UFAFAC {
 
 	public:
 		ref class Viewer^ viewer;
-
+		static Main^ instance = nullptr;
 	protected:
 		~Main()
 		{

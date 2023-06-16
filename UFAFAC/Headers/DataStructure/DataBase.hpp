@@ -43,6 +43,7 @@ namespace DataStructure
 
 		void DeleteEntry(u32 index);
 
+		u32 GetEntryIndex(DataBaseEntry* entry);
 		DataBaseEntry& GetEntryByIndex(u32 index);
 
 		std::vector<u32> GetEntries();

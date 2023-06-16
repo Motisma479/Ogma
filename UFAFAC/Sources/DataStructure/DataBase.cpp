@@ -49,12 +49,21 @@ void DataBase::DeleteEntry(u32 index)
 	availableSlots.push_back(index);
 }
 
+u32 DataBase::GetEntryIndex(DataBaseEntry* entry)
+{
+	u64 value = reinterpret_cast<u64>(datas.data());
+	u64 index = reinterpret_cast<u64>(entry);
+	index = (index - value) / sizeof(DataBaseEntry);
+	if (index >= datas.size() || index >= (u32)(~0)) return ~0;
+	return static_cast<u32>(index);
+}
+
 DataBaseEntry& DataBase::GetEntryByIndex(u32 index)
 {
 	return datas[index];
 }
 
-std::vector<u32> DataStructure::DataBase::GetEntries()
+std::vector<u32> DataBase::GetEntries()
 {
 	std::vector<u32> out;
 	for (u32 i = 0; i < datas.size(); ++i)

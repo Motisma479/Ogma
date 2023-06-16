@@ -79,8 +79,10 @@ System::Void UFAFAC::Viewer::Edit_Click(System::Object^ sender, System::EventArg
 
 System::Void UFAFAC::Viewer::Supr_Click(System::Object^ sender, System::EventArgs^ e)
 {
+	Close();
 	auto& dataBase = DataStructure::DataBase::Get();
-	DataStructure::DataBaseEntry& entry = *selected;
-
-	//dataBase.
+	u32 index = dataBase.GetEntryIndex(selected);
+	if (index == ~0) return;
+	dataBase.DeleteEntry(index);
+	UFAFAC::Main::instance->RemoveSelectedFromList();
 }
