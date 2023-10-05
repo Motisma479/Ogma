@@ -148,11 +148,15 @@ UFAFAC::Main::Main(void)
 	auto& dataBase = DataStructure::DataBase::Get();
 	FilterComboBox->SelectedIndex = 0;
 	
-	if (Parsing::FileParser::ReadFromFile(dataBase)) return;
-	
+	if (Parsing::FileParser::ReadFromFile(dataBase))
+	{
+		UpdateListBox(L"");
+		return;
+	}
 	dataBase.CreateRandomTags(16);
 	dataBase.CreateRandomEntries(16384);
 	Parsing::FileParser::SaveToFile(dataBase);
+	UpdateListBox(L"");
 }
 
 ref class ListBoxItem
@@ -274,9 +278,13 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 	}
 }
 
+System::Void UFAFAC::Main::listBox1_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (listBox1->IndexFromPoint(listBox1->PointToClient(Control::MousePosition)) == -1)
+		listBox1->ClearSelected();
+}
 
-
-System::Void UFAFAC::Main::listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e)
+System::Void UFAFAC::Main::listBox1_DoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e)
 {
 	if (viewer)
 	{
@@ -392,7 +400,7 @@ System::Void UFAFAC::Main::textBox1_KeyPress(System::Object^ sender, System::Win
 	{
 		TextBox^ value = ((TextBox^)sender);
 		auto wtext = Utils::SystemStringToStdWString(value->Text);
-
+		
 		UpdateListBox(wtext);
 	}
 }

@@ -101,6 +101,10 @@ namespace UFAFAC {
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Main::typeid));
 			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
 			this->fichierToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->exporterUneSauvegardeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->importerUneSauvegardeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->toolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->quiterToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aideToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->button2 = (gcnew System::Windows::Forms::Button());
@@ -117,10 +121,6 @@ namespace UFAFAC {
 			this->Tag_ListBox = (gcnew System::Windows::Forms::ListBox());
 			this->AllTags_ListBox = (gcnew System::Windows::Forms::ListBox());
 			this->Tag_TextBox = (gcnew System::Windows::Forms::TextBox());
-			this->exporterUneSauvegardeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->importerUneSauvegardeToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
-			this->toolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->quiterToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateYear))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateMonth))->BeginInit();
@@ -154,6 +154,32 @@ namespace UFAFAC {
 			this->fichierToolStripMenuItem->Name = L"fichierToolStripMenuItem";
 			this->fichierToolStripMenuItem->Size = System::Drawing::Size(54, 20);
 			this->fichierToolStripMenuItem->Text = L"Fichier";
+			// 
+			// exporterUneSauvegardeToolStripMenuItem
+			// 
+			this->exporterUneSauvegardeToolStripMenuItem->Name = L"exporterUneSauvegardeToolStripMenuItem";
+			this->exporterUneSauvegardeToolStripMenuItem->Size = System::Drawing::Size(206, 22);
+			this->exporterUneSauvegardeToolStripMenuItem->Text = L"Exporter une sauvegarde";
+			this->exporterUneSauvegardeToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::saveToolStripMenuItem_Click);
+			// 
+			// importerUneSauvegardeToolStripMenuItem
+			// 
+			this->importerUneSauvegardeToolStripMenuItem->Name = L"importerUneSauvegardeToolStripMenuItem";
+			this->importerUneSauvegardeToolStripMenuItem->Size = System::Drawing::Size(206, 22);
+			this->importerUneSauvegardeToolStripMenuItem->Text = L"Importer une sauvegarde";
+			this->importerUneSauvegardeToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::loadToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
+			this->toolStripMenuItem1->Size = System::Drawing::Size(203, 6);
+			// 
+			// quiterToolStripMenuItem1
+			// 
+			this->quiterToolStripMenuItem1->Name = L"quiterToolStripMenuItem1";
+			this->quiterToolStripMenuItem1->Size = System::Drawing::Size(206, 22);
+			this->quiterToolStripMenuItem1->Text = L"Quiter";
+			this->quiterToolStripMenuItem1->Click += gcnew System::EventHandler(this, &Main::quiterToolStripMenuItem_Click);
 			// 
 			// aideToolStripMenuItem
 			// 
@@ -204,7 +230,8 @@ namespace UFAFAC {
 			this->listBox1->Name = L"listBox1";
 			this->listBox1->Size = System::Drawing::Size(915, 446);
 			this->listBox1->TabIndex = 4;
-			this->listBox1->SelectedValueChanged += gcnew System::EventHandler(this, &Main::listBox1_SelectedValueChanged);
+			this->listBox1->Click += gcnew System::EventHandler(this, &Main::listBox1_Click);
+			this->listBox1->MouseDoubleClick += gcnew System::Windows::Forms::MouseEventHandler(this, &Main::listBox1_DoubleClick);
 			// 
 			// FilterComboBox
 			// 
@@ -360,32 +387,6 @@ namespace UFAFAC {
 			this->Tag_TextBox->TabIndex = 26;
 			this->Tag_TextBox->TextChanged += gcnew System::EventHandler(this, &Main::Tag_TextBox_TextChanged);
 			// 
-			// exporterUneSauvegardeToolStripMenuItem
-			// 
-			this->exporterUneSauvegardeToolStripMenuItem->Name = L"exporterUneSauvegardeToolStripMenuItem";
-			this->exporterUneSauvegardeToolStripMenuItem->Size = System::Drawing::Size(206, 22);
-			this->exporterUneSauvegardeToolStripMenuItem->Text = L"Exporter une sauvegarde";
-			this->exporterUneSauvegardeToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::saveToolStripMenuItem_Click);
-			// 
-			// importerUneSauvegardeToolStripMenuItem
-			// 
-			this->importerUneSauvegardeToolStripMenuItem->Name = L"importerUneSauvegardeToolStripMenuItem";
-			this->importerUneSauvegardeToolStripMenuItem->Size = System::Drawing::Size(206, 22);
-			this->importerUneSauvegardeToolStripMenuItem->Text = L"Importer une sauvegarde";
-			this->importerUneSauvegardeToolStripMenuItem->Click += gcnew System::EventHandler(this, &Main::loadToolStripMenuItem_Click);
-			// 
-			// toolStripMenuItem1
-			// 
-			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
-			this->toolStripMenuItem1->Size = System::Drawing::Size(203, 6);
-			// 
-			// quiterToolStripMenuItem1
-			// 
-			this->quiterToolStripMenuItem1->Name = L"quiterToolStripMenuItem1";
-			this->quiterToolStripMenuItem1->Size = System::Drawing::Size(206, 22);
-			this->quiterToolStripMenuItem1->Text = L"Quiter";
-			this->quiterToolStripMenuItem1->Click += gcnew System::EventHandler(this, &Main::quiterToolStripMenuItem_Click);
-			// 
 			// Main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -432,7 +433,8 @@ namespace UFAFAC {
 	private: System::Void textBox1_TextChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void saveToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void loadToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e);
-	private: System::Void listBox1_SelectedValueChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void listBox1_Click(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void listBox1_DoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 	private: System::Void textBox1_Enter(System::Object^ sender, System::EventArgs^ e);
 	private: void UpdateListBox(const std::wstring& wtext);
 	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
