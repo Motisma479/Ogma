@@ -93,8 +93,10 @@ namespace UFAFAC {
 			this->Description = (gcnew System::Windows::Forms::RichTextBox());
 			this->Tags_listBox = (gcnew System::Windows::Forms::ListBox());
 			this->label1 = (gcnew System::Windows::Forms::Label());
+#if IS_EDITOR
 			this->Edit = (gcnew System::Windows::Forms::Button());
 			this->Supr = (gcnew System::Windows::Forms::Button());
+#endif
 			this->SuspendLayout();
 			// 
 			// DocumentTitle
@@ -203,6 +205,7 @@ namespace UFAFAC {
 			this->label1->Size = System::Drawing::Size(52, 20);
 			this->label1->TabIndex = 21;
 			this->label1->Text = L"Tags :";
+#if IS_EDITOR
 			// 
 			// Edit
 			// 
@@ -233,6 +236,7 @@ namespace UFAFAC {
 			this->Supr->Text = L"Suprimer";
 			this->Supr->UseVisualStyleBackColor = false;
 			this->Supr->Click += gcnew System::EventHandler(this, &Viewer::Supr_Click);
+#endif
 			// 
 			// Viewer
 			// 

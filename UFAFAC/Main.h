@@ -111,7 +111,9 @@ namespace UFAFAC {
 			this->quiterToolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->aideToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+#if IS_EDITOR
 			this->button2 = (gcnew System::Windows::Forms::Button());
+#endif
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
 			this->FilterComboBox = (gcnew System::Windows::Forms::ComboBox());
 			this->FromDateYear = (gcnew System::Windows::Forms::NumericUpDown());
@@ -206,6 +208,7 @@ namespace UFAFAC {
 			this->textBox1->TextChanged += gcnew System::EventHandler(this, &Main::textBox1_TextChanged);
 			this->textBox1->Enter += gcnew System::EventHandler(this, &Main::textBox1_Enter);
 			this->textBox1->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &Main::textBox1_KeyPress);
+#if IS_EDITOR
 			// 
 			// button2
 			// 
@@ -223,6 +226,7 @@ namespace UFAFAC {
 			this->button2->Text = L"Ajouter du contenu";
 			this->button2->UseVisualStyleBackColor = false;
 			this->button2->Click += gcnew System::EventHandler(this, &Main::button2_Click);
+#endif
 			// 
 			// listBox1
 			// 
