@@ -63,6 +63,10 @@ namespace UFAFAC {
 
 	public:
 		ref class Viewer^ viewer;
+	private: System::Windows::Forms::PictureBox^ pictureBox1;
+	public:
+
+	public:
 		static Main^ instance = nullptr;
 	protected:
 		~Main()
@@ -121,6 +125,7 @@ namespace UFAFAC {
 			this->Tag_ListBox = (gcnew System::Windows::Forms::ListBox());
 			this->AllTags_ListBox = (gcnew System::Windows::Forms::ListBox());
 			this->Tag_TextBox = (gcnew System::Windows::Forms::TextBox());
+			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->menuStrip1->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateYear))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateMonth))->BeginInit();
@@ -128,6 +133,7 @@ namespace UFAFAC {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ToDateYear))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ToDateMonth))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ToDateDay))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// menuStrip1
@@ -387,6 +393,18 @@ namespace UFAFAC {
 			this->Tag_TextBox->TabIndex = 26;
 			this->Tag_TextBox->TextChanged += gcnew System::EventHandler(this, &Main::Tag_TextBox_TextChanged);
 			// 
+			// pictureBox1
+			// 
+			this->pictureBox1->Anchor = static_cast<System::Windows::Forms::AnchorStyles>(((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
+			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+			this->pictureBox1->Location = System::Drawing::Point(279, 43);
+			this->pictureBox1->Name = L"pictureBox1";
+			this->pictureBox1->Size = System::Drawing::Size(509, 144);
+			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::Zoom;
+			this->pictureBox1->TabIndex = 29;
+			this->pictureBox1->TabStop = false;
+			// 
 			// Main
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
@@ -408,13 +426,15 @@ namespace UFAFAC {
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->textBox1);
 			this->Controls->Add(this->menuStrip1);
+			this->Controls->Add(this->pictureBox1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->MainMenuStrip = this->menuStrip1;
 			this->Margin = System::Windows::Forms::Padding(2);
 			this->MinimumSize = System::Drawing::Size(1037, 796);
 			this->Name = L"Main";
-			this->Text = L"Main";
+			this->Text = L"Ogma";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &Main::Main_FormClosing);
+			this->Load += gcnew System::EventHandler(this, &Main::Main_Load);
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->FromDateYear))->EndInit();
@@ -423,6 +443,7 @@ namespace UFAFAC {
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ToDateYear))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ToDateMonth))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->ToDateDay))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -452,5 +473,9 @@ namespace UFAFAC {
 	private: System::Void AllTags_ListBox_DoubleClick(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void Tag_ListBox_MouseDoubleClick(System::Object^ sender, System::Windows::Forms::MouseEventArgs^ e);
 	private: System::Void Tag_TextBox_TextChanged(System::Object^ sender, System::EventArgs^ e);
+private: System::Void pictureBox1_Click(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void Main_Load(System::Object^ sender, System::EventArgs^ e) {
+}
 };
 }
