@@ -208,6 +208,9 @@ FilterMode StringToFilter(const std::wstring& wfilter)
 
 void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 {
+	auto entries = DataStructure::DataBase::Get().GetEntries();
+	if (wtext.size() <= 0 && listBox1->Items->Count == entries.size())
+		return;
 	listBox1->Items->Clear();
 	std::vector<u32> fileIds;
 
@@ -216,7 +219,7 @@ void UFAFAC::Main::UpdateListBox(const std::wstring& wtext)
 
 	if (wtext.size() == 0)
 	{
-		fileIds = DataStructure::DataBase::Get().GetEntries();
+		fileIds = entries;
 	}
 	else
 	{
