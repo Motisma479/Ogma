@@ -2,11 +2,11 @@
   <img src="/UFAFAC/Ogma.png">
 </p>
 <p align="center">
-  <a href="#-about-the-project">About the Project</a> •
-  <a href="#-getting-started">Getting Started</a> •
-  <a href="#-usage">Usage</a> •
-  <a href="#-license">License</a> •
-  <a href="#-faq">FAQ</a>
+  <a href="#-about-the-project">About the Project</a>
+  • <a href="#-getting-started">Getting Started</a>
+  • <a href="#-usage">Usage</a> 
+  • <a href="#-license">License</a> 
+  <!-- • <a href="#-faq">FAQ</a> -->
 </p>
 
 <h2>⭐ About the Project</h2>
@@ -49,7 +49,7 @@
 </ul>
 <h2>🔧 Usage</h2>
 <ul>
-  <li><a href="https://github.com/Motisma479/UFAFAC/wiki/Ajout-de-document#comment-ajouter-un-document-au-wiki">To create an entry :</a></li>
+  <li><a href="https://github.com/Motisma479/UFAFAC/wiki/Ajout-de-document#comment-ajouter-un-document-au-wiki">To create an entry</a> :</li>
   <ol type="1">
     <li>Click on <code>Add content</code>.</li>
     <li>Fill the editor and click on <code>Save</code>.</li>
@@ -65,6 +65,18 @@
     <li>Click on the entry.</li>
     <li>Click on <code>Delete</code>.</li>
   </ol>
+  </br>
+  For more information check the <a href="https://github.com/Motisma479/UFAFAC/wiki">Wiki</a>.
 </ul>
 <h2>📄 License</h2>
+<ul>
+  This program is under the <a href="LICENSE">MIT License</a>.
+</ul>
+<!--
 <h2>🤔 FAQ</h2>
+<blockquote>I have a question.</blockquote>
+Here the awnser.
+-->
+<hr>
+
+Any question? Feel free to ask by submitting an issue.
