@@ -58,11 +58,11 @@ System::Void UFAFAC::Main::saveToolStripMenuItem_Click(System::Object^ sender, S
 	name.append(L".back");
 	if (Parsing::FileCompressor::CompressToFile(sr, name))
 	{
-		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"Fichier sauvegardé en tant que \"" + name + L"\".").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
+		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"Fichier sauvegardÃ© en tant que \"" + name + L"\".").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
 	}
 	else
 	{
-		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"le fichier \"" + name + L"\" n'a pas pu être sauvegardé.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
+		::MessageBox(static_cast<HWND>(Handle.ToPointer()), (L"le fichier \"" + name + L"\" n'a pas pu Ãªtre sauvegardÃ©.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
 	}
 }
 
@@ -90,11 +90,11 @@ System::Void UFAFAC::Main::loadToolStripMenuItem_Click(System::Object^ sender, S
 		auto& dataBase = DataStructure::DataBase::Get();
 		if (Parsing::FileParser::ReadMainFile(dataBase, Parsing::Deserializer(result)))
 		{
-			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"Fichier \"") + ofn.lpstrFile + L"\" Chargé avec succès.").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
+			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"Fichier \"") + ofn.lpstrFile + L"\" ChargÃ© avec succÃ¨s.").c_str(), L"Information", MB_OK | MB_ICONINFORMATION);
 		}
 		else
 		{
-			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"le fichier \"") + ofn.lpstrFile + L"\" n'a pas pu être chargé.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
+			::MessageBox(static_cast<HWND>(Handle.ToPointer()), (std::wstring(L"le fichier \"") + ofn.lpstrFile + L"\" n'a pas pu Ãªtre chargÃ©.").c_str(), L"Erreur", MB_OK | MB_ICONERROR);
 		}
 	}
 }
@@ -153,10 +153,13 @@ UFAFAC::Main::Main(void)
 		UpdateListBox(L"");
 		return;
 	}
+	/*
+        // Generate random entries if database is empty
 	dataBase.CreateRandomTags(16);
 	dataBase.CreateRandomEntries(16384);
 	Parsing::FileParser::SaveToFile(dataBase);
 	UpdateListBox(L"");
+        */
 }
 
 ref class ListBoxItem
