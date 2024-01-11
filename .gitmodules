@@ -1,0 +1,3 @@
+[submodule "OGMA/Externals/GLFW"]
+	path = OGMA/Externals/GLFW
+	url = https://github.com/glfw/glfw.git
