@@ -28,6 +28,7 @@ include_directories("Externals" PUBLIC)
 include_directories("Headers")
 set(SOURCES
     "Sources/main.cpp"
+    "Sources/App.cpp"
 )
 
 if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
