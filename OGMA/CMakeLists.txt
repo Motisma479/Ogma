@@ -11,7 +11,19 @@ add_subdirectory("Externals/GLFW")
 
 find_package( OpenGL REQUIRED )
 include_directories( ${OPENGL_INCLUDE_DIRS} )
+#--IMGUI-RELATED---------------------------------------
+set(EXTERNALS_SOURCES
+"Externals/IMGUI/imgui.cpp"
+"Externals/IMGUI/imgui_demo.cpp"
+"Externals/IMGUI/imgui_draw.cpp"
+"Externals/IMGUI/imgui_tables.cpp"
+"Externals/IMGUI/imgui_widgets.cpp"
+"Externals/IMGUI/backends/imgui_impl_glfw.cpp"
+"Externals/IMGUI/backends/imgui_impl_opengl3.cpp"
+)
+include_directories("Externals/IMGUI")
 #------------------------------------------------------
+include_directories("Externals" PUBLIC)
 
 include_directories("Headers")
 set(SOURCES
@@ -54,7 +66,7 @@ else()
     set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${FLAGS_LINKER}") 
 endif()
 
-add_executable(${PROJECT_NAME} ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES} ${EXTERNALS_SOURCES})
 
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw)
 #target_link_libraries(${PROJECT_NAME} PUBLIC OpenGL32)

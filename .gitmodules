@@ -1,3 +1,7 @@
 [submodule "OGMA/Externals/GLFW"]
 	path = OGMA/Externals/GLFW
 	url = https://github.com/glfw/glfw.git
+[submodule "OGMA/Externals/IMGUI"]
+	path = OGMA/Externals/IMGUI
+	url = https://github.com/ocornut/imgui
+	branch = docking
