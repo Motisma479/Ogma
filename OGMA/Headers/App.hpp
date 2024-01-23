@@ -1,4 +1,5 @@
 #pragma once
+#include "stdafx.hpp"
 
 namespace OGMA
 {
@@ -8,7 +9,7 @@ namespace OGMA
         App();
         ~App();
 
-        bool Initialize();
+        bool Initialize(s32_2 size, const char* title);
         void Update();
 
         bool ShouldQuit();

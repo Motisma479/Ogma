@@ -26,6 +26,9 @@ include_directories("Externals/IMGUI")
 include_directories("Externals" PUBLIC)
 
 include_directories("Headers")
+
+set(PRECOMPILED_HEADER "Headers/stdafx.hpp")
+
 set(SOURCES
     "Sources/main.cpp"
     "Sources/App.cpp"
@@ -70,4 +73,6 @@ endif()
 add_executable(${PROJECT_NAME} ${SOURCES} ${EXTERNALS_SOURCES})
 
 target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw)
+
+target_precompile_headers(${PROJECT_NAME} PRIVATE ${PRECOMPILED_HEADER})
 #target_link_libraries(${PROJECT_NAME} PUBLIC OpenGL32)

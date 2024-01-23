@@ -4,12 +4,12 @@
 
 #include <cmath>
 
-int main(void)
+s32 main(void)
 {
     OGMA::App app;
-    if(!app.Initialize())
+    if(!app.Initialize({640, 480}, "Ogma"))
     {
-        return -1;
+      return -1;
     }
     while(!app.ShouldQuit())
     {
