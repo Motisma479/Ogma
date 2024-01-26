@@ -10,6 +10,18 @@
 #include <windows.h>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 void framebuffer_size_callback(GLFWwindow* window, s32 width, s32 height)
 {
 	// make sure the viewport matches the new window dimensions; note that width and
@@ -43,7 +55,7 @@ bool App::Initialize(s32_2 size, const char* title)
         return false;
     }
     glfwMakeContextCurrent(static_cast<GLFWwindow*>(window));
-    glfwSetFramebufferSizeCallback(static_cast<GLFWwindow*>(window), framebuffer_size_callback);
+    //glfwSetFramebufferSizeCallback(static_cast<GLFWwindow*>(window), framebuffer_size_callback);
 
     //--IMGUI-INITIALIZATION-----------------------------------------
     IMGUI_CHECKVERSION();
@@ -80,6 +92,7 @@ void App::Update()
 {
     FrameStart();
 
+    ImGui::ShowDemoWindow();
 
 
     static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
@@ -136,6 +149,102 @@ void App::Update()
     } 
 
     ImGui::End();
+
+//--TEST_MAIN_MENU-----------------------------------------------------------------
+//     ImGuiWindowFlags flags = 0;
+//     flags |= ImGuiWindowFlags_NoTitleBar;
+//     // flags |= ImGuiWindowFlags_NoDocking;
+
+//     ImGui::Begin("Test",nullptr,flags);
+// ImGui::SetCursorPos(ImVec2(100,100));
+//     ImGui::Text("Hello, world!");
+//     ImGui::End();
+
+//---------------------------------------------------------------------------------
+
+if (ImGui::Begin("Main", nullptr))
+{
+    ImVec2 windowSize = ImGui::GetWindowSize();
+    float width = 0;
+    float height = 0;
+
+
+    //--ADD-CONTENT-BUTTON--------------------------------------------------------
+
+    width = 150;
+    height = 30;
+
+	ImGui::SetCursorPos(ImVec2(15,(windowSize.y - 15) - height));
+	ImGui::Button("Ajouter du contenu", ImVec2(150,30)); //remove size argument (ImVec2) to auto-resize
+
+    //--SEARCH-MODE-SELECTOR------------------------------------------------------
+
+    width = 97;
+    height = 0;//not used
+
+	ImGui::SetCursorPos(ImVec2((windowSize.x/2)-(width/2),59.5));
+	ImGui::PushItemWidth(width);
+	static int item_current8 = 0;
+	const char* items8[] = {"Nom", "Auteurs", "Date", "Emplacement", "Edition", "Description", "Tags"};
+	ImGui::Combo("##1", &item_current8, items8, IM_ARRAYSIZE(items8));
+	ImGui::PopItemWidth();
+
+
+    //--SEARCH-AREA---------------------------------------------------------------
+
+    width = 325;
+    height = 0;//not used
+
+	ImGui::SetCursorPos(ImVec2((windowSize.x/2)-(width/2),87.5));
+	ImGui::PushItemWidth(width); //NOTE: (Push/Pop)ItemWidth is optional
+	static char str9[128] = "";
+	ImGui::InputText("##2", str9, IM_ARRAYSIZE(str9));
+	ImGui::PopItemWidth();
+
+    //--RESULTS-AREA--------------------------------------------------------------
+
+    ImGui::SetCursorPos(ImVec2(0,0));
+
+    // ImGui::SpinInt
+
+    //----------------------------------------------------------------------------
+
+    /*
+	ImGui::SetCursorPos(ImVec2(134,161.75));
+	ImGui::PushItemWidth(200);
+	static int i10 = 123;
+	ImGui::InputInt("##", &i10);
+	ImGui::PopItemWidth();
+
+	ImGui::SetCursorPos(ImVec2(132,122.5));
+	ImGui::PushItemWidth(200);
+	static int i111 = 0;
+	ImGui::SliderInt("##", &i111, -1, 3);
+	ImGui::PopItemWidth();
+
+	ImGui::SetCursorPos(ImVec2(136,93.5));
+	ImGui::PushItemWidth(200);
+	static int i112 = 50;
+	ImGui::DragInt("##", &i112, 1);
+	ImGui::PopItemWidth();
+
+	ImGui::SetCursorPos(ImVec2(174,393.5));
+	ImGui::PushItemWidth(200);
+	static int item_current14 = 0;
+	const char *items14[] = {"Never", "Gonna", "Give", "You", "Up"};
+	ImGui::Combo("##", &item_current14, items14, IM_ARRAYSIZE(items14));
+	ImGui::PopItemWidth();
+
+	ImGui::SetCursorPos(ImVec2(234,271));
+	ImGui::PushItemWidth(200);
+	static int item_current15 = 0;
+	const char *items15[] = {"Never", "Gonna", "Give", "You", "Up"};
+	ImGui::ListBox("##", &item_current15, items15, IM_ARRAYSIZE(items15));
+	ImGui::PopItemWidth();
+    */
+
+}
+ImGui::End();
 
     FrameEnd();
 }
