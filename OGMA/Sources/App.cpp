@@ -55,6 +55,7 @@ bool App::Initialize(s32_2 size, const char* title)
         return false;
     }
     glfwMakeContextCurrent(static_cast<GLFWwindow*>(window));
+    glfwSetWindowSizeLimits(static_cast<GLFWwindow*>(window), 650, 650, GLFW_DONT_CARE, GLFW_DONT_CARE);
     //glfwSetFramebufferSizeCallback(static_cast<GLFWwindow*>(window), framebuffer_size_callback);
 
     //--IMGUI-INITIALIZATION-----------------------------------------
@@ -92,14 +93,11 @@ void App::Update()
 {
     FrameStart();
 
-    ImGui::ShowDemoWindow();
-
-
-    static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_None;
+    //ImGui::ShowDemoWindow();
 
     // We are using the ImGuiWindowFlags_NoDocking flag to make the parent window not dockable into,
     // because it would be confusing to have two docking targets within each others.
-    ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+    ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar;
     
     const ImGuiViewport* viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(viewport->WorkPos);
@@ -117,12 +115,6 @@ void App::Update()
     ImGui::PopStyleVar(2);
 
     // Submit the DockSpace
-    ImGuiIO& io = ImGui::GetIO();
-    if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
-    {
-        ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-        ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), dockspace_flags);
-    }
     
 
 
@@ -148,7 +140,7 @@ void App::Update()
         ImGui::EndMenuBar();
     } 
 
-    ImGui::End();
+    // ImGui::End();
 
 //--TEST_MAIN_MENU-----------------------------------------------------------------
 //     ImGuiWindowFlags flags = 0;
@@ -162,28 +154,28 @@ void App::Update()
 
 //---------------------------------------------------------------------------------
 
-if (ImGui::Begin("Main", nullptr))
-{
+// if (ImGui::Begin("Main", nullptr))
+// {
     ImVec2 windowSize = ImGui::GetWindowSize();
-    float width = 0;
-    float height = 0;
+    ImVec2 windowPos = ImGui::GetWindowPos();
+    ImVec2 size(0.f, 0.f);
+    ImVec2 pos(0.f, 0.f);
 
 
     //--ADD-CONTENT-BUTTON--------------------------------------------------------
 
-    width = 150;
-    height = 30;
+    size = {150.f,30.f};
+    pos = ImVec2(15,(windowSize.y - 15) - size.y);
 
-	ImGui::SetCursorPos(ImVec2(15,(windowSize.y - 15) - height));
-	ImGui::Button("Ajouter du contenu", ImVec2(150,30)); //remove size argument (ImVec2) to auto-resize
+	ImGui::SetCursorPos(pos);
+	ImGui::Button("Ajouter du contenu", size); //remove size argument (ImVec2) to auto-resize
 
     //--SEARCH-MODE-SELECTOR------------------------------------------------------
+    size = {97.f, 0.f};
+    pos = ImVec2((windowSize.x/2)-(size.x/2),59.5);
 
-    width = 97;
-    height = 0;//not used
-
-	ImGui::SetCursorPos(ImVec2((windowSize.x/2)-(width/2),59.5));
-	ImGui::PushItemWidth(width);
+	ImGui::SetCursorPos(pos);
+	ImGui::PushItemWidth(size.x);
 	static int item_current8 = 0;
 	const char* items8[] = {"Nom", "Auteurs", "Date", "Emplacement", "Edition", "Description", "Tags"};
 	ImGui::Combo("##1", &item_current8, items8, IM_ARRAYSIZE(items8));
@@ -191,21 +183,62 @@ if (ImGui::Begin("Main", nullptr))
 
 
     //--SEARCH-AREA---------------------------------------------------------------
+    size = {325.f, 0.f};
+    pos = ImVec2((windowSize.x/2)-(size.x/2),87.5);
 
-    width = 325;
-    height = 0;//not used
-
-	ImGui::SetCursorPos(ImVec2((windowSize.x/2)-(width/2),87.5));
-	ImGui::PushItemWidth(width); //NOTE: (Push/Pop)ItemWidth is optional
+	ImGui::SetCursorPos(pos);
+	ImGui::PushItemWidth(size.x); //NOTE: (Push/Pop)ItemWidth is optional
 	static char str9[128] = "";
 	ImGui::InputText("##2", str9, IM_ARRAYSIZE(str9));
 	ImGui::PopItemWidth();
 
     //--RESULTS-AREA--------------------------------------------------------------
+    ImVec2 rAreaSize = size = {windowSize.x - 100.f, windowSize.y - 320.f};
+    ImVec2 rAreaPos = pos = ImVec2(windowPos.x + (windowSize.x/2)-(size.x/2), windowPos.y + 200.f);
 
-    ImGui::SetCursorPos(ImVec2(0,0));
+    ImGui::GetWindowDrawList()->AddRectFilled(pos,
+    ImVec2(pos.x + size.x, pos.y + size.y),
+    0xFFd68eaa,
+    13.000000,
+    0);
 
-    // ImGui::SpinInt
+    //--RESULTS-RESULT--------------------------------------------------------------
+    int showingResult = rAreaSize.y / 150;
+
+    size = {rAreaSize.x - 20.f, 150.f};
+    for (int i = 0; i < showingResult; i++)
+    {
+        pos = ImVec2(rAreaPos.x + (rAreaSize.x/2)-(size.x/2), rAreaPos.y+ (rAreaSize.x/2)-(size.x/2) + (size.y+ 10.f)*i);
+
+        ImGui::SetCursorPos(ImVec2(0,0));
+        ImGui::GetWindowDrawList()->AddRectFilled(pos,
+        ImVec2(pos.x + size.x, pos.y + size.y),
+        0xFF0000ff,
+        13.000000,
+        0);
+    }
+
+    //--RESULTS-PAGES--------------------------------------------------------------
+
+    size = {50.f, 50.f};
+    for(int i = 0; i< 10; i++)
+    {
+        pos = ImVec2(windowPos.x + (windowSize.x/2)-(size.x/2) -270 + i*60, rAreaSize.y+rAreaPos.y+10);
+
+        ImGui::GetWindowDrawList()->AddRectFilled(pos,
+        ImVec2(pos.x + size.x, pos.y + size.y),
+        0xFFff0000,
+        13.000000,
+        0);
+    }
+    pos = ImVec2(windowPos.x + (windowSize.x/2)-(size.x/2), rAreaSize.y+rAreaPos.y+10);
+
+    ImGui::GetWindowDrawList()->AddRectFilled(pos,
+    ImVec2(pos.x + size.x, pos.y + size.y),
+    0xFF00ff00,
+    13.000000,
+    0);
+
 
     //----------------------------------------------------------------------------
 
@@ -243,7 +276,7 @@ if (ImGui::Begin("Main", nullptr))
 	ImGui::PopItemWidth();
     */
 
-}
+// }
 ImGui::End();
 
     FrameEnd();
