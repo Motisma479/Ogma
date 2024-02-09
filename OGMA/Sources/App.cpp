@@ -203,12 +203,15 @@ void App::Update()
     0);
 
     //--RESULTS-RESULT--------------------------------------------------------------
-    int showingResult = rAreaSize.y / 150;
-
     size = {rAreaSize.x - 20.f, 150.f};
+
+    int showingResult = rAreaSize.y / 160;
+    float offsetResult = (rAreaSize.y - (150 * showingResult)) /(showingResult+1) ;//rAreaSize.y - (150.f * showingResult);
+    std::cout << offsetResult << std::endl;
+
     for (int i = 0; i < showingResult; i++)
     {
-        pos = ImVec2(rAreaPos.x + (rAreaSize.x/2)-(size.x/2), rAreaPos.y+ (rAreaSize.x/2)-(size.x/2) + (size.y+ 10.f)*i);
+        pos = ImVec2(rAreaPos.x + (rAreaSize.x/2)-(size.x/2), rAreaPos.y + offsetResult + (size.y+ offsetResult )*i);
 
         ImGui::SetCursorPos(ImVec2(0,0));
         ImGui::GetWindowDrawList()->AddRectFilled(pos,
@@ -231,13 +234,7 @@ void App::Update()
         13.000000,
         0);
     }
-    pos = ImVec2(windowPos.x + (windowSize.x/2)-(size.x/2), rAreaSize.y+rAreaPos.y+10);
-
-    ImGui::GetWindowDrawList()->AddRectFilled(pos,
-    ImVec2(pos.x + size.x, pos.y + size.y),
-    0xFF00ff00,
-    13.000000,
-    0);
+    
 
 
     //----------------------------------------------------------------------------
