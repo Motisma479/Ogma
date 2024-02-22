@@ -5,3 +5,6 @@
 	path = OGMA/Externals/IMGUI
 	url = https://github.com/ocornut/imgui
 	branch = docking
+[submodule "OGMA/Externals/CURL"]
+	path = OGMA/Externals/CURL
+	url = https://github.com/curl/curl

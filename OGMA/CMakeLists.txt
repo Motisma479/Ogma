@@ -22,6 +22,8 @@ set(EXTERNALS_SOURCES
 "Externals/IMGUI/backends/imgui_impl_opengl3.cpp"
 )
 include_directories("Externals/IMGUI")
+#--CURL-RELATED----------------------------------------
+add_subdirectory("Externals/CURL")
 #------------------------------------------------------
 include_directories("Externals" PUBLIC)
 
@@ -72,7 +74,9 @@ endif()
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${EXTERNALS_SOURCES})
 
-target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARIES} glfw)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${OPENGL_LIBRARIES} glfw libcurl)
+
+#target_link_libraries(${PROJECT_NAME} PUBLIC curl)
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE ${PRECOMPILED_HEADER})
 #target_link_libraries(${PROJECT_NAME} PUBLIC OpenGL32)
