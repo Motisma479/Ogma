@@ -23,6 +23,8 @@ set(EXTERNALS_SOURCES
 )
 include_directories("Externals/IMGUI")
 #--CURL-RELATED----------------------------------------
+#set(CMAKE_USE_WINSSL ON CACHE BOOL "Set to ON to use WINSSL for windows.")
+set(CURL_USE_SCHANNEL ON CACHE BOOL "Use windows default SSL libraries")
 add_subdirectory("Externals/CURL")
 #------------------------------------------------------
 include_directories("Externals" PUBLIC)

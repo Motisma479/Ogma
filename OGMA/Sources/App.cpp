@@ -21,63 +21,61 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* out
 }
 
 bool checkLatestRelease(const std::string& repoOwner, const std::string& repoName, const std::string& expectedReleaseName) {
-    CURL* curl;
-    CURLcode res;
-
-    std::string url = "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/releases/latest";
+    std::string url = "https://github.com/" + repoOwner + "/" + repoName + "/releases/latest";
+    bool result = false;
+    //could use GitHub api but didn't understand how it's working so will be set on FIXME 
 
     curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl = curl_easy_init();
+    CURL* curl = curl_easy_init();
+    CURLcode res;
 
-    if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    if (!curl)
+    {
+        curl_global_cleanup();
+        return result;
+    }
+    
+    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 
-        // Set up callback to receive the response
-        std::string response;
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+    // Set up callback to receive the response
+    std::string response;
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
-        // Perform the HTTP request
-        res = curl_easy_perform(curl);
+    // Perform the HTTP request
+    res = curl_easy_perform(curl);
 
-        // Check for errors
-        if (res != CURLE_OK) {
-            std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-            curl_easy_cleanup(curl);
-            curl_global_cleanup();
-            return false;
-        }
-
-        // Parse the JSON response to check the release name
-        // You can use a JSON library for this purpose, such as nlohmann/json
-        // For simplicity, let's assume the release name is stored in a field named "name"
-        // Adjust this part based on the actual JSON structure from GitHub API
-        size_t pos = response.find("\"name\":");
-        if (pos != std::string::npos) {
-            pos = response.find_first_of("\"", pos + 7);
-            size_t endPos = response.find_first_of("\"", pos + 1);
-            std::string latestReleaseName = response.substr(pos + 1, endPos - pos - 1);
-
-            // Compare the release names
-            if (latestReleaseName == expectedReleaseName) {
-                std::cout << "Latest release name matches the expected release name." << std::endl;
-                return true;
-            }
-            else {
-                std::cout << "Latest release name does not match the expected release name." << std::endl;
-                return false;
-            }
-        }
-        else {
-            std::cerr << "Error: Could not find release name in the response." << std::endl;
-        }
-
+    // Check for errors
+    if (res != CURLE_OK) {
+        std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
         curl_easy_cleanup(curl);
+        curl_global_cleanup();
+        return false;
     }
 
+    size_t pos = response.find("/Motisma479/Ogma/tree/");
+    if (pos != std::string::npos) {
+        size_t endPos = response.find_first_of("\"", pos + 22);
+        std::string latestReleaseName = response.substr(pos + 22, endPos - pos - 22);
+
+        // Compare the release names
+        if (latestReleaseName == expectedReleaseName) {
+            std::cout << "Latest release name matches the expected release name." << std::endl;
+            result = true;
+        }
+        else {
+            std::cout << "Latest release name does not match the expected release name." << std::endl;
+        }
+    }
+    else {
+        std::cerr << "Error: Could not find release name in the response." << std::endl;
+    }
+
+    curl_easy_cleanup(curl);
+
     curl_global_cleanup();
-    return false;
+    return result;
 }
 
 
@@ -100,16 +98,11 @@ App::App() : quit(false)
     std::string repoOwner = "Motisma479";
     std::string repoName = "Ogma";
 
-    //if (!checkLatestRelease(repoOwner, repoName, OGMA_VER)) {
+    if (!checkLatestRelease(repoOwner, repoName, OGMA_VER))
+    {
         // Do something if the release names match
-    //}
-    CURL* curl = curl_easy_init();
-    if (curl) {
-        CURLcode res;
-        curl_easy_setopt(curl, CURLOPT_URL, "https://example.com");
-        res = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
     }
+    
 }
 
 App::~App()
