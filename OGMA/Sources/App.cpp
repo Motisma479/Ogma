@@ -11,7 +11,7 @@
 
 #include <curl/curl.h>
 
-constexpr const char* OGMA_VER = "v1.0";
+constexpr const char* OGMA_VER = "v1.2";
 
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
@@ -20,9 +20,51 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* out
     return total_size;
 }
 
-bool checkLatestRelease(const std::string& repoOwner, const std::string& repoName, const std::string& expectedReleaseName) {
+enum class ReleaseStatus : int
+{
+    CRIT_ERR = -2,
+    ERR_NO_CONNECTION = -1,
+    MATCH = 0,
+    NEW_VERSION,
+    SUPERIOR_VERSION //Normaly not a normal state if using a release
+};
+class ReleaseData
+{
+public:
+    ReleaseData() : status(ReleaseStatus::NEW_VERSION), nameReceived(nullptr) {}
+    ~ReleaseData()
+    {
+        if (nameReceived)
+            delete[] nameReceived;
+    }
+
+    ReleaseData(const ReleaseData& other) : status(ReleaseStatus::NEW_VERSION), nameReceived(nullptr)
+    {
+        operator = (other);
+    }
+    ReleaseData& operator=(const ReleaseData& other)
+    {
+        status = other.status;
+        if (nameReceived)
+            delete[] nameReceived;
+        if (other.nameReceived)
+        {
+            size_t strlen = std::strlen(other.nameReceived);
+            nameReceived = new char[strlen + 1];
+            strcpy(nameReceived, other.nameReceived);
+        }
+        return *this;
+    }
+
+    ReleaseStatus status;
+    char* nameReceived;
+};
+
+ReleaseData checkLatestRelease(const std::string& repoOwner, const std::string& repoName, const std::string& expectedReleaseName) {
     std::string url = "https://github.com/" + repoOwner + "/" + repoName + "/releases/latest";
-    bool result = false;
+
+    ReleaseData result;
+
     //could use GitHub api but didn't understand how it's working so will be set on FIXME 
 
     curl_global_init(CURL_GLOBAL_DEFAULT);
@@ -51,18 +93,23 @@ bool checkLatestRelease(const std::string& repoOwner, const std::string& repoNam
         std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
         curl_easy_cleanup(curl);
         curl_global_cleanup();
-        return false;
+        return result;
     }
 
     size_t pos = response.find("/Motisma479/Ogma/tree/");
     if (pos != std::string::npos) {
         size_t endPos = response.find_first_of("\"", pos + 22);
         std::string latestReleaseName = response.substr(pos + 22, endPos - pos - 22);
+        
+        result.nameReceived = new char[latestReleaseName.length() + 1];
+        latestReleaseName.copy(result.nameReceived, latestReleaseName.size(), 0);
+        result.nameReceived[latestReleaseName.length()] = '\0';
+        std::cout << "buffer contains: " << result.nameReceived << '\n';
 
         // Compare the release names
         if (latestReleaseName == expectedReleaseName) {
             std::cout << "Latest release name matches the expected release name." << std::endl;
-            result = true;
+            result.status = ReleaseStatus::MATCH;
         }
         else {
             std::cout << "Latest release name does not match the expected release name." << std::endl;
@@ -70,6 +117,7 @@ bool checkLatestRelease(const std::string& repoOwner, const std::string& repoNam
     }
     else {
         std::cerr << "Error: Could not find release name in the response." << std::endl;
+        result.status = ReleaseStatus::MATCH;
     }
 
     curl_easy_cleanup(curl);
@@ -98,9 +146,12 @@ App::App() : quit(false)
     std::string repoOwner = "Motisma479";
     std::string repoName = "Ogma";
 
-    if (!checkLatestRelease(repoOwner, repoName, OGMA_VER))
+    ReleaseData version = checkLatestRelease(repoOwner, repoName, OGMA_VER);
+
+    if (version.status == ReleaseStatus::NEW_VERSION)
     {
         // Do something if the release names match
+        std::cout << "A new update is available for Ogma! : " << OGMA_VER << " -> " << ((version.nameReceived != nullptr) ? version.nameReceived : "ERROR") << std::endl;
     }
     
 }
