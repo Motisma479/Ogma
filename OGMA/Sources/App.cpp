@@ -5,148 +5,21 @@
 #include <IMGUI/imgui.h>
 #include <IMGUI/backends/imgui_impl_glfw.h>
 #include <IMGUI/backends/imgui_impl_opengl3.h>
-#include <GLFW/glfw3.h>
+
 
 #include <windows.h>
 
-#include <curl/curl.h>
+#include "ReleaseData.hpp"
 
-constexpr const char* OGMA_VER = "v1.2";
-
-
-size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* output) {
-    size_t total_size = size * nmemb;
-    output->append((char*)contents, total_size);
-    return total_size;
-}
-
-enum class ReleaseStatus : int
-{
-    CRIT_ERR = -2,
-    ERR_NO_CONNECTION = -1,
-    MATCH = 0,
-    NEW_VERSION,
-    SUPERIOR_VERSION //Normaly not a normal state if using a release
-};
-class ReleaseData
-{
-public:
-    ReleaseData() : status(ReleaseStatus::NEW_VERSION), nameReceived(nullptr) {}
-    ~ReleaseData()
-    {
-        if (nameReceived)
-            delete[] nameReceived;
-    }
-
-    ReleaseData(const ReleaseData& other) : status(ReleaseStatus::NEW_VERSION), nameReceived(nullptr)
-    {
-        operator = (other);
-    }
-    ReleaseData& operator=(const ReleaseData& other)
-    {
-        status = other.status;
-        if (nameReceived)
-            delete[] nameReceived;
-        if (other.nameReceived)
-        {
-            size_t strlen = std::strlen(other.nameReceived);
-            nameReceived = new char[strlen + 1];
-            strcpy(nameReceived, other.nameReceived);
-        }
-        return *this;
-    }
-
-    ReleaseStatus status;
-    char* nameReceived;
-};
-
-ReleaseData checkLatestRelease(const std::string& repoOwner, const std::string& repoName, const std::string& expectedReleaseName) {
-    std::string url = "https://github.com/" + repoOwner + "/" + repoName + "/releases/latest";
-
-    ReleaseData result;
-
-    //could use GitHub api but didn't understand how it's working so will be set on FIXME 
-
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    CURL* curl = curl_easy_init();
-    CURLcode res;
-
-    if (!curl)
-    {
-        curl_global_cleanup();
-        return result;
-    }
-    
-    curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
-    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
-
-    // Set up callback to receive the response
-    std::string response;
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-
-    // Perform the HTTP request
-    res = curl_easy_perform(curl);
-
-    // Check for errors
-    if (res != CURLE_OK) {
-        std::cerr << "curl_easy_perform() failed: " << curl_easy_strerror(res) << std::endl;
-        curl_easy_cleanup(curl);
-        curl_global_cleanup();
-        return result;
-    }
-
-    size_t pos = response.find("/Motisma479/Ogma/tree/");
-    if (pos != std::string::npos) {
-        size_t endPos = response.find_first_of("\"", pos + 22);
-        std::string latestReleaseName = response.substr(pos + 22, endPos - pos - 22);
-        
-        result.nameReceived = new char[latestReleaseName.length() + 1];
-        latestReleaseName.copy(result.nameReceived, latestReleaseName.size(), 0);
-        result.nameReceived[latestReleaseName.length()] = '\0';
-        std::cout << "buffer contains: " << result.nameReceived << '\n';
-
-        // Compare the release names
-        if (latestReleaseName == expectedReleaseName) {
-            std::cout << "Latest release name matches the expected release name." << std::endl;
-            result.status = ReleaseStatus::MATCH;
-        }
-        else {
-            std::cout << "Latest release name does not match the expected release name." << std::endl;
-        }
-    }
-    else {
-        std::cerr << "Error: Could not find release name in the response." << std::endl;
-        result.status = ReleaseStatus::MATCH;
-    }
-
-    curl_easy_cleanup(curl);
-
-    curl_global_cleanup();
-    return result;
-}
-
-
-void framebuffer_size_callback(GLFWwindow* window, s32 width, s32 height)
-{
-	// make sure the viewport matches the new window dimensions; note that width and
-	// height will be significantly larger than specified on retina displays.
-	glViewport(0, 0, width, height);
-}
+constexpr const char* OGMA_VER = "v0.0";
 
 using namespace OGMA;
 
-App::App() : quit(false)
+App::App()
 {
     std::cout << "App created" << std::endl; 
 
-    curl_version_info_data* vinfo = curl_version_info(CURLVERSION_NOW);
-    std::cout << "libcurl version: " << vinfo->version << std::endl;
-
-    std::string repoOwner = "Motisma479";
-    std::string repoName = "Ogma";
-
-    ReleaseData version = checkLatestRelease(repoOwner, repoName, OGMA_VER);
+    ReleaseData version = ReleaseData::GetLatestData("Motisma479", "Ogma", OGMA_VER);
 
     if (version.status == ReleaseStatus::NEW_VERSION)
     {
@@ -158,25 +31,14 @@ App::App() : quit(false)
 
 App::~App()
 {
-    glfwTerminate();
+    window.CleanUp();
 }
 
-bool App::Initialize(s32_2 size, const char* title)
+bool App::Initialize(const char* name, s32_2 size)
 {
     std::cout << "App initialization started" << std::endl;
     
-    //--GLFW-INITIALIZATION------------------------------------------
-    if (!glfwInit())
-        return false;
-
-    if (!(window = glfwCreateWindow(size.x, size.y, title, NULL, NULL)))
-    {
-        glfwTerminate();
-        return false;
-    }
-    glfwMakeContextCurrent(static_cast<GLFWwindow*>(window));
-    glfwSetWindowSizeLimits(static_cast<GLFWwindow*>(window), 650, 650, GLFW_DONT_CARE, GLFW_DONT_CARE);
-    //glfwSetFramebufferSizeCallback(static_cast<GLFWwindow*>(window), framebuffer_size_callback);
+    window.Create(name, size);
 
     //--IMGUI-INITIALIZATION-----------------------------------------
     IMGUI_CHECKVERSION();
@@ -184,7 +46,7 @@ bool App::Initialize(s32_2 size, const char* title)
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     ImGui::StyleColorsDark();//set the theme
-    ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(window), true);
+    ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(window.GetHandle()), true);
     ImGui_ImplOpenGL3_Init("#version 130");
 
     std::cout << "App initialized" << std::endl;
@@ -193,20 +55,17 @@ bool App::Initialize(s32_2 size, const char* title)
 
 void App::FrameStart()
 {
-    glfwPollEvents();
+    window.StartFrame();
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-    glClear(GL_COLOR_BUFFER_BIT);
-
-    quit = glfwWindowShouldClose(static_cast<GLFWwindow*>(window));
 }
 
 void App::FrameEnd()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    glfwSwapBuffers(static_cast<GLFWwindow*>(window));
+    window.EndFrame();
 }
 
 void App::Update()
@@ -229,7 +88,7 @@ void App::Update()
     window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
 
-    ImGui::Begin("DockSpace Demo", NULL, window_flags);
+    ImGui::Begin("DockSpace Demo", NULL, window_flags | ImGuiWindowFlags_NoBackground);
     ImGui::PopStyleVar();
 
     ImGui::PopStyleVar(2);
@@ -247,7 +106,7 @@ void App::Update()
             ImGui::MenuItem("Exporter une sauvegarde");
             ImGui::MenuItem("Importer une sauvegarde");
             ImGui::Separator();
-            if(ImGui::MenuItem("Quiter")){quit = true;}
+            if(ImGui::MenuItem("Quiter")){window.SetQuit(true);}
 
             ImGui::EndMenu();
         }
@@ -325,7 +184,7 @@ void App::Update()
     //--RESULTS-RESULT--------------------------------------------------------------
     size = {rAreaSize.x - 20.f, 150.f};
 
-    int showingResult = rAreaSize.y / 160;
+    int showingResult = static_cast<int>(rAreaSize.y / 160);
     float offsetResult = (rAreaSize.y - (150 * showingResult)) /(showingResult+1) ;//rAreaSize.y - (150.f * showingResult);
     //std::cout << offsetResult << std::endl;
 
@@ -333,7 +192,7 @@ void App::Update()
     {
         pos = ImVec2(rAreaPos.x + (rAreaSize.x/2)-(size.x/2), rAreaPos.y + offsetResult + (size.y+ offsetResult )*i);
 
-        ImGui::SetCursorPos(ImVec2(0,0));
+        ImGui::SetCursorPos(ImVec2(0.f,0.f));
         ImGui::GetWindowDrawList()->AddRectFilled(pos,
         ImVec2(pos.x + size.x, pos.y + size.y),
         0xFF0000ff,
@@ -355,7 +214,7 @@ void App::Update()
         0);
     }
     
-
+    //ImGui::GetWindowDrawList()->AddLine({ 0.f, 0.f }, { 100.f,100.f }, 0xFFFFFFFF, 5);
 
     //----------------------------------------------------------------------------
 
@@ -401,5 +260,5 @@ ImGui::End();
 
 bool App::ShouldQuit()
 {
-    return quit;
+    return window.ShouldQuit();
 }

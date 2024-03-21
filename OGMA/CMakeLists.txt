@@ -36,7 +36,7 @@ set(PRECOMPILED_HEADER "Headers/stdafx.hpp")
 set(SOURCES
     "Sources/main.cpp"
     "Sources/App.cpp"
-)
+ "Sources/ReleaseData.cpp" "Sources/Core/Window.cpp")
 
 if(NOT CMAKE_BUILD_TYPE MATCHES Debug)
     #Disable console for Window application

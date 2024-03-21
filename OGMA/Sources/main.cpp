@@ -7,7 +7,7 @@
 s32 main(void)
 {
     OGMA::App app;
-    if(!app.Initialize({640, 480}, "Ogma"))
+    if(!app.Initialize("Ogma", { 640, 480 }))
     {
       return -1;
     }

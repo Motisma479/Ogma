@@ -1,5 +1,5 @@
 #pragma once
-#include "stdafx.hpp"
+#include "Core/Window.hpp"
 
 namespace OGMA
 {
@@ -9,13 +9,12 @@ namespace OGMA
         App();
         ~App();
 
-        bool Initialize(s32_2 size, const char* title);
+        bool Initialize(const char* name , s32_2 size);
         void Update();
 
         bool ShouldQuit();
     private:
-        void* window;
-        bool quit;
+        Core::Window window;
         void FrameStart();
         void FrameEnd();
 
