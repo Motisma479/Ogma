@@ -15,7 +15,7 @@ namespace OGMA::Core
             return;
         }
         glfwMakeContextCurrent(static_cast<GLFWwindow*>(handle));
-        glfwSetWindowSizeLimits(static_cast<GLFWwindow*>(handle), 650, 650, GLFW_DONT_CARE, GLFW_DONT_CARE);
+        glfwSetWindowSizeLimits(static_cast<GLFWwindow*>(handle), 960, 800, GLFW_DONT_CARE, GLFW_DONT_CARE);
         //glfwSetFramebufferSizeCallback(static_cast<GLFWwindow*>(window), framebuffer_size_callback);
 
         glClearColor(0.1960, 0.2039, 0.2235, 1.0000);
